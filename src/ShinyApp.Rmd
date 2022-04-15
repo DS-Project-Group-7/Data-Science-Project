@@ -1,0 +1,23 @@
+---
+title: "Art Project Shiny App"
+author: "Group 7"
+date: '2022-04-15'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(shiny)
+library(shinydashboard)
+library(ggplot2)
+```
+
+```{r}
+ui <- fluidPage()
+server <- function(input, output) {}
+shinyApp(ui = ui, server = server)
+```
+
