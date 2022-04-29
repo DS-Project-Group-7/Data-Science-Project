@@ -1,0 +1,11 @@
+# Ignore Mac system files
+.DS_store
+
+# Ignore icloud files
+*.icloud
+
+# Ignore all excel files
+*.xlsx
+
+# Ignore pdf files
+*.pdf
