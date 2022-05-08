@@ -12,12 +12,59 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(shiny)
 library(shinydashboard)
+library(reshape2)
 library(ggplot2)
+library(readxl)
+library(dplyr)
+library(plyr)
+
+clean_data <- read_excel("/Users/greysonchung/Downloads/file.xlsx")
 ```
 
 ```{r}
-ui <- fluidPage()
-server <- function(input, output) {}
+dataColumns = c("poor (media)", "fair (media)", "good (media)", "excellent (media)")
+groupColumns = c("country")
+res1 = ddply(clean_data, groupColumns, function(x) sum(x$"poor (media)", na.rm = TRUE))
+res2 = ddply(clean_data, groupColumns, function(x) sum(x$"fair (media)", na.rm = TRUE))
+res3 = ddply(clean_data, groupColumns, function(x) sum(x$"good (media)", na.rm = TRUE))
+res4 = ddply(clean_data, groupColumns, function(x) sum(x$"excellent (media)", na.rm = TRUE))
+```
+
+```{r}
+new_data <- data.frame(rbind(res1$V1, res2$V1, res3$V1, res4$V1))
+colnames(new_data) <- c("malaysia", "philippines", "singapore", "thailand")
+condition = c("poor", "fair", "good", "excellent")
+new_data
+```
+
+
+```{r}
+ui <- fluidPage(
+  titlePanel("Paint Layer Condition of the 4 Countries"),
+  sidebarPanel(
+    selectInput("country", "Choose a country", choices = c(unique(clean_data$country)))
+  ),
+  mainPanel(plotOutput("hist"))
+)
+
+server <- function(input, output, session) {
+  country <- reactive({
+    data <- switch (input$country,
+                  "malaysia" = data.frame(cbind(new_data$malaysia, condition)),
+                  "thailand" = data.frame(cbind(new_data$thailand, condition)),
+                  "singapore" = data.frame(cbind(new_data$singapore, condition)),
+                  "philippines" = data.frame(cbind(new_data$philippines, condition))
+    )
+  })
+  
+  output$hist <- renderPlot({
+    ggplot(country(), aes(condition, as.numeric(V1), fill = condition)) +
+      geom_bar(stat = 'identity') +
+      labs(x = "Condition", y = "Count") +
+      scale_colour_brewer(type = "seq", palette = "Spectral")
+  })
+}
+
 shinyApp(ui = ui, server = server)
 ```
 
