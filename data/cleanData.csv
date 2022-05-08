@@ -1,447 +1,221 @@
-,Support Type,Support originality,New support type,Auxiliary support Condition,Media (Paint layer) Condition,Painting Support Condition,Ground Layer to side edge,Ground Layer to face edge
-0,"strainer
-strainer original","original aux. support 
-original support ",637 or 647 x 487 x 9,2,1,2,0,0
-1,"strainer
-strainer original","original aux. support 
-original support ",415 x 675 x 10,0,0,1,0,1
-2,"strainer
-strainer original","original aux. support 
-original support ",340 x 391 x 13,2,1,1,0,0
-3,"strainer
-strainer original","original aux. support 
-original support ",412 x 514 x 23,1,1,0,0,1
-4,"strainer
-strainer original","original aux. support 
-original support ",,2,2,2,0,0
-5,"strainer
-strainer original","original aux. support 
-original support ",454 x 610,2,0,2,0,0
-6,stretcher originalstrainer,"original aux. support 
-original support ",717 x 563 x 21 ,2,2,2,1,0
-7,"strainer
-strainer original","original aux. support 
-original support ",636 x 379 x 15,2,1,1,1,0
-8,"strainer
-strainer original","original aux. support 
-original support ",612-617 x 925-929 x 18-19,0,2,0,0,1
-9,"strainer
-strainer original","original aux. support 
-original support ",668 x 512,2,0,0,0,0
-10,"strainer
-strainer original","original aux. support 
-original support ",358 x 480 x 15 ,2,1,2,1,0
-11,"strainer
-strainer original","original aux. support 
-original support ",395 x 410 x 15,2,1,2,1,0
-12,"strainer
-strainer original","original aux. support 
-original support ",508 x 374 x  12,1,2,1,0,0
-13,"strainer
-strainer original","original aux. support 
-original support ",558 x 712 x 20 ,1,1,1,0,0
-14,"strainer
-strainer original","original aux. support 
-original support ",585 x 810 x 30,2,1,2,0,1
-15,"strainer
-strainer original","original aux. support 
-original support ",434 x 560,2,1,2,0,0
-16,"stretcher
-stretcher original","original aux. support 
-original support ",615 x 760 x 22,2,1,1,1,0
-17,"stretcher
-stretcher original","original aux. support 
-original support ",435 x 665 x 5,2,2,2,1,0
-18,"strainer
-strainer original","original aux. support 
-original support ",415 x  520 x  22,1,2,2,0,1
-19,"strainer
-strainer original","original aux. support 
-original support ",638 x 480,2,1,0,0,1
-20,,original support ,455 x 605 x  5,0,2,2,0,0
-21,"strainer
-strainer original","original aux. support 
-original support ",638 x 480 x 22,2,1,1,0,1
-22,,original support ,412.5 x 332 x 5,0,2,0,0,1
-23,,strainer new,924 x 652,2,1,1,0,0
-24,,strainer new,1218 x 690 x 22,0,1,0,0,1
-25,,strainer new,991.5 x 741 x 22,2,0,1,0,1
-26,"stretcher
-stretcher original","original aux. support 
-original support ",611 x 352 x 18,2,2,1,0,1
-27,,"original aux. support 
-original support ",na,0,3,2,0,1
-28,,strainer new,586.5 x 427,2,2,2,0,0
-29,,,stretcher new,2,1,0,0,1
-30,,"original aux. support 
-original support ",~598 x 448,0,2,0,0,0
-31,strainer original,original support ,670 x 510,1,1,1,0,0
-32,"strainer
-strainer original","original aux. support 
-original support ",541 x 649 x 18,1,3,2,1,0
-33,"strainer
-strainer original","original aux. support 
-original support ",729 x 597.5 x 13.7,1,2,1,1,0
-34,"strainer
-strainer original","original aux. support 
-original support ",,1,3,0,1,0
-35,"stretcher
-stretcher original","original aux. support 
-original support ",,2,2,2,0,1
-36,,strainer new,1003.5 x 800 x 23,2,2,2,1,0
-37,,strainer new,893 x 673.5 x 14,1,0,1,1,0
-38,,strainer new,1045 x 1295 x ,2,2,2,0,1
-39,,,-,0,1,1,0,0
-40,,strainer new,,2,1,1,1,0
-41,,,760 x 610,0,1,0,0,0
-42,,"original aux. support 
-original support ",,0,0,0,0,0
-43,,,stretcher new812.5 x 661 x 20,2,2,2,1,0
-44,,,,0,0,1,0,1
-45,,,761 x  642,1,1,0,1,0
-46,"strainer
-strainer original","original aux. support 
-original support ",615 x 506 x ,2,2,2,0,0
-47,,,750 x  1000,1,2,2,0,1
-48,,,532 x  455,1,0,0,0,0
-49,"strainer
-strainer original","original aux. support 
-original support ",652.5 x 542.5,1,2,1,1,0
-50,"strainer
-strainer original","original aux. support 
-original support ",,2,2,1,1,0
-51,,,601 x 458,1,0,0,0,0
-52,"strainer
-strainer original","original aux. support 
-original support ",780 x  688,0,1,1,1,0
-53,,,529 x  666,1,2,2,0,1
-54,,"original aux. support 
-original support ",330 x 409,0,2,2,0,1
-55,,"original aux. support 
-original support ",183 x 138,0,2,2,0,1
-56,,"original aux. support 
-original support ",183 x 138,0,2,2,0,1
-57,,"original aux. support 
-original support ",255 x 354,0,2,2,0,0
-58,,"original aux. support 
-original support ", 409 x 309,0,2,2,0,1
-59,"stretcher
-stretcher original","original aux. support 
-original support ",,2,2,2,0,0
-60,,"original aux. support 
-original support ",,0,2,1,0,1
-61,,"original aux. support 
-original support ",330 x 238,0,1,1,0,0
-62,,"original aux. support 
-original support ",478 x 350,0,2,2,0,0
-63,"stretcher
-stretcher original","original aux. support 
-original support ",515 x 410 x 22,2,2,2,0,0
-64,,,870 x 610,0,2,2,0,0
-65,,"original aux. support 
-original support ",360 x 465 x 5,0,2,2,0,0
-66,,"original aux. support 
-original support ",,0,2,2,0,1
-67,,"original aux. support 
-original support ",,1,2,2,0,0
-68,,"original aux. support 
-original support ",270x 360 x6,0,2,2,0,1
-69,"stretcher
-stretcher original","original aux. support 
-original support ",328 x 455,2,2,1,0,1
-70,,"original aux. support 
-original support ",329 x  455 x 4,0,2,2,0,0
-71,,,502 x 368,0,0,0,0,0
-72,,,stretcher new559 x 792 x 22,2,1,2,0,0
-73,"stretcher
-stretcher original","original aux. support 
-original support ",412 x 560,2,2,2,0,0
-74,,"original aux. support 
-original support ",,0,2,2,0,0
-75,"stretcher
-stretcher original","original aux. support 
-original support ",492 x 569 x 22,2,1,1,0,1
-76,"stretcher
-stretcher original","original aux. support 
-original support ",653 x 810,2,1,2,0,0
-77,"stretcher
-stretcher original","original aux. support 
-original support ",660 x 895,2,1,2,0,0
-78,"stretcher
-stretcher original","original aux. support 
-original support ",928 x 670 22,2,2,2,1,1
-79,,"original aux. support 
-original support ",,0,2,2,0,0
-80,,"original aux. support 
-original support ",459 x  379,0,2,1,0,1
-81,,"original aux. support 
-original support ",,0,2,1,0,1
-82,,"original aux. support 
-original support ",,0,2,0,0,1
-83,,"original aux. support 
-original support ",,1,0,1,0,1
-84,"stretcher
-stretcher original","original aux. support 
-original support ",60.5 x 45.5 cm,1,1,2,1,0
-85,,,,0,2,1,0,0
-86,"strainer
-strainer original","original aux. support 
-original support ",414 x 561 x 14,0,1,1,1,0
-87,,,555x465x28,2,2,2,0,0
-88,,,493 X 598,1,1,1,0,0
-89,,strainer new,750 x 456,1,2,1,0,1
-90,,strainer new,549 x 720,0,0,1,1,0
-91,,strainer new,610 x 485 ,2,0,0,0,0
-92,"strainer
-strainer original","original aux. support 
-original support ",880 x 450,1,1,2,0,0
-93,"stretcher
-stretcher original","original aux. support 
-original support ",355 x  305 x  17,2,1,2,1,0
-94,"strainer
-strainer original","original aux. support 
-original support ",365 x  260,2,1,2,0,0
-95,"stretcher
-stretcher original","original aux. support 
-original support ",305 x  253,2,2,2,0,0
-96,"strainer
-strainer original","original aux. support 
-original support ",755 x 630,2,2,0,1,0
-97,"strainer
-strainer original","original aux. support 
-original support ",634 x 956 x 20,1,1,0,0,0
-98,"strainer
-strainer original","original aux. support 
-original support ",735 x 630 x 20,2,2,0,1,0
-99,"stretcher
-stretcher original","original aux. support 
-original support ",1090 x 1755,2,2,2,0,0
-100,"stretcher
-stretcher original","original aux. support 
-original support ","975 x 645 x 17.3
-",2,0,1,0,1
-101,"stretcher
-stretcher original","original aux. support 
-original support ",945 x 1575,2,0,0,1,0
-102,"stretcher
-stretcher original","original aux. support 
-original support ",648 x 910 x  20,2,2,1,1,0
-103,stretcher originalstrainer,"original aux. support 
-original support ",~3000 x 1693,2,0,1,0,0
-104,stretcher originalstrainer,"original aux. support 
-original support ",,2,0,1,0,0
-105,"stretcher
-stretcher original","original aux. support 
-original support ",740 x  600 x 22,2,3,0,1,0
-106,,"original aux. support 
-original support ",,0,1,1,0,1
-107,,,920 x 690,0,1,2,0,1
-108,"stretcher
-stretcher original","original aux. support 
-original support ",,2,1,2,0,1
-109,"strainer
-strainer original","original aux. support 
-original support ",912 x 1368 x 20,2,1,2,0,0
-110,"strainer
-strainer original","original aux. support 
-original support ",867 x  705,2,1,2,0,0
-111,"strainer
-strainer original","original aux. support 
-original support ",867 x  705,2,0,1,0,0
-112,,"original aux. support 
-original support ",400 x 300,0,0,2,0,1
-113,,"original aux. support 
-original support ",,0,2,2,0,1
-114,,,,0,2,2,0,0
-115,"strainer
-strainer original","original aux. support 
-original support ",,1,2,0,0,0
-116,,"original aux. support 
-original support ",,0,1,1,0,0
-117,,original support ,345 x 241,0,0,0,0,0
-118,,"original aux. support 
-original support ",260 x 165,0,2,0,0,0
-119,"strainer
-strainer original","original aux. support 
-original support ",280 x 254,2,0,0,0,1
-120,"stretcher
-stretcher original","original aux. support 
-original support ",460 x 358.5,1,2,2,1,0
-121,,original support ,,0,2,2,1,0
-122,,original support ,,0,2,2,1,0
-123,"strainer
-strainer original","original aux. support 
-original support ",479 x 365 x 18,2,2,2,1,0
-124,"strainer
-strainer original","original aux. support 
-original support ",500 x 608 x 16,2,2,1,1,0
-125,,"original aux. support 
-original support ",,2,2,2,0,0
-126,,"original aux. support 
-original support ",,2,1,2,0,0
-127,,"original aux. support 
-original support ",,2,2,1,1,0
-128,,"original aux. support 
-original support ",,1,2,2,0,0
-129,,"original aux. support 
-original support ",,0,1,2,0,0
-130,,,,0,2,2,0,1
-131,,"original aux. support 
-original support ",,0,2,2,0,1
-132,,"original aux. support 
-original support ",,0,2,1,0,1
-133,,,,2,0,0,0,1
-134,,,,2,1,1,0,1
-135,,,,0,2,1,0,0
-136,,"original aux. support 
-original support ",,1,1,1,0,0
-137,,original support ,,0,2,2,0,1
-138,,strainer new,,2,1,0,0,0
-139,"strainer
-strainer original","original aux. support 
-original support ",599 x 763,0,1,0,0,1
-140,"strainer
-strainer original","original aux. support 
-original support ",591.5 x 765 x 15,1,1,1,0,1
-141,,"original aux. support 
-original support ",,0,2,0,0,1
-142,"strainer
-strainer original","original aux. support 
-original support ",,2,1,1,0,1
-143,"strainer
-strainer original","original aux. support 
-original support ",795 x 595 x 18,1,2,0,1,0
-144,"stretcher
-stretcher original","original aux. support 
-original support ",915.5 x 710,2,0,2,0,0
-145,"stretcher
-stretcher original","original aux. support 
-original support ",767.5 x 865,2,1,0,0,0
-146,"strainer
-strainer original","original aux. support 
-original support ",,2,2,1,1,0
-147,,strainer new,,2,1,1,0,1
-148,"stretcher
-stretcher original","original aux. support 
-original support ",1285 x 960,2,2,2,1,0
-149,"stretcher
-stretcher original","original aux. support 
-original support ",,0,0,2,0,0
-150,"stretcher
-stretcher original","original aux. support 
-original support ",1143 x 1618 x 25,2,2,2,0,0
-151,,,,0,1,1,0,0
-152,"stretcher
-stretcher original","original aux. support 
-original support ",1015 x 767 x  18,2,2,1,0,0
-153,,"original aux. support 
-original support ",,0,2,2,0,1
-154,"stretcher
-stretcher original","original aux. support 
-original support ",1123 x 910 x 22,2,2,2,0,0
-155,,"original aux. support 
-original support ",,0,2,1,0,1
-156,"stretcher
-stretcher original","original aux. support 
-original support ",819 x 661 x 15,2,0,1,0,0
-157,"stretcher
-stretcher original","original aux. support 
-original support ",965 x 1222 x 23,2,2,2,0,0
-158,,"original aux. support 
-original support ",,0,2,2,0,1
-159,,,,0,1,1,0,1
-160,"stretcher
-stretcher original","original aux. support 
-original support ",865 x 665 x 21,2,0,2,0,0
-161,"strainer
-strainer original","original aux. support 
-original support ",614.5 x 503,2,2,2,1,0
-162,,strainer new,,2,2,2,0,0
-163,,"original aux. support 
-original support ",,0,2,0,0,1
-164,,,,0,0,1,0,0
-165,,"original aux. support 
-original support ",502 x 400,0,2,2,0,0
-166,,"original aux. support 
-original support ",405 x 505,0,0,0,0,1
-167,"strainer
-strainer original","original aux. support 
-original support ",267.5 x 220,2,2,0,1,0
-168,,strainer new,791 x  623 x  15,2,1,1,1,0
-169,,"original aux. support 
-original support ",407 x  503 ,0,2,2,0,1
-170,,,229 x  279,0,1,0,0,0
-171,,"original aux. support 
-original support ",406 x 713,0,2,1,0,1
-172,,,263 x  365,0,2,1,0,0
-173,,"original aux. support 
-original support ",756 x  497,0,0,1,0,1
-174,,"original aux. support 
-original support ",,0,2,1,0,1
-175,,"original aux. support 
-original support ",509 x 898 x 5,0,2,2,1,0
-176,,"original aux. support 
-original support ",,0,0,2,0,1
-177,,"original aux. support 
-original support ",,0,2,2,0,1
-178,,"original aux. support 
-original support ",,0,2,2,0,1
-179,,"original aux. support 
-original support ",,0,2,1,0,0
-180,,"original aux. support 
-original support ",,0,2,0,0,1
-181,"strainer
-strainer original","original aux. support 
-original support ",,2,2,2,1,0
-182,,,643 x 500,0,1,1,0,0
-183,,"original aux. support 
-original support ",,0,2,2,0,0
-184,"strainer
-strainer original","original aux. support 
-original support ",,2,2,1,0,0
-185,,,,0,2,2,1,0
-186,,strainer new,852 x 1270 x 23,2,2,1,0,0
-187,,,,0,2,1,0,0
-188,,"original aux. support 
-original support ",,0,2,2,0,1
-189,"strainer
-strainer original","original aux. support 
-original support ",,2,3,2,0,0
-190,"stretcher
-stretcher original","original aux. support 
-original support ",1205 x 1003 x 21,2,2,2,0,0
-191,,,919 x  1095,0,2,0,0,0
-192,,strainer new,,2,2,2,0,1
-193,,"original aux. support 
-original support ",372 x  452 x  2.5,0,2,0,0,1
-194,,"original aux. support 
-original support ",,0,0,2,0,0
-195,,original support ,,0,0,0,0,1
-196,"strainer
-strainer original","original aux. support 
-original support ",,2,2,1,1,0
-197,,"original aux. support 
-original support ",,0,2,0,0,1
-198,,"original aux. support 
-original support ",,0,1,0,0,0
-199,,"original aux. support 
-original support ",,0,1,2,0,0
-200,"stretcher
-stretcher original","original aux. support 
-original support ",715 x 559 x 21,2,2,2,1,0
-201,"strainer
-strainer original","original aux. support 
-original support ",,2,2,2,0,0
-202,"stretcher
-stretcher original","original aux. support 
-original support ",,2,1,2,0,0
-203,,,stretcher new,2,3,2,0,0
-204,"stretcher
-stretcher original","original aux. support 
-original support ",,2,2,2,0,1
-205,"strainer
-strainer original","original aux. support 
-original support ",581 x 480 x 17,1,2,1,1,0
-206,"stretcher
-stretcher original",original support ,,0,2,0,1,0
-207,,strainer new,723 x ,2,2,1,1,0
+,Accession number,Title,Country,Collection,Support Type,To reverse/face edge,media type 1,media type 2,media type 3,Auxiliary support Condition,Media Condition,Painting support condition,Original suppport,planar (auxiliary support),warped (auxiliary support),mould (auxiliary support),surface dirt (auxiliary support),staining (auxiliary support),insect damage (auxiliary support),accretions (auxiliary support),indentations (auxiliary support),prev. treatment (auxiliary support),joins unstable (auxiliary support),joins split (auxiliary support),joins not flat (auxiliary support),Adhered well to support,cracking (media),cleavage (media),flaking (media),losses (media),abrasions (media),surface dirt (media),accretions (media),discolouration (media),overpainting (media),Commercial ground,Artist applied ground,size layer visible,thickly applied,thinly applied,coloured ground,id sulphate,uniform application,id carbonate,ground proprietary paint?,prev. treatment (ground),Appears Plastic,Appears Elastic,dry cured,infilling,planar (painting support),corner distortions painting support,warped (painting support),indentations (painting support),good tension (painting support),holes (painting support),loose (painting support),tears (painting support),taut (painting support),surface dirt (painting support),mould (painting support),staining (painting support),overall distortions (painting support),insect damage (painting support),bottom distortions (painting support),rust stains on support (painting support),top distortions (painting support),deformation around tacks staples (painting support),tears around tacks staples (painting support),loss of tacks insecure support (painting support),Wood type hardness,Wood type,Wood type Country,Wood type locality
+0,UPVMA-III.00240,ifugao warrior,philippines,"vargas museum, university of the philippines",strainer original,,oil_x001D__x001D_,,,2.0,1.0,2.0,1,1,0,0,1,0,0,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1,0,0,1,0,0,0,0,0,0,0,1,0,1,1,0,1,0,0,0,1,0,0,0,0,1,1,1,0,0,0,1,0,1,0,0,,taguile,Philippines,local?
+1,UPVMA-III.00085,Guadalupe Ruins,philippines,"vargas museum, university of the philippines",strainer original,to face edge,oil_x001D__x001D_,,,0.0,0.0,1.0,1,0,1,0,1,0,1,0,1,1,1,0,0,0,1,1,1,1,0,1,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,1,1,0,0,1,0,0,1,0,0,0,1,1,0,1,1,0,0,1,0,1,0,0,soft? ,local? Philippines,,
+2,"UPVMA-III.00292
+",3:00 O'Clock Seascape,philippines,"vargas museum, university of the philippines",strainer original,,oil_x001D__x001D_,,,2.0,1.0,1.0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,1,0,0,1,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,1,1,1,1,0,0,0,1,0,0,0,0,soft? ,local? Philippines,,
+3,"UPVMA-III.00126
+","Kabulusan Beach, Laguna de Bay",philippines,"vargas museum, university of the philippines",strainer original,to face edge,oil_x001D__x001D_,,,1.0,1.0,0.0,1,0,1,0,1,1,0,0,1,1,1,0,0,1,1,1,1,1,1,1,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,1,1,0,0,0,1,1,0,1,0,1,0,0,0,0,1,0,0,1,0,0,1,1,hard?,,Philippines,local?
+4,"UPVMA-III.00161
+",BSP President Jorge B. Vargas,philippines,"vargas museum, university of the philippines",strainer original,,oil_x001D__x001D_,,,2.0,2.0,2.0,1,1,0,0,1,0,0,0,1,0,1,0,0,1,0,0,0,1,1,1,1,0,0,1,0,0,0,0,0,0,1,0,0,1,0,1,1,0,1,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,soft? ,pine,,
+5,"UPVMA-III.00289
+",Moro Datu,philippines,"vargas museum, university of the philippines",strainer original,,oil_x001D__x001D_,,,2.0,0.0,2.0,1,1,0,0,1,1,0,0,1,1,1,0,0,1,1,0,0,1,0,1,1,0,0,0,1,0,0,1,0,0,0,0,0,1,0,1,1,0,1,0,0,1,0,0,0,0,1,1,1,0,0,0,0,1,0,0,0,0,soft? ,pine,,
+6,"UPVMA-III.00180
+",Mater Dolorosa,philippines,"vargas museum, university of the philippines",stretcher original,to side edge,oil_x001D__x001D_,,,2.0,2.0,2.0,1,1,0,0,1,1,0,0,1,1,1,1,0,1,1,0,0,0,1,1,1,0,0,0,1,0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,1,0,0,hard?,,Philippines,local?
+7,"UPVMA-III.00177
+",Day Begins,philippines,"vargas museum, university of the philippines",strainer original,to side edge,oil_x001D__x001D_,,,2.0,1.0,1.0,1,1,0,0,1,0,0,1,1,1,1,1,0,0,1,1,1,1,0,1,0,0,0,1,0,0,1,0,0,0,1,0,0,1,0,1,1,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,soft? ,pine,,
+8,"UPVMA-III.00205
+",Seaside at Dawn,philippines,"vargas museum, university of the philippines",strainer original,to face edge,oil_x001D__x001D_,,,0.0,2.0,0.0,1,0,1,0,1,1,0,0,1,1,1,1,0,1,1,0,0,0,0,1,1,1,0,0,1,0,1,0,1,0,0,0,0,1,0,1,1,0,1,1,0,0,1,0,0,0,1,1,1,1,0,0,0,1,0,1,0,0,,taguile,Philippines,local?
+9,"UPVMA-III.00430
+",Nipa Hut,philippines,"vargas museum, university of the philippines",strainer original,,oil_x001D__x001D_,,,2.0,0.0,0.0,1,1,0,0,1,0,0,0,1,1,1,0,0,0,1,1,0,0,1,1,1,1,1,0,1,0,0,1,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,1,1,1,0,1,0,1,1,0,0,1,0,0,0,0,,"ipil: younger variety straight grain, about 30 yrs old. older then chickcen wing shape. chichinu (chinese name:popular for furiniture) ",Philippines,local?
+10,39/2521,vessandara jataka,thailand,"the national gallery, bangkok",,,tempera_x001D__x001D_,pencil underdrawing,,0.0,1.0,0.0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+11,"UPVMA-III.000452
+",Fisherman,philippines,"vargas museum, university of the philippines",strainer original,to side edge,oil_x001D__x001D_,,,2.0,1.0,2.0,1,1,1,0,0,1,0,0,0,1,1,1,0,1,1,0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,1,1,0,0,1,1,0,1,0,0,0,1,0,1,0,0,soft? ,pine,,
+12,"UPVMA-III.00293
+",chinese mandolin player,philippines,"vargas museum, university of the philippines",strainer original,to side edge,tempera_x001D__x001D_,,,2.0,1.0,2.0,1,0,0,0,1,1,0,0,1,1,1,0,0,0,0,0,1,1,0,1,1,1,0,1,0,0,0,1,0,0,1,0,0,0,0,1,1,0,0,0,0,1,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,hard?,,Philippines,local?
+13,"UPVMA-III.00269
+",Igorot Man with a Pipe,philippines,"vargas museum, university of the philippines",strainer original,,oil_x001D__x001D_,,,1.0,2.0,1.0,1,1,0,0,1,1,1,0,1,1,1,0,0,1,0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,1,1,0,1,0,0,0,1,0,0,0,1,0,1,1,0,0,0,1,0,1,0,0,hard?,,Philippines,local?
+14,"UPVMA-III.00338
+",Foggy Heights Bungalow with Taal Volcano as Background,philippines,"vargas museum, university of the philippines",strainer original,,oil_x001D__x001D_,,,1.0,1.0,1.0,1,0,1,0,1,0,0,0,0,1,1,1,0,0,1,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,0,1,0,0,1,1,1,0,0,0,1,0,0,1,1,soft? ,local? Philippines,,
+15,UPVMA - III.00296 ,FORT SANTIAGO,philippines,"vargas museum, university of the philippines",strainer original,to face edge,oil_x001D__x001D_,,,2.0,1.0,2.0,1,1,0,0,1,0,0,1,1,1,1,0,0,1,1,0,0,0,0,1,1,0,0,0,1,0,0,1,1,0,0,0,0,1,0,1,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,,"yellow taguile  and pine wood on top member (lauan) (now popoular available wood. but not so popoular then as narra, ipil more popular). philippines mohagany in US",Philippines,local?
+16,UPVMA - III.00003 ,ONE FOR THE ROAD,philippines,"vargas museum, university of the philippines",strainer original,,oil_x001D__x001D_,,,2.0,1.0,2.0,1,1,0,0,1,1,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,1,1,0,1,0,0,0,1,0,0,0,0,1,0,0,1,0,0,1,0,1,0,0,hard?,,Philippines,local
+17,,unknown (sultan of selangor?),malaysia,"national gallery of art, malaysia",stretcher original,to side edge,oil_x001D__x001D_,,,0.0,2.0,0.0,1,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+18,UPVMA - III.00058,president magasaysay becomes honourary tenderfoot boy scout,philippines,"vargas museum, university of the philippines",stretcher original,to side edge,oil,pencil underdrawing,,2.0,1.0,1.0,1,1,0,0,1,0,0,0,0,1,1,0,0,0,1,1,1,1,0,1,0,0,0,1,0,0,1,0,0,0,1,0,0,1,0,1,1,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,,,Philippines,local?
+19,UPVMA - III.00055,oath taking of regent jorge b vargas,philippines,"vargas museum, university of the philippines",stretcher original,to side edge,oil_x001D__x001D_,,,2.0,2.0,2.0,1,0,0,0,1,0,0,0,0,1,1,1,0,1,1,0,0,1,0,1,1,0,0,1,0,0,0,1,0,0,1,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,hard?,,Philippines,local?
+20,UPVMA - III.00208 ,WAITING FOR THE WAVES,philippines,"vargas museum, university of the philippines",strainer original,to face edge,oil_x001D__x001D_,,,1.0,2.0,2.0,1,0,1,0,1,1,0,1,1,1,1,0,0,1,0,0,0,0,1,1,1,0,0,0,1,0,0,1,0,0,0,0,0,1,0,1,1,0,1,0,0,0,1,0,0,0,0,1,0,1,0,1,0,1,0,1,0,0,,,Philippines,local?
+21,UPVMA - III.00239 ,Ifugao Girl,philippines,"vargas museum, university of the philippines",strainer original,to face edge,oil_x001D__x001D_,,,2.0,1.0,0.0,1,1,0,0,1,0,0,0,1,1,1,0,0,0,1,1,1,1,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,1,1,0,1,0,0,0,1,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,soft? ,pine,,
+22,38/2530,vessandara jataka,thailand,"the national gallery, bangkok",,to face edge,tempera_x001D__x001D_,pencil underdrawing,,0.0,2.0,0.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+23,UPVMA - III.00432 ,GOING TO THE MARKET,philippines,"vargas museum, university of the philippines",,,oil_x001D__x001D_,,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,0,1,1,0,0,1,0,0,0,1,0,0,1,0,0,1,0,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+24,UPVMA - III.00453,MORO DATU,philippines,"vargas museum, university of the philippines",strainer original,to face edge,oil_x001D__x001D_,,,2.0,1.0,1.0,1,1,0,0,1,0,0,0,0,1,1,0,0,0,1,1,0,1,0,1,0,0,0,1,0,0,0,1,0,0,1,0,0,1,0,1,1,0,1,0,0,1,1,0,0,0,1,0,0,0,0,0,0,1,0,1,1,1,soft? ,pine,,
+25,p0820,portrait of eugene chen,singapore,"Singapore art museum, national heritage board",,to face edge,oil_x001D__x001D_,,,0.0,2.0,0.0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,1,0,0,1,0,0,0,1,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+26,1993.1626,nude study,singapore,"Singapore art museum, national heritage board",strainer new,,oil_x001D__x001D_,,,2.0,1.0,1.0,0,1,1,0,0,0,0,0,0,1,1,0,0,1,1,1,0,1,0,0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0,1,1,0,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,,,Malay,local?
+27,96.0670,story teller,singapore,"Singapore art museum, national heritage board",strainer new,to face edge,oil_x001D__x001D_,,,0.0,1.0,0.0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1,1,1,0,0,0,1,1,1,0,1,0,0,0,0,1,0,0,0,0,1,1,0,0,0,1,1,0,1,1,1,0,0,0,1,1,0,0,0,0,0,0,0,,meranti,Malay,local?
+28,2000.1489,still life with H,malaysia,"Singapore art museum, national heritage board",strainer new,to face edge,oil_x001D__x001D_,,,2.0,0.0,1.0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,1,0,1,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,hard,,Malay,local?
+29,1997-00721,singapore waterfront by chinese school,singapore,"Singapore history museum, national heritage board",stretcher original,to face edge,oil_x001D__x001D_,,,2.0,2.0,1.0,1,1,0,0,1,0,0,0,0,1,1,1,0,0,1,1,1,1,0,0,1,0,1,1,0,0,0,1,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,soft? ,,,
+30,P-0818,Self Portrait,singapore,"Singapore art museum, national heritage board",,to face edge,oil_x001D__x001D_,,,0.0,3.0,2.0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,1,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+31,P0062,kampong  Scene,singapore,"Singapore art museum, national heritage board",strainer new,,oil_x001D__x001D_,,,2.0,2.0,2.0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,,,Malay,local?
+32,P-0192,quiet river,singapore,"Singapore art museum, national heritage board",stretcher new,to face edge,oil_x001D__x001D_,,,2.0,1.0,0.0,0,1,0,0,0,0,0,0,0,0,1,0,0,1,1,0,0,0,0,1,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,soft? ,pine?,,
+33,1993-00996,french lady,singapore,"Singapore art museum, national heritage board",,,oil_x001D__x001D_,,,0.0,2.0,0.0,1,0,0,0,0,0,0,0,0,1,0,0,1,1,1,0,0,1,0,0,0,0,1,1,1,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+34,P-0354p,semi abstract,singapore,"Singapore art museum, national heritage board",strainer original,,oil,mixed media,,1.0,1.0,1.0,1,0,1,0,0,1,0,0,0,1,1,0,1,1,1,0,1,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,hard?,,Malay,local?
+35,P-0800,coast of brittany,singapore,"Singapore art museum, national heritage board",strainer original,to side edge,oil_x001D__x001D_,,,1.0,3.0,2.0,1,0,1,0,0,0,1,0,1,1,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,hard?,,Malay,local?
+36,P-0803,vegatables and claypot,singapore,"Singapore art museum, national heritage board",strainer original,to side edge,oil_x001D__x001D_,,,1.0,2.0,1.0,1,0,1,0,0,0,1,0,1,1,1,0,0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,hard?,,Malay,local?
+37,1994-04130,the meditating bhikku,singapore,"Singapore art museum, national heritage board",strainer original,to side edge,oil_x001D__x001D_,,,1.0,3.0,3.0,1,0,1,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,hard?,,Malay,local?
+38,1997-02909,market place during occupation,philippines,"Singapore art museum, national heritage board",stretcher original,to face edge,oil,pencil underdrawing,,2.0,2.0,2.0,1,1,0,0,0,0,0,0,0,0,1,1,0,1,1,1,0,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,hard?,,Philippines,local?
+39,2002-00414,crane,singapore,"Singapore art museum, national heritage board",strainer new,to side edge,oil_x001D__x001D_,,,2.0,2.0,2.0,0,1,0,0,0,0,0,0,0,1,1,0,0,1,1,1,0,1,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,hard?,,Malay,local?
+40,"1991-00279, P-1379",pago pago series- two standing figures,malaysia,"Singapore art museum, national heritage board",strainer new,to side edge,oil_x001D__x001D_,,,1.0,0.0,1.0,0,1,0,0,1,1,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,1,1,0,0,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,soft? ,local? Malay,,
+41,1994- 05002,four herds,singapore,"Singapore art museum, national heritage board",strainer new,to face edge,acrylic,,,2.0,2.0,2.0,0,1,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,0,1,0,0,1,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,hard?,,Malay,local?
+42,1995-02070,rocky coast,singapore,"Singapore art museum, national heritage board",,,oil,mixed media,protein ground,0.0,1.0,1.0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,1,1,1,1,1,0,1,1,1,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+43,P--1211,marketing,singapore,"Singapore art museum, national heritage board",strainer new,to side edge,oil_x001D__x001D_,,,2.0,1.0,1.0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,1,1,1,0,0,0,0,1,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,hard?,,Malay,local?
+44,P--1225,indian children,singapore,"Singapore art museum, national heritage board",,,oil_x001D__x001D_,,,0.0,1.0,0.0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+45,1993-01001,malay boy with birdcage,singapore,"Singapore art museum, national heritage board",,,oil_x001D__x001D_,,,0.0,0.0,3.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+46,no number,unknown title,singapore,"Singapore art museum, national heritage board",stretcher new,to side edge,oil_x001D__x001D_,,,2.0,2.0,2.0,0,1,0,0,0,0,0,0,0,1,1,1,0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,soft? ,pine,,
+47,1992-00744,portrait of a man,singapore,"singapore art museum, national heritage board",strainer new,to side edge,oil_x001D__x001D_,,,2.0,2.0,1.0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,hard?,,Malay,local?
+48,1993-00997,red building,singapore,"Singapore art museum, national heritage board",,to face edge,oil,possibly water based under,,0.0,0.0,1.0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+49,1994.10,portrait of yeo chiew mooi (portrait of artist wife),malaysia,"national gallery of art, malaysia",,to side edge,oil_x001D__x001D_,,,1.0,1.0,0.0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,1,1,1,1,0,1,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+50,1987.9,ikan kerin,malaysia,"national gallery of art, malaysia",strainer original,,oil_x001D__x001D_,,,2.0,2.0,2.0,1,0,1,0,1,0,1,0,0,1,1,0,0,0,0,1,0,1,1,0,0,1,0,1,0,0,0,1,0,1,1,0,0,0,1,0,0,0,0,0,1,0,0,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,,ramin? local? Malay ,,
+51,1966.1,landscape  i,malaysia,"national gallery of art, malaysia",,to face edge,oil,,,1.0,2.0,2.0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,0,1,1,1,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,1,1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+52,1990.17,the goose lady,malaysia,"national gallery of art, malaysia",,,oil_x001D__x001D_,,,1.0,0.0,0.0,0,0,0,0,1,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,0,1,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,,,,
+53,1987.8,ibu dan anak (mother and child),malaysia,"national gallery of art, malaysia",strainer original,to side edge,oil_x001D__x001D_,,,1.0,2.0,1.0,1,0,1,0,1,1,0,0,1,1,1,0,0,1,1,0,0,1,1,1,1,1,0,1,0,0,0,1,1,1,1,0,0,0,1,0,0,0,0,0,1,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,hard?,,Malay,local?
+54,1981.15,mother (ibu),malaysia,"national gallery of art, malaysia",strainer original,to side edge,oil_x001D__x001D_,,,2.0,2.0,1.0,1,1,0,0,1,1,0,0,0,0,1,0,0,1,1,0,0,1,1,1,1,1,0,1,0,0,0,1,1,1,1,0,0,0,1,0,0,0,0,1,1,1,0,0,1,0,0,1,0,0,0,0,1,0,0,0,0,0,hard?,,Malay,local?
+55,1990.18,the village,malaysia,"national gallery of art, malaysia",,,oil_x001D__x001D_,,,1.0,0.0,0.0,0,0,0,0,1,0,0,1,1,1,0,0,0,1,1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,,,,
+56,1964.51,daun-dan agave,malaysia,"national gallery of art, malaysia",strainer original,to side edge,oil_x001D__x001D_,,,0.0,1.0,1.0,1,0,1,0,0,0,0,1,1,1,1,0,0,0,1,0,0,1,1,1,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,1,1,0,1,0,0,0,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,soft? ,local? Malay,,
+57,1984.4,old railway pier penang,malaysia,"national gallery of art, malaysia",,to face edge,oil_x001D__x001D_,,,1.0,2.0,2.0,0,1,0,0,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,1,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+58,UPVMA-III.00129,"pagdaong (Kawit, Cavite)",philippines,"vargas museum, university of the philippines",,to face edge,oil_x001D__x001D_,,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,1,1,1,1,1,0,0,1,0,1,0,0,0,0,0,0,1,0,1,1,0,1,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,,,,
+59,UPVMA-III.00077,Piro (Pedro Son of Painter),philippines,"vargas museum, university of the philippines",,to face edge,oil,pencil underdrawing,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,1,0,0,1,1,0,0,1,0,0,0,1,0,0,0,0,0,1,0,1,1,0,1,1,0,1,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,,,,
+60,UPVMA-III.00078,Sisilyo (CecilioSon of Painter),philippines,"vargas museum, university of the philippines",,to face edge,oil,pencil underdrawing,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,1,0,0,1,1,0,0,1,0,0,0,1,0,0,0,0,0,1,0,1,1,0,1,1,0,1,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,,,,
+61,UPVMA-III.00131,countryside,philippines,"vargas museum, university of the philippines",,,oil_x001D__x001D_,,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,1,1,0,1,0,1,1,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,0,,,,
+62,UPVMA-III.00336.78,Sampaguita Vendor,philippines,"vargas museum, university of the philippines",,to face edge,oil,artists paint appearance,proprietry product,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,1,1,1,1,0,1,0,1,0,0,0,0,0,1,0,0,1,0,1,1,0,1,1,0,1,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,,,,
+63,UPVMA-III.00037,Portrait of Madam Nene Gabaldon,philippines,"vargas museum, university of the philippines",stretcher original,,oil,pencil underdrawing,,2.0,2.0,2.0,1,1,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0,1,1,0,0,0,1,0,1,0,1,0,0,0,0,1,0,1,1,0,1,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,soft? ,local? Philippines,,
+64,UPVMA-III.00144,Sunset Clouds,philippines,"vargas museum, university of the philippines",,to face edge,oil,artists paint appearance,,0.0,2.0,1.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,1,0,1,1,0,1,0,1,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,,,,
+65,UPVMA-III.00283,Kakawate inBloom,philippines,"vargas museum, university of the philippines",,,oil_x001D__x001D_,,,0.0,1.0,1.0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,1,1,0,1,0,0,1,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,,,,
+66,UPVMA-III.00071,Charcater Study,philippines,"vargas museum, university of the philippines",,,oil_x001D__x001D_,,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,1,0,0,1,0,1,1,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,,,,
+67,UPMVA-III.00028,Head Study of Mrs Luz B Magasay,philippines,"vargas museum, university of the philippines",stretcher original,,oil,pencil underdrawing,,2.0,2.0,2.0,1,1,0,0,0,0,0,0,0,1,1,1,0,1,1,0,0,0,0,1,1,1,0,1,0,0,0,0,0,0,1,0,0,1,0,1,1,0,1,0,0,0,1,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,,taguile,Philippines,local?
+68,UPVMA-III.00235,primeras letras,philippines,"vargas museum, university of the philippines",,,oil_x001D__x001D_,,,0.0,2.0,2.0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,1,1,1,1,0,1,0,1,0,0,1,0,0,1,0,0,1,1,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,,,,
+69,UPVMA-III.00380,marikina valley,philippines,"vargas museum, university of the philippines",,,oil_x001D__x001D_,,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,1,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,Philippines,local?
+70,UPVMA-III.00276,water carrier,singapore,"singapore art museum, national heritage board",,to face edge,oil_x001D__x001D_,,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,1,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,,,,
+71,UPVMA-III.0381,river view from sta ana,philippines,"vargas museum, university of the philippines",,,oil_x001D__x001D_,,,1.0,2.0,2.0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,0,0,1,0,0,1,1,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,,,,
+72,,the coronation of king rama vi (sketch of mural painting decoration for the ceiling of anandasamakon royal pavillion),thailand,"the national gallery, bangkok",strainer original,to side edge,oil,pencil underdrawing,,2.0,2.0,1.0,1,1,0,0,1,0,0,0,0,0,1,1,0,1,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,1,0,1,1,0,0,1,0,0,0,0,hard?,,Thailand,local?
+73,UPVMA-III.00335,home from work,philippines,"vargas museum, university of the philippines",,to face edge,oil_x001D__x001D_,,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,1,1,1,0,1,0,0,0,0,0,0,0,0,0,1,0,1,1,0,1,1,0,0,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,,,,
+74,UPVMA-III.00143,ravaged manila,philippines,"vargas museum, university of the philippines",stretcher original,to face edge,oil_x001D__x001D_,,,2.0,2.0,1.0,1,1,0,0,1,1,0,0,1,1,1,1,0,1,1,0,0,0,1,1,1,1,0,0,1,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,1,0,0,0,1,0,0,1,0,1,1,0,0,1,0,1,1,1,,pine,,
+75,UPVMA-III.00146,japanese control,philippines,"vargas museum, university of the philippines",,,oil_x001D__x001D_,,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,1,1,1,1,0,1,1,0,0,0,1,0,0,1,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,,,,
+76,UPVMA-III.00373,Woman Devotee and Child (Supplication),philippines,"vargas museum, university of the philippines",,,oil_x001D__x001D_,,,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1,1,1,1,1,1,0,0,1,0,0,0,1,0,0,1,0,0,0,0,1,1,0,0,1,1,1,0,1,0,0,0,1,0,1,1,0,1,1,1,0,0,0,,,,
+77,UPVMA-III.00059,rice planting,philippines,"vargas museum, university of the philippines",stretcher new,,oil_x001D__x001D_,,,2.0,1.0,2.0,0,0,0,0,1,0,0,0,0,1,1,1,0,1,1,0,0,1,1,1,1,1,1,1,0,0,0,1,0,0,1,0,0,1,0,1,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,soft? ,pine,,
+78,UPVMA-III.00067,woman cooking in a kitchen,philippines,"vargas museum, university of the philippines",stretcher original,,oil_x001D__x001D_,,,2.0,2.0,2.0,1,1,0,0,1,0,0,0,1,1,1,1,0,1,1,0,0,0,1,1,1,0,0,0,1,0,1,1,0,1,1,0,0,1,0,1,1,0,1,0,0,0,1,0,0,0,1,1,0,1,0,0,0,0,0,1,0,0,hard?,,Philippines,local?
+79,UPVMA-III.00141,market scene,philippines,"vargas museum, university of the philippines",,,oil_x001D__x001D_,,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,0,1,1,0,1,1,0,0,0,1,0,0,1,0,0,1,0,1,1,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+80,UPVMA-III.00031,independence this year said his excellency premier tojo,philippines,"vargas museum, university of the philippines",stretcher original,to face edge,oil_x001D__x001D_,,,2.0,1.0,1.0,1,1,0,0,1,0,0,0,0,1,1,1,0,0,1,0,0,0,0,1,1,0,0,0,1,0,0,1,0,0,0,0,0,1,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,1,hard?,,Philippines,local?
+81,1/2543,HRH prince yodyinyot and his son,thailand,"the national gallery, bangkok",,to face edge,oil,pencil underdrawing,,0.0,0.0,0.0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,1,0,0,1,0,0,1,0,0,0,0,1,1,0,0,0,0,1,0,1,1,1,0,1,0,1,1,1,0,0,0,0,0,1,,,,
+82,UPVMA-III.00034,kawilihan clan II,philippines,"vargas museum, university of the philippines",stretcher original,,oil_x001D__x001D_,,,2.0,1.0,2.0,1,1,0,0,1,0,0,0,0,1,1,1,0,0,1,1,0,0,0,1,1,0,0,0,1,0,1,0,0,0,1,1,0,1,0,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,hard?,,Philippines,local?
+83,UPVMA-III.00033,kawilihan clan I,philippines,"vargas museum, university of the philippines",stretcher original,,oil_x001D__x001D_,,,2.0,1.0,2.0,1,1,0,0,1,0,0,0,0,1,1,1,0,0,1,1,0,0,0,1,1,0,0,0,1,0,1,0,1,0,1,0,0,1,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,hard?,,Philippines,local?
+84,UPVMA-III.00013,ambassador jorge b. vargas with Decoration,philippines,"vargas museum, university of the philippines",stretcher original,to side edgeto face edge,oil_x001D__x001D_,,,2.0,2.0,2.0,1,1,0,0,1,1,1,0,0,1,1,0,0,1,1,0,0,0,0,1,1,0,0,0,1,0,0,1,0,0,0,0,0,1,0,1,1,0,1,0,0,0,0,0,0,0,1,1,0,1,0,1,0,1,0,1,0,0,hard?,,Philippines,local?
+85,UPVMA-III.00072,dona  damiana  R.Vda.De Ortiz,philippines,"vargas museum, university of the philippines",,,oil_x001D__x001D_,,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1,1,1,1,0,1,0,0,0,0,0,1,0,0,1,0,1,1,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,,,Philippines,local?
+86,UPVMA-III.00351,pasig river scene,philippines,"vargas museum, university of the philippines",,to face edge,oil_x001D__x001D_,,,0.0,2.0,1.0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,1,0,1,0,0,0,1,0,1,0,0,0,0,0,0,1,0,,,,
+87,UPVMA-III.00101,tumulo en una iglesia,philippines,"vargas museum, university of the philippines",,to face edge,oil_x001D__x001D_,,,0.0,2.0,1.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,1,1,1,1,1,0,0,0,1,0,0,1,0,0,0,0,1,1,0,0,1,0,0,0,1,1,0,0,1,0,1,1,0,0,0,0,0,0,0,,,,
+88,UPVM A-III.00194,UN GITANO TOCANDO LA  GUITARRA,philippines,"vargas museum, university of the philippines",,to face edge,oil_x001D__x001D_,,,0.0,2.0,0.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,1,0,0,1,1,1,0,1,0,0,1,1,0,0,0,0,1,1,0,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,0,0,0,,,,
+89,UPVMA-III.00125,Imus Landscape,philippines,"vargas museum, university of the philippines",,to face edge,oil_x001D__x001D_,,,1.0,0.0,1.0,1,0,1,0,1,1,0,1,0,0,0,0,0,1,1,0,0,1,0,1,1,0,0,0,1,0,0,1,0,0,1,0,0,0,0,1,1,0,0,1,1,0,1,1,0,1,0,1,0,1,0,0,1,1,0,1,0,0,,,,
+90,UPVMA-III.00374,Sagrada Corazon de Jesus,philippines,"vargas museum, university of the philippines",stretcher original,to side edge,oil_x001D__x001D_,,,1.0,1.0,2.0,1,0,1,0,0,0,1,0,0,1,1,1,0,0,1,0,0,1,1,1,1,0,1,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,1,1,1,0,1,0,0,0,0,0,1,1,0,0,1,0,1,0,0,,ipil,Philippines,local?
+91,UPVMA-III.00457,Sunrise at Guimaras,philippines,"vargas museum, university of the philippines",,,oil_x001D__x001D_,,,0.0,2.0,1.0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,0,1,1,0,0,1,0,0,0,1,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,,,,
+92,UPVMA-III-00181,BENGUET LILY,philippines,"vargas museum, university of the philippines",strainer original,to side edge,oil_x001D__x001D_,,,0.0,1.0,1.0,1,0,1,0,0,1,0,0,0,1,1,0,0,1,1,0,0,1,0,1,1,0,0,0,1,0,1,0,0,0,0,0,0,0,0,1,1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,,taguile,Philippines,local?
+93,UPVMA-III.00195,Un Patio Andaluz,philippines,"vargas museum, university of the philippines",,,oil_x001D__x001D_,,,2.0,2.0,2.0,0,1,1,0,1,0,0,0,0,1,0,0,0,0,1,0,1,1,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,,,,
+94,upvma-iii.00368,Puesta del Sol en Sta. Ana,philippines,"vargas museum, university of the philippines",,,oil_x001D__x001D_,,,1.0,1.0,1.0,0,1,0,0,1,1,0,0,0,1,0,0,0,0,1,1,0,1,0,1,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,1,0,1,0,0,0,,,,
+95,UPVMA-III00366,the penitent,philippines,"vargas museum, university of the philippines",strainer new,to face edge,oil_x001D__x001D_,,,1.0,2.0,1.0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,0,0,0,0,1,0,0,1,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,,,Philippines,local?
+96,13/2540,space & temple in india (temple  and landscape),thailand,"the national gallery, bangkok",strainer new,to side edge,oil,tempera,pencil underdrawing,0.0,0.0,1.0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,1,1,1,1,1,0,1,0,0,0,0,1,0,0,0,0,1,1,1,0,0,0,0,1,0,0,0,1,1,0,1,0,0,0,1,0,1,1,0,,,Thailand,local?
+97,43/22,portrait of king rama v (official portrait),thailand,"the national gallery, bangkok",strainer new,,oil_x001D__x001D_,,,2.0,0.0,0.0,0,0,0,0,1,0,0,0,1,1,1,0,0,0,1,1,0,1,0,1,0,1,1,1,0,1,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,1,0,1,1,0,0,1,0,1,1,0,0,0,0,0,0,0,hard?,,Thailand,local?
+98,35/2530,her serene highness pilailakha disakul,thailand,"the national gallery, bangkok",strainer original,,oil,protein/starch negative,,1.0,1.0,2.0,1,0,0,0,1,0,0,1,1,1,1,0,0,0,1,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,1,1,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,,,Thailand,local?
+99,26/2530,unknown (still life with dog statue),thailand,"the national gallery, bangkok",stretcher original,to side edge,oil_x001D__x001D_,,,2.0,1.0,2.0,1,1,0,0,1,0,0,0,1,1,1,0,0,0,1,1,1,1,1,1,0,1,0,1,0,0,0,0,0,0,1,1,0,1,0,1,1,0,1,0,0,0,0,0,0,1,1,1,0,1,0,0,0,0,0,0,0,0,soft? ,pine,,
+100,25/2530,unknown (still life with flowers),thailand,"the national gallery, bangkok",strainer original,,oil_x001D__x001D_,,,2.0,1.0,2.0,1,1,0,0,1,0,0,0,0,1,1,1,0,1,1,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,1,0,0,1,0,1,1,0,1,1,0,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,soft? ,pine,,
+101,22/2530,phra kaew morakod (still life with budha),thailand,"the national gallery, bangkok",stretcher original,,oil_x001D__x001D_,,,2.0,2.0,2.0,1,1,0,0,1,0,0,0,0,1,1,0,0,1,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0,1,0,1,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,soft? ,pine,,
+102,16/2520,portrait of henry arabasster (ambassador?),thailand,"the national gallery, bangkok",strainer original,to side edge,oil_x001D__x001D_,,,2.0,2.0,3.0,1,1,0,0,1,0,0,0,0,1,1,0,1,1,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,Thailand,local?
+103,17/2531,boat,thailand,"the national gallery, bangkok",strainer original,,oil,pencil underdrawing,,1.0,1.0,0.0,1,1,0,0,1,1,0,0,1,1,1,1,0,1,1,1,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,1,0,0,1,1,0,1,0,0,0,0,0,0,0,hard?,,Thailand,local?
+104,14/2520,portrait of narisara nuwatinwong (thai official from royal family),thailand,"the national gallery, bangkok",strainer original,to side edge,oil_x001D__x001D_,,,2.0,2.0,3.0,1,1,0,0,0,0,0,0,0,1,1,0,1,1,1,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,,,Thailand,local?
+105,14/2521,Reproduction of Venus (Painting by Titian),thailand,"the national gallery, bangkok",stretcher original,,oil_x001D__x001D_,,,2.0,2.0,2.0,1,1,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,1,1,1,0,0,1,1,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,1,0,1,1,1,0,1,0,0,1,0,1,0,0,0,0,0,soft? ,pine,,
+106,3/2540,portrait (young man),thailand,"the national gallery, bangkok",stretcher original,to face edge,oil_x001D__x001D_,,,2.0,0.0,1.0,1,1,0,0,1,0,0,0,1,1,1,0,0,0,1,1,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,0,1,1,1,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,soft? ,pine,,
+107,1/2520/10,"queen sawang wattana, her sons & daughters",thailand,"the national gallery, bangkok",stretcher original,to side edge,oil_x001D__x001D_,,,2.0,0.0,0.0,1,1,0,0,1,0,0,0,1,1,1,1,0,0,1,1,1,1,0,1,1,1,1,1,0,0,0,0,0,1,1,0,0,0,0,1,1,1,0,1,0,0,0,0,1,0,0,1,0,1,1,0,0,0,0,0,0,0,soft? ,pine,,
+108,"14/2521/4, 78/2521",reproduction of a european landscape (gainsborough),thailand,"the national gallery, bangkok",stretcher original,to side edge,oil_x001D__x001D_,,,2.0,2.0,1.0,1,1,0,0,1,0,0,0,1,1,1,1,0,1,1,0,0,1,0,1,1,0,1,1,0,0,0,1,0,0,1,0,0,1,0,1,0,1,1,0,0,0,1,1,0,1,1,1,0,1,0,0,1,0,0,0,0,0,hard?,,Thailand,local?
+109,118/2521,queen sawang wattana (queen grandmother),thailand,"the national gallery, bangkok",stretcher original,,oil,pencil underdrawing,,2.0,0.0,1.0,1,1,0,0,0,0,0,0,0,1,1,0,1,0,1,0,0,1,0,1,0,1,1,1,0,0,0,0,0,0,0,0,0,1,0,1,1,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,,pine,,
+110,13/2520,king rama II,thailand,"the national gallery, bangkok",stretcher original,,oil_x001D__x001D_,,,2.0,0.0,1.0,1,1,0,0,0,0,0,0,0,0,1,0,1,0,1,1,0,1,1,0,0,1,1,1,1,0,0,0,0,0,0,0,0,1,0,1,1,0,1,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,,pine,,
+111,12/2520,eelli iin ricordo,thailand,"the national gallery, bangkok",stretcher original,to side edge,oil_x001D__x001D_,,,2.0,3.0,3.0,1,1,0,0,1,0,1,0,0,1,1,1,0,0,1,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,1,0,0,1,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,soft ,pine,,
+112,16/2521,king chulalongkorn,thailand,"the national gallery, bangkok",,to face edge,oil_x001D__x001D_,,,0.0,1.0,1.0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,1,0,1,1,1,0,0,0,1,0,0,1,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,,,,
+113,69/2521,dreamers avenue,thailand,"the national gallery, bangkok",,to face edge,oil_x001D__x001D_,,,0.0,1.0,2.0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1,0,1,0,1,1,1,0,1,1,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,,,,
+114,6/2542,jungle in coconut tree,thailand,"the national gallery, bangkok",stretcher original,to face edge,oil_x001D__x001D_,,,2.0,1.0,2.0,1,1,0,0,0,0,0,0,0,0,1,0,1,0,1,1,1,1,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,0,1,1,1,1,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,,pine,,
+115,41/2521,nude,thailand,"the national gallery, bangkok",strainer original,,oil_x001D__x001D_,,,2.0,1.0,2.0,1,1,0,0,1,1,0,0,0,1,1,0,0,1,1,0,0,1,1,1,1,1,0,0,1,0,1,0,0,0,0,0,0,1,0,1,1,0,1,1,0,0,1,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,hard?,,Thailand,local?
+116,10/2536,woman,thailand,"the national gallery, bangkok",strainer original,,oil_x001D__x001D_,,,2.0,1.0,2.0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,1,0,1,1,0,1,1,1,0,0,1,0,1,0,0,0,1,0,0,1,0,1,1,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,hard?,,Thailand,local?
+117,10/2536,painter,thailand,"the national gallery, bangkok",strainer original,,oil_x001D__x001D_,,,2.0,0.0,1.0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,1,0,0,1,0,1,1,1,1,0,1,0,1,0,0,0,1,0,0,0,0,1,1,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,hard?,,Thailand,local?
+118,5/2536,portrait of mrs somthawin haribhitak,thailand,"the national gallery, bangkok",,to face edge,oil,image below,,0.0,0.0,2.0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,1,1,0,0,1,1,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+119,1/2521,fish at si chang island,thailand,"the national gallery, bangkok",,to face edge,oil,applied to smooth side,pencil underdrawing,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,1,0,0,1,0,1,0,0,0,0,0,0,1,1,0,0,0,1,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,,,,
+120,9/2523,ayuthuya,thailand,"the national gallery, bangkok",,,oil,image below,,0.0,2.0,2.0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,1,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,1,0,0,0,,,,
+121,3/2530,watta,thailand,"the national gallery, bangkok",strainer original,,oil,mixed media,,1.0,2.0,0.0,1,0,1,0,1,1,0,1,1,0,1,0,0,0,1,1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1,0,1,0,0,1,1,0,0,1,1,0,0,0,0,1,0,0,hard?,,Thailand,local?
+122,18/2521,the portrait of king Rama IV,thailand,"the national gallery, bangkok",,,oil_x001D__x001D_,,,0.0,1.0,1.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,1,1,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,1,0,1,0,1,1,0,0,0,0,0,0,0,,,,
+123,upvma-iii.00433,landscape,philippines,"vargas museum, university of the philippines",,,oil_x001D__x001D_,,,0.0,0.0,0.0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+124,UPVMA-III00260,un torero picando con su machete,philippines,"vargas museum, university of the philippines",,,oil,proprietry product,,0.0,2.0,0.0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+125,1959-017,pohon nipah,malaysia,"national gallery of art, malaysia",,,oil,artists paint appearance,,2.0,2.0,2.0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1,1,0,0,0,1,0,0,1,0,0,1,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+126,1959.14,Salmah,malaysia,"national gallery of art, malaysia",stretcher original,to side edge,oil,artist paint appearance,,1.0,2.0,2.0,1,1,0,0,0,1,1,0,0,1,1,1,0,1,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,1,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,soft? ,pine,,
+127,1958.8,tanjung bidara,malaysia,"national gallery of art, malaysia",,to side edge,oil,artist paint appearance,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+128,1958.10,Bermain gasing (top spinners),malaysia,"national gallery of art, malaysia",,to side edge,oil,artist material apperance,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,1,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+129,1958.6,minah,malaysia,"national gallery of art, malaysia",strainer original,to side edge,oil,artist paint appearance,,2.0,2.0,2.0,1,1,0,0,1,0,0,0,0,1,1,1,0,1,1,0,0,1,0,1,0,0,0,1,0,0,0,1,0,0,1,0,0,1,0,1,1,0,1,0,0,0,0,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,,meranti,Malay,local?
+130,1958.13,rambutan and magosteens,malaysia,"national gallery of art, malaysia",strainer original,to side edge,oil,artists paint appearance,,2.0,2.0,1.0,1,1,0,0,1,0,0,0,0,1,1,1,0,1,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,1,0,1,0,0,0,0,0,hard?,,Malay,local?
+131,1959-004,mandi laut,malaysia,"national gallery of art, malaysia",,,oil,artists paint appearance,,2.0,1.0,2.0,1,1,0,0,1,0,0,0,0,0,0,0,0,1,1,1,1,1,0,1,0,0,1,0,1,0,0,1,0,0,0,0,1,1,1,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,,,,
+132,1959.031,jalan di bandar (street scene),malaysia,"national gallery of art, malaysia",,to side edge,oil,artists paint appearance,,2.0,2.0,1.0,1,1,0,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,1,0,0,0,1,0,0,1,0,0,0,0,1,1,0,0,0,1,0,0,0,1,0,0,1,0,0,1,1,0,0,0,0,0,1,,,,
+133,1959.032,ikan untuk hidangan,malaysia,"national gallery of art, malaysia",,,oil,artists paint appearance,,1.0,2.0,2.0,1,0,1,0,1,0,1,1,1,0,0,0,0,1,0,0,0,0,0,1,0,1,0,0,1,0,0,1,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,,,,
+134,1959.026,seni melayu,malaysia,"national gallery of art, malaysia",,,oil,artists paint appearance,,0.0,1.0,2.0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,1,0,0,1,0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+135,1998.055,landscape penang beach/ rock forms penang,malaysia,"national gallery of art, malaysia",,to face edge,oil_x001D__x001D_,,,0.0,2.0,2.0,0,0,1,0,0,0,1,1,1,0,1,0,0,1,1,0,0,1,1,0,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,,,,
+136,1981.010,berhala cina (chinese temple altar),malaysia,"national gallery of art, malaysia",,to face edge,oil,artists paint appearance,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,1,1,0,0,0,1,0,1,0,0,0,0,0,0,1,0,1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+137,1975.019,alam benda,malaysia,"national gallery of art, malaysia",,to face edge,oil,artists paint appearance,proprietry product,0.0,2.0,1.0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,1,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+138,1992.19,Self Portrait,malaysia,"national gallery of art, malaysia",,to face edge,oil,artists paint appearance,,2.0,0.0,0.0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,1,0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,1,1,1,0,0,1,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,,,,
+139,1990.15,portrait 1946 (chung tak mook),malaysia,"national gallery of art, malaysia",,to face edge,oil,artists paint appearance,,2.0,1.0,1.0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,1,0,1,0,0,1,0,0,1,0,0,0,0,1,1,1,0,0,0,0,0,1,0,0,0,1,0,1,1,0,0,0,0,0,0,0,,,,
+140,1990.019,kek lok si temple,malaysia,"national gallery of art, malaysia",,,oil,artists paint appearance,,0.0,2.0,1.0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,,,,
+141,1962.27,dia- she,malaysia,"national gallery of art, malaysia",,,oil,artists paint appearance,,1.0,1.0,1.0,1,1,1,0,1,0,0,0,1,0,0,0,0,0,1,0,0,1,0,1,1,0,0,0,1,0,0,1,0,0,0,0,1,0,0,1,1,0,0,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,,,,
+142,1959.47,joget moden,malaysia,"national gallery of art, malaysia",,to face edge,oil,artists paint appearance,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1,1,0,0,1,0,0,1,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+143,,"busy morning-kota tingai, johor",malaysia,"national gallery of art, malaysia",strainer new,,oil,artists paint appearance,,2.0,1.0,0.0,0,1,0,0,0,0,0,0,0,0,1,1,0,0,1,1,1,1,0,1,1,1,0,0,0,0,0,1,0,0,1,0,0,0,0,1,1,0,0,0,1,1,0,1,0,1,1,0,0,0,0,0,0,0,0,0,1,0,soft? ,local? Malay,,
+144,1960.1,menuai padi,malaysia,"national gallery of art, malaysia",strainer original,to face edge,oil,artists paint appearance,,0.0,1.0,0.0,1,0,1,0,1,0,0,1,1,1,1,0,0,0,1,0,1,1,0,1,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,1,0,0,1,0,1,1,1,0,0,0,0,0,0,,,Malay,local?
+145,1964.10,gadis melayu (malay girl),malaysia,"national gallery of art, malaysia",strainer original,to side edge,oil_x001D__x001D_,,,1.0,2.0,1.0,1,0,1,0,1,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,1,1,0,1,0,1,0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,1,1,0,0,1,0,0,1,0,soft? ,local? Malay,,
+146,1981.25,penari iban,malaysia,"national gallery of art, malaysia",strainer original,to face edge,oil,artists paint appearance,,1.0,1.0,1.0,1,0,1,0,1,1,0,0,0,1,1,0,0,0,1,1,1,1,0,1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,hard?,,Malay,local?
+147,1963.123,budak dengan burung,malaysia,"national gallery of art, malaysia",,to face edge,oil,artists paint appearance,,0.0,2.0,0.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+148,1981.24,rumah panjang dayak,malaysia,"national gallery of art, malaysia",strainer original,to face edge,oil_x001D__x001D_,,,2.0,1.0,1.0,1,1,0,0,0,0,0,0,1,0,1,1,0,0,1,0,1,1,0,1,1,1,0,0,1,0,0,1,0,0,0,0,0,1,0,1,1,0,1,1,0,0,1,0,0,1,0,1,0,1,0,0,0,0,0,1,0,0,hard?,,Malay,local?
+149,1981.14,gadis bali dua beradek,malaysia,"national gallery of art, malaysia",strainer original,to side edge,oil,artists paint appearance,,1.0,2.0,0.0,1,1,0,0,1,0,1,0,1,1,1,1,0,1,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,1,0,0,hard?,,Malay,local?
+150,1963.133,di-tepi pantai (seaside),malaysia,"national gallery of art, malaysia",stretcher original,,oil,artists paint appearance,,2.0,0.0,2.0,1,1,0,0,1,1,0,0,0,1,1,1,0,0,1,1,1,1,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,1,0,1,0,0,1,0,0,0,1,0,0,1,0,1,0,1,0,0,0,0,0,1,0,0,soft? ,pine,,
+151,1963.121,tepak sirih,malaysia,"national gallery of art, malaysia",stretcher original,,oil,mixed media,proprietry product,2.0,1.0,0.0,1,1,0,0,1,0,0,0,0,1,1,1,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1,0,1,1,0,0,0,0,0,0,0,soft? ,pine,,
+152,1961.18,Pemandangan (plantscape),malaysia,"national gallery of art, malaysia",strainer original,to side edge,oil,artists paint appearance,,2.0,2.0,1.0,1,1,0,0,1,1,0,0,0,0,1,1,0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,hard?,,Malay,local?
+153,1981.13,dua wanita ditepi pantal,malaysia,"national gallery of art, malaysia",strainer new,to face edge,oil,mixed media,impasto with filler,2.0,1.0,1.0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,1,0,1,0,0,1,1,0,0,1,0,0,0,0,0,0,0,,,Malay,local?
+154,1962.038,sir henry gurney (fed. malaya governor),malaysia,"national gallery of art, malaysia",stretcher original,to side edge,oil,artists paint appearance,pencil underdrawing,2.0,2.0,2.0,1,1,0,0,1,0,0,0,1,1,1,1,0,1,1,0,0,0,0,0,1,0,0,1,0,0,0,1,0,0,1,0,0,1,0,1,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,soft? ,pine,,
+155,1959.16,dr loke yew,malaysia,"national gallery of art, malaysia",stretcher original,,oil,artists paint appearance,,0.0,0.0,2.0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,soft? ,pine,,
+156,1961.21,view of paris,malaysia,"national gallery of art, malaysia",stretcher original,,oil,artists paint appearance,,2.0,2.0,2.0,1,1,0,0,0,0,0,0,0,1,1,1,0,1,1,0,0,0,0,1,0,0,0,1,1,0,0,1,0,0,1,0,0,1,0,1,0,0,1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,hard?,,Malay,local?
+157,1990.20,temple deities,malaysia,"national gallery of art, malaysia",,,oil_x001D__x001D_,,,0.0,1.0,1.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,1,0,1,0,0,1,0,0,1,0,0,0,0,1,1,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,,,,
+158,1963.115,gadi s korea,malaysia,"national gallery of art, malaysia",stretcher original,,oil_x001D__x001D_,,,2.0,2.0,1.0,1,1,0,0,0,0,0,0,0,1,1,0,0,1,1,1,1,1,0,1,1,0,1,0,1,0,0,1,1,0,1,0,0,1,0,1,0,0,1,1,0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,soft? ,pine,,
+159,1992.5,perahu nelayan,malaysia,"national gallery of art, malaysia",,to face edge,oil,artists paint appearance,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,1,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+160,1965.81,dua beradik (two sisters),malaysia,"national gallery of art, malaysia",stretcher original,,oil,artists paint appearance,,2.0,2.0,2.0,1,1,0,0,1,0,0,0,0,1,1,1,0,1,1,0,1,0,0,1,0,0,0,1,0,0,0,0,1,0,1,0,0,1,0,1,0,0,1,0,0,0,0,0,1,0,0,1,0,1,0,0,0,0,0,1,0,0,soft? ,pine,,
+161,1970.002,membawa ikan- carrying fish,malaysia,"national gallery of art, malaysia",,to face edge,acrylic,oil,,0.0,2.0,1.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+162,1962.46,sukiyaki,malaysia,"national gallery of art, malaysia",stretcher original,,mix media,acrylic,enamel,2.0,0.0,1.0,1,0,0,0,1,0,0,0,0,1,1,1,0,1,1,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,1,0,0,0,0,0,0,1,0,1,1,0,0,0,0,1,0,0,soft? ,pine,,
+163,1962.21,memetik daun tembakau di kelantan,malaysia,"national gallery of art, malaysia",stretcher original,,oil,artists paint appearance,,2.0,2.0,2.0,1,1,0,0,0,0,0,0,0,1,1,1,0,1,1,0,1,0,0,0,1,1,0,1,0,0,0,0,0,0,1,0,0,1,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,hard?,,Malay,local?
+164,1958.019,kilang,malaysia,"national gallery of art, malaysia",,to face edge,oil,artists paint appearance,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,1,0,1,0,1,0,1,0,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,,,,
+165,1990.016,conversation,malaysia,"national gallery of art, malaysia",,to face edge,oil,artists paint appearance,,0.0,1.0,1.0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1,0,1,1,0,1,0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,,,,
+166,1963.136,pengantin iperempuan ban (iban bride),malaysia,"national gallery of art, malaysia",stretcher original,,oil,artists paint appearance,,2.0,0.0,2.0,1,1,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,1,0,0,0,0,1,1,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,1,0,soft? ,pine,,
+167,1994.04140,watermelons,singapore,"singapore art museum, national heritage board",strainer original,to side edge,oil,artists paint appearance,,2.0,2.0,2.0,1,1,0,0,0,0,0,0,0,1,1,1,0,1,1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1,1,0,1,0,1,0,0,1,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,soft? ,pine,,
+168,1994.04155,temple (peking),singapore,"singapore art museum, national heritage board",strainer new,,oil,artists paint appearance,,2.0,2.0,2.0,0,1,0,0,0,0,0,0,0,0,1,0,0,1,1,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,1,0,1,0,0,1,1,0,0,0,0,1,1,0,0,0,1,0,0,0,1,0,0,1,0,,,Malay,local?
+169,1998.00707,singapore river,singapore,"singapore art museum, national heritage board",,to face edge,oil,artists paint appearance,,0.0,2.0,0.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+170,lk104,chinese junk,singapore,"singapore art museum, national heritage board",,,oil_x001D__x001D_,,,0.0,0.0,1.0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,,,,
+171,"1991.225, p1333",portrait of lim hak tai,singapore,"singapore art museum, national heritage board",,,oil,artists paint appearance,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,,,,
+172,2001.2503,old nafa at st thomas walk,singapore,"singapore art museum, national heritage board",,to face edge,oil,artists paint appearance,,0.0,0.0,0.0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,0,1,0,1,0,1,0,1,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,,,,
+173,1994.04122,girl with long hair,singapore,"singapore history museum, national heritage board",strainer original,to side edge,oil_x001D__x001D_,,,2.0,2.0,3.0,1,1,0,0,0,0,0,0,0,1,1,1,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,hard?,,Malay,local?
+174,2003.04134,sunflowers,singapore,"singapore art museum, national heritage board",strainer new,to side edge,oil,artists paint appearance,,2.0,1.0,1.0,0,1,0,0,0,0,0,0,0,1,1,1,0,0,1,0,1,1,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,1,1,0,0,0,0,0,0,0,hard?,,Malay,local?
+175,1999.00062,nafa- st. thomas walk,singapore,"singapore art museum, national heritage board",,to face edge,tempera_x001D__x001D_,oil,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+176,1995.2074,boats at rest,singapore,"singapore art museum, national heritage board",,,oil,artists paint appearance,,0.0,1.0,0.0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,1,0,0,0,1,1,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,,,,
+177,1991.870,tend cows,singapore,"singapore art museum, national heritage board",,to face edge,oil,proprietry product,,0.0,2.0,1.0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,1,0,0,1,0,0,0,1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,,,,
+178,1994.02074,afternoon rest,singapore,"singapore art museum, national heritage board",,,oil,artists paint appearance,,0.0,2.0,1.0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,,,,
+179,2001.2488,portrait of an indian girl,singapore,"singapore art museum, national heritage board",,to face edge,oil,artists paint appearance,,0.0,0.0,1.0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,1,0,0,0,0,1,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+180,1994.00611,joget,singapore,"singapore art museum, national heritage board",,to face edge,oil,artists paint appearance,,0.0,2.0,1.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,,,,
+181,1998.00706,riot,singapore,"singapore art museum, national heritage board",,to side edge,oil,emulsion paint,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+182,1998.00153 ,fort canning,singapore,"singapore art museum, national heritage board",,to face edge,acrylic,oil,,0.0,0.0,2.0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,1,0,1,0,1,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,,,,
+183,P1151,composition,singapore,"singapore art museum, national heritage board",,to face edge,emulsion,oil,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,,,,
+184,1991.00871,seaside,singapore,"singapore art museum, national heritage board",,to face edge,oil,artists paint appearance,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,,,
+185,p0968,indian workers celaring the jungle,singapore,"singapore art museum, national heritage board",,,acrylic,emulsion,,0.0,2.0,1.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,,,,
+186,1991.00869,young girl,singapore,"singapore art museum, national heritage board",,to face edge,oil,artists paint appearance,,0.0,2.0,0.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,0,0,1,0,0,1,0,0,0,1,1,1,0,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,,,,
+187,lk165,countryside in france,singapore,"singapore art museum, national heritage board",strainer original,to side edge,oil,artists paint appearance,,2.0,2.0,2.0,1,1,0,0,1,0,0,0,0,0,1,1,0,1,1,0,1,0,0,0,0,0,0,1,0,0,0,1,0,0,1,1,0,0,0,1,0,0,0,0,0,1,1,0,0,0,1,1,0,1,1,0,0,0,0,0,0,0,,jelutong,Malay,local?
+188,2003.03258,working  at the fields,singapore,"singapore art museum, national heritage board",,,oil,artists paint appearance,,0.0,1.0,1.0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1,1,1,0,1,0,0,1,1,0,0,0,1,0,0,1,0,0,0,0,1,1,0,0,0,1,1,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,,,,
+189,"2003.03250, lk011",seafood,singapore,"singapore art museum, national heritage board",,,oil,artists paint appearance,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,,,,
+190,2003.03249/ lk 009,boat near cliff,singapore,"singapore art museum, national heritage board",strainer original,,oil,artists paint appearance,,2.0,2.0,1.0,1,1,0,0,1,1,0,0,0,0,1,1,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,hard?,,Malay,local?
+191,lk106/ 2003.03247,slope,singapore,"singapore art museum, national heritage board",,to side edge,oil,artists paint appearance,,0.0,2.0,2.0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,1,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,1,0,0,1,1,0,0,0,0,0,0,,,,
+192,"lk133, 2003.03339",mosque in malaysia (?),singapore,"singapore art museum, national heritage board",strainer new,,oil,artists paint appearance,,2.0,2.0,1.0,0,1,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,1,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,,jelutong,Malay,local?
+193,p.0124,indian and cows,singapore,"singapore art museum, national heritage board",,,oil_x001D__x001D_,,,0.0,2.0,1.0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,0,0,0,0,,,,
+194,gi.0105.pc,bailenese woman,singapore,"singapore history museum, national heritage board",,to face edge,oil,artists paint appearance,,0.0,2.0,2.0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,1,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,,,,
+195,1994.05003,fishing nets,singapore,"singapore art museum, national heritage board",strainer new,to face edge,oil,artists paint appearance,,2.0,2.0,2.0,0,1,0,0,0,0,0,0,0,0,1,0,0,1,1,0,0,0,0,1,0,0,0,0,1,0,0,1,0,0,0,1,0,1,0,1,0,0,1,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,hard?,,Malay,local?
+196,1993.01722,grooming hair,singapore,"singapore art museum, national heritage board",stretcher original,,oil,artists paint appearance,,2.0,2.0,2.0,1,1,0,0,1,0,0,0,1,1,1,1,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,1,0,0,0,1,0,0,1,1,1,0,1,0,1,0,0,0,1,0,1,0,0,0,0,soft? ,pine,,
+197,1993.01673,weaving,singapore,"singapore history museum, national heritage board",,,oil,artists paint appearance,,0.0,2.0,0.0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,,,,
+198,1993-01698,fort,singapore,"singapore art museum, national heritage board",,to face edge,oil,artists paint appearance,,0.0,2.0,0.0,1,0,0,0,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,,,,
+199,1964.11,meniup dengan hidung,malaysia,"national gallery of art, malaysia",strainer original,to face edge,oil_x001D__x001D_,,,2.0,0.0,3.0,1,1,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,1,1,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,,jelutong,Malay,local?
+200,32/2521,maha jataka royal ceremony in 1788 reign of king rama i,thailand,"the national gallery, bangkok",,,tempera_x001D__x001D_,,,0.0,0.0,2.0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,0,1,0,0,1,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,,,,
+201,48/2520,founding of capital reign of king rama uthong,thailand,"the national gallery, bangkok",,,tempera_x001D__x001D_,,,0.0,1.0,2.0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,,,,
+202,1994.4142,bananas in a basket,singapore,"singapore art museum, national heritage board",strainer original,,oil_x001D__x001D_,,,2.0,3.0,2.0,1,1,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,soft? ,local? Malay,,
+203,ppc:020.200,unknown (portrait of a chinese man in blue),singapore,"singapore art museum, national heritage board (non collectin item)",stretcher original,to side edge,oil,pencil underdrawing,,2.0,2.0,2.0,1,1,0,0,0,0,0,0,0,1,1,1,0,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,1,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,1,1,0,0,1,0,0,0,0,hard?,,Malay,local?
+204,P06086,singapore harbour,singapore,"singapore history museum, national heritage board",strainer original,,oil_x001D__x001D_,,,2.0,2.0,2.0,1,1,0,0,0,0,0,0,1,0,1,1,0,1,1,0,0,0,0,0,0,1,1,1,0,0,0,1,0,0,1,0,0,1,1,1,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,soft? ,pine,,
+205,2002.0219,rizal,philippines,"singapore art museum, national heritage board",stretcher original,,oil_x001D__x001D_,,,2.0,1.0,2.0,1,1,0,0,1,1,0,0,1,0,1,1,0,0,0,0,0,1,1,0,0,0,0,1,0,0,0,0,0,1,1,0,0,1,0,1,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,soft? ,local? Philippines,,
+206,1999.1627,king rama iii,thailand,"singapore art museum, national heritage board",stretcher new,,oil_x001D__x001D_,,,2.0,3.0,2.0,0,1,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,1,0,1,0,1,1,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,hard?,,Thailand,local?
+207,2002.217,Fish Pond in Malabon,philippines,"singapore art museum, national heritage board",stretcher original,to face edge,oil,pencil underdrawing,,2.0,2.0,2.0,1,1,0,0,0,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,0,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,hard?,,Philippines,local?
