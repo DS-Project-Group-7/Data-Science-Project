@@ -78,7 +78,11 @@ CategoricalColumnsDict={
 "To reverse/face edge": [129,130],
 "media type 1":[112],
 "media type 2":[113],
-"media type 3":[114]
+"media type 3":[114],
+"Wood type hardness":[76],
+"Wood type":[77],
+"Wood type Country":[78],
+"Wood type locality":[79]
 }
 
 OrdinalColumnsDict={
@@ -87,12 +91,6 @@ OrdinalColumnsDict={
 "Painting support condition":[132,133,134,135]
 }
 
-TextColumnsDict={
-    "Wood type hardness":76,
-    "Wood type":77,
-    "Wood type Country":78,
-    "Wood type locality":79
-}
 
 def main(dataFile):
     cleanDataDf = pd.DataFrame()
@@ -107,8 +105,6 @@ def main(dataFile):
     for feature in BooleanColumnsDict:
         cleanDataDf[feature]= makeBoolCol(originalDataDf, BooleanColumnsDict[feature])
     
-    for feature in TextColumnsDict:
-        cleanDataDf[feature]= makeTextCol(originalDataDf, TextColumnsDict[feature])
 
     #The media ground layer quality has multiple values.
     #Ground layer to side or face edge also has a record with multiple values
@@ -124,14 +120,6 @@ def makeBoolCol(originalDf, index):
     """
     return((~originalDf.iloc[:,index].isnull()).astype(int))
 
-
-def makeTextCol(originalDf, index):
-    """ Create a proper boolean feature from a column which values would either be present or absent
-    originalDf : pandas dataframe of original data
-    index : index of the column
-    colName: name of the fused column
-    """
-    return(originalDf.iloc[:,index])
     
 
 def fuseCategColumns(originalDf,indexList, colName):
