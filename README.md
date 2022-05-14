@@ -7,6 +7,7 @@
 - Haonan Zhong
 - Xuan Hung Ho
 - Haocong Chen
+
 Semester 1 report link: https://www.overleaf.com/4921323277ssytxptqyyqw
 
 ## Directory
