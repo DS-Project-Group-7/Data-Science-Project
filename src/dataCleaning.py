@@ -71,6 +71,7 @@ BooleanColumnsDict = {
 CategoricalColumnsDict = {
     "Accession number": [0],
     "Title": [12],
+    "Date": [13],
     "Country": [14],
     "Collection": [15],
     "Support Type": [46, 47, 48, 49],
