@@ -5,22 +5,26 @@
 library(shiny)
 library(shinythemes)
 library(shinydashboard)
+library(dashboardthemes)
 source('helper.R')
+# https://d2h9b02ioca40d.cloudfront.net/v6.0.1/assets/lockup-70679.png
 
 header <- dashboardHeader(
   title = tags$a(href='https://bit.ly/3zmFzns', target = "_blank",
                  tags$img(src='https://bit.ly/3cSvLu7',
                           height='40', width='160')),
-  titleWidth = 340,
+  titleWidth = 350,
   dropdownMenuCustom(type = "message",
                      customSentence = customSentence,
                      messageItem(
                        from = "Email us for support",
                        message = "",
-                       icon = icon("envelope"),
+                       icon = icon("paper-plane"),
                        href = "mailto:haonanz1@student.unimelb.edu.au"
                      ),
-                     icon = icon('comment')
+                     icon = icon("comment", class = "mystyle"),
+                     tags$style(".mystyle {color:black;}")
+                     
   )
 )
 
@@ -52,9 +56,13 @@ sidebar <- dashboardSidebar(
 )
 
 body <- dashboardBody(
+  customTheme,
+  
   tabItems(
     tabItem("malaymaterial",
-            "Malaysia material tab content"
+            fluidPage(
+              titlePanel("National Art Gallery of Malaysia Material Summary")
+            )
     ),
     tabItem("malaycondition",
             "Malaysia condition tab content"
@@ -87,7 +95,7 @@ body <- dashboardBody(
 )
 
 
-ui <- dashboardPage(skin = "black",
+ui <- dashboardPage(
                     header, 
                     sidebar, 
                     body
