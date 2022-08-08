@@ -148,3 +148,8 @@ customTheme <- shinyDashboardThemeDIY(
   ,tableBorderTopSize = "5"
   ,tableBorderRowSize = "4"
 )
+
+content_phil <- paste(sep = "<br/>",
+                 "<b><a href='https://vargasmuseum.wordpress.com'>JB Vargas Museum</a></b>",
+                 "Museum Collection: "
+)

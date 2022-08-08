@@ -3,6 +3,7 @@
 #
 
 library(shiny)
+library(leaflet)
 library(shinythemes)
 library(shinydashboard)
 library(dashboardthemes)
@@ -31,6 +32,10 @@ header <- dashboardHeader(
 sidebar <- dashboardSidebar(
   width = 350,
   sidebarMenu(
+    menuItem("Home",
+             tabName = "home",
+             selected = T,
+             icon = icon("house-user")),
     menuItem("National Art Gallery (Malaysia)",
              tabName = "malay",
              menuSubItem("Material", tabName = "malaymaterial"),
@@ -59,6 +64,12 @@ body <- dashboardBody(
   customTheme,
   
   tabItems(
+    tabItem("home",
+            fluidPage(
+              titlePanel("Welcome to the Southeast Asia Painting Conservation Dashboard!"),
+              leafletOutput("mymap", height = 600)
+            )
+    ),
     tabItem("malaymaterial",
             fluidPage(
               titlePanel("National Art Gallery of Malaysia Material Summary")
