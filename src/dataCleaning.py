@@ -8,89 +8,89 @@ from pyparsing import col
 # Definition of Dictionaries that link a wanted new feature to the index of the the ones they are computed from
 # Eg. New feature "Support Type" from CategoricalColumnsDict will refer to columns 9 and 13 of the originial excel data file.
 BooleanColumnsDict = {
-    "Original suppport": 45,
-    "planar (auxiliary support)": 56,
-    "warped (auxiliary support)": 57,
-    "mould (auxiliary support)": 58,
-    "surface dirt (auxiliary support)": 59,
-    "staining (auxiliary support)": 60,
-    "insect damage (auxiliary support)": 61,
-    "accretions (auxiliary support)": 62,
-    "indentations (auxiliary support)": 63,
-    "prev. treatment (auxiliary support)": 50,
-    "joins unstable (auxiliary support)": 51,
-    "joins split (auxiliary support)": 52,
-    "joins not flat (auxiliary support)": 53,
-    "Adhered well to support": 80,
-    "cracking (media)": 81,
-    "cleavage (media)": 82,
-    "flaking (media)": 83,
-    "losses (media)": 84,
-    "abrasions (media)": 85,
-    "surface dirt (media)": 86,
-    "accretions (media)": 87,
-    "discolouration (media)": 88,
-    "overpainting (media)": 89,
-    "Commercial ground": 120,
-    "Artist applied ground": 121,
-    "size layer visible": 122,
-    "thickly applied": 123,
-    "thinly applied": 124,
-    "coloured ground": 125,
+    "original_suppport": 45,
+    "planar_auxiliary_support": 56,
+    "warped_auxiliary_support": 57,
+    "mould_auxiliary_support": 58,
+    "surface_dirt_auxiliary_support": 59,
+    "staining_auxiliary_support": 60,
+    "insect_damage_auxiliary_support": 61,
+    "accretions_auxiliary_support": 62,
+    "indentations_auxiliary_support": 63,
+    "prev_treatment_auxiliary_support": 50,
+    "joins_unstable_auxiliary_support": 51,
+    "joins_split_auxiliary_support": 52,
+    "joins_not_flat_auxiliary_support": 53,
+    "adhered_well_to_support": 80,
+    "cracking_media": 81,
+    "cleavage_media": 82,
+    "flaking_media": 83,
+    "losses_media": 84,
+    "abrasions_media": 85,
+    "surface dirt_media": 86,
+    "accretions_media": 87,
+    "discolouration_media": 88,
+    "overpainting_media": 89,
+    "commercial_ground": 120,
+    "artist_applied_ground": 121,
+    "size_layer_visible": 122,
+    "thickly_applied": 123,
+    "thinly_applied": 124,
+    "coloured_ground": 125,
     "id sulphate": 126,
-    "uniform application": 127,
-    "id carbonate": 128,
-    "ground proprietary paint?": 131,
-    "prev. treatment (ground)": 136,
-    "Appears Plastic": 108,
-    "Appears Elastic": 109,
-    "dry cured": 110,
+    "uniform_application": 127,
+    "id_carbonate": 128,
+    "ground_proprietary_paint": 131,
+    "prev_treatment_ground": 136,
+    "appears_plastic": 108,
+    "appears_elastic": 109,
+    "dry_cured": 110,
     "infilling": 111,
-    "planar (painting support)": 136,
+    "planar_painting_support": 136,
     "corner distortions painting support": 137,
-    "warped (painting support)": 138,
-    "indentations (painting support)": 139,
-    "good tension (painting support)": 140,
-    "holes (painting support)": 141,
-    "loose (painting support)": 142,
-    "tears (painting support)": 143,
-    "taut (painting support)": 144,
-    "surface dirt (painting support)": 145,
-    "mould (painting support)": 146,
-    "staining (painting support)": 147,
-    "overall distortions (painting support)": 148,
-    "insect damage (painting support)": 149,
-    "bottom distortions (painting support)": 150,
-    "rust stains on support (painting support)": 151,
-    "top distortions (painting support)": 152,
-    "deformation around tacks staples (painting support)": 153,
-    "tears around tacks staples (painting support)": 154,
-    "loss of tacks insecure support (painting support)": 155,
+    "warped_painting_support": 138,
+    "indentations_painting_support": 139,
+    "good_tension_painting_support": 140,
+    "holes_painting_support": 141,
+    "loose_painting_support": 142,
+    "tears_painting_support": 143,
+    "taut_painting_support": 144,
+    "surface_dirt_painting_support": 145,
+    "mould_painting_support": 146,
+    "staining_painting_support": 147,
+    "overall_distortions_painting_support": 148,
+    "insect_damage_painting_support": 149,
+    "bottom_distortions_painting_support": 150,
+    "rust_stains_on_support_painting_support": 151,
+    "top_distortions_painting_support": 152,
+    "deformation_around_tacks_staples_painting_support": 153,
+    "tears_around_tacks_staples_painting_support": 154,
+    "loss_of_tacks_insecure_support_painting_support": 155,
 }
 
 CategoricalColumnsDict = {
-    "Accession number": [0],
-    "Title": [12],
-    "Date": [13],
-    "Country": [14],
-    "Collection": [15],
-    "Support Type": [46, 47, 48, 49],
-    "To reverse/face edge": [129, 130],
-    "media type 1": [112],
-    "media type 2": [113],
-    "media type 3": [114],
-    "Wood type hardness": [76],
-    "Wood type": [77],
-    "Wood type Country": [78],
-    "Wood type locality": [79],
-    "Commentary Auxiliary support": [64],
-    "Sight": [7],
+    "accession_number": [0],
+    "title": [12],
+    "date": [13],
+    "country": [14],
+    "collection": [15],
+    "cupport Type": [46, 47, 48, 49],
+    "canvas_wrapping": [129, 130],
+    "media_type_1": [112],
+    "media_type_2": [113],
+    "media_type_3": [114],
+    "wood_type_hardness": [76],
+    "wood_type": [77],
+    "wood_type_country": [78],
+    "wood_type_locality": [79],
+    "commentary_auxiliary_support": [64],
+    "sight": [7],
 }
 
 OrdinalColumnsDict = {
-    "Auxiliary support Condition": [65, 66, 67, 68],
-    "Media Condition": [90, 91, 92, 93],
-    "Painting support condition": [132, 133, 134, 135],
+    "auxiliary_support_condition": [65, 66, 67, 68],
+    "media_condition": [90, 91, 92, 93],
+    "painting_support_condition": [132, 133, 134, 135],
 }
 
 
@@ -102,14 +102,18 @@ def main(dataFile):
         cleanDataDf[feature] = fuseCategColumns(
             originalDataDf, CategoricalColumnsDict[feature], feature
         )
-        if feature == "Collection":
+        if feature == "collection":
             cleanDataDf[feature] = cleanDataDf[feature].replace(
                 to_replace=".*([sS]ingapore).*",
                 value="National Heritage Board",
                 regex=True,
             )
-        elif feature == "Sight":
-            cleanDataDf["Area"] = computeArea(cleanDataDf, feature)
+        elif feature == "sight":
+            (
+                cleanDataDf["length"],
+                cleanDataDf["width"],
+                cleanDataDf["area"],
+            ) = computeLenWidthAndArea(cleanDataDf, feature)
 
     for feature in OrdinalColumnsDict:
         cleanDataDf[feature] = fuseOrdinalColumns(
@@ -191,7 +195,7 @@ def fuseOrdinalColumns(originalDf, orderedIndexList, colName):
     return newColumn[colName]
 
 
-def computeArea(oldDataframe, feature):
+def computeLenWidthAndArea(oldDataframe, feature):
     """
     Extract the length and the width of all paintings and calculate their areas.
     """
@@ -201,7 +205,11 @@ def computeArea(oldDataframe, feature):
     lenWidDfNan = lengthWidthDf.fillna(0).astype(
         float
     )  # transforms nans into 0s (nans are rows where there is a missing value for 'sight')
-    return lenWidDfNan.iloc[:, 0] * lenWidDfNan.iloc[:, 1]
+    return (
+        lenWidDfNan.iloc[:, 0],
+        lenWidDfNan.iloc[:, 1],
+        lenWidDfNan.iloc[:, 0] * lenWidDfNan.iloc[:, 1],
+    )
 
 
 def parseArguments():
