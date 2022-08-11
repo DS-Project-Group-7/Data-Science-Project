@@ -74,7 +74,7 @@ CategoricalColumnsDict = {
     "date": [13],
     "country": [14],
     "collection": [15],
-    "cupport Type": [46, 47, 48, 49],
+    "support_type": [46, 47, 48, 49],
     "canvas_wrapping": [129, 130],
     "media_type_1": [112],
     "media_type_2": [113],
