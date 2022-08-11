@@ -85,6 +85,8 @@ CategoricalColumnsDict = {
     "wood_type_locality": [79],
     "commentary_auxiliary_support": [64],
     "sight": [7],
+    "relationship_cracks_aux_support": [157],
+    "cracks_mechanically_induced": [158],
 }
 
 OrdinalColumnsDict = {
@@ -99,21 +101,44 @@ def main(dataFile):
     originalDataDf = pd.read_excel(dataFile)
 
     for feature in CategoricalColumnsDict:
-        cleanDataDf[feature] = fuseCategColumns(
-            originalDataDf, CategoricalColumnsDict[feature], feature
-        )
-        if feature == "collection":
-            cleanDataDf[feature] = cleanDataDf[feature].replace(
-                to_replace=".*([sS]ingapore).*",
-                value="National Heritage Board",
-                regex=True,
+        if feature == "relationship_cracks_aux_support":
+            cleanDataDf[
+                "corner_relationship_cracks_and_aux_support"
+            ] = createCornerRelationCracksColumn(
+                originalDataDf, CategoricalColumnsDict[feature]
             )
-        elif feature == "sight":
-            (
-                cleanDataDf["length"],
-                cleanDataDf["width"],
-                cleanDataDf["area"],
-            ) = computeLenWidthAndArea(cleanDataDf, feature)
+            cleanDataDf[
+                "parallel_relationship_cracks_and_aux_support"
+            ] = createParallelRelationCracksColumn(
+                originalDataDf, CategoricalColumnsDict[feature]
+            )
+
+        # elif feature == "cracks_mechanically_induced":
+        #    (
+        #        cleanDataDf["aged_cracks_mecha1"],
+        #        cleanDataDf["aged_cracks_mecha2"],
+        #        cleanDataDf["aged_cracks_mecha3"],
+        #        cleanDataDf["aged_cracks_mecha4"],
+        #    ) = createAgedCracksMechColumns(
+        #        originalDataDf, CategoricalColumnsDict[feature]
+        #    )
+
+        else:
+            cleanDataDf[feature] = fuseCategColumns(
+                originalDataDf, CategoricalColumnsDict[feature], feature
+            )
+            if feature == "collection":
+                cleanDataDf[feature] = cleanDataDf[feature].replace(
+                    to_replace=".*([sS]ingapore).*",
+                    value="National Heritage Board",
+                    regex=True,
+                )
+            elif feature == "sight":
+                (
+                    cleanDataDf["length"],
+                    cleanDataDf["width"],
+                    cleanDataDf["area"],
+                ) = computeLenWidthAndArea(cleanDataDf, feature)
 
     for feature in OrdinalColumnsDict:
         cleanDataDf[feature] = fuseOrdinalColumns(
@@ -202,14 +227,67 @@ def computeLenWidthAndArea(oldDataframe, feature):
     lengthWidthDf = oldDataframe[feature].str.extract(
         r"(\d+\.*\d+)(?:\s*[xX]\s*)(\d+\.*\d+)", expand=False
     )
-    lenWidDfNan = lengthWidthDf.fillna(0).astype(
+    nonEmptyLenWidDf = lengthWidthDf.fillna(0).astype(
         float
     )  # transforms nans into 0s (nans are rows where there is a missing value for 'sight')
     return (
-        lenWidDfNan.iloc[:, 0],
-        lenWidDfNan.iloc[:, 1],
-        lenWidDfNan.iloc[:, 0] * lenWidDfNan.iloc[:, 1],
+        nonEmptyLenWidDf.iloc[:, 0],
+        nonEmptyLenWidDf.iloc[:, 1],
+        nonEmptyLenWidDf.iloc[:, 0] * nonEmptyLenWidDf.iloc[:, 1],
     )
+
+
+def createCornerRelationCracksColumn(oldDataframe, index):
+    """
+    Read the information in the `Relationship of cracks to aux. support` column and create the column of `corner cracks`.
+    The values of this new column can either be none, circle or bissector, depending on the information in the original table.
+    """
+    oldDataSeries = oldDataframe.iloc[:, index].squeeze()
+    cornerInfoDf = oldDataSeries.str.extract(r"corner\s*(\S+)", expand=False)
+    nonEmptCornerInfoDf = cornerInfoDf.fillna("none").astype(
+        str
+    )  # transforms nans into "none" (nans are rows where no match was found)
+    return nonEmptCornerInfoDf
+
+
+def createParallelRelationCracksColumn(oldDataframe, index):
+    """
+    Read the information in the `Relationship of cracks to aux. support` column and create the column of `parallel cracks`.
+    The values of this new column can either be none, top member, to all edges, vertical members, bottom member, crossbar or horizontal, depending on the information in the original table.
+    """
+    oldDataSeries = oldDataframe.iloc[:, index].squeeze()
+    paraInfoDf = oldDataSeries.str.extract(
+        r"(?:parallel|paarellel).+(top|bottom|right|left|hoizontal|vertical|all|cross)",
+        expand=False,
+    )
+    nonEmptParaInfoDf = paraInfoDf.fillna("none").astype(
+        str
+    )  # transforms nans into "none" (nans are rows where no match was found)
+    nonEmptParaInfoDf = nonEmptParaInfoDf.str.replace("cross", "cross bar")
+    nonEmptParaInfoDf = nonEmptParaInfoDf.str.replace("all", "all edges")
+    nonEmptParaInfoDf = nonEmptParaInfoDf.str.replace("hoizontal", "horizontal members")
+    nonEmptParaInfoDf = nonEmptParaInfoDf.str.replace("vertical", "vertical members")
+    nonEmptParaInfoDf = nonEmptParaInfoDf.str.replace("top", "top member")
+    nonEmptParaInfoDf = nonEmptParaInfoDf.str.replace("bottom", "bottom member")
+    nonEmptParaInfoDf = nonEmptParaInfoDf.str.replace("left", "left member")
+    nonEmptParaInfoDf = nonEmptParaInfoDf.str.replace("right", "right member")
+    return nonEmptParaInfoDf
+
+
+# def createAgedCracksMechColumns(df, index):
+#    """
+#    Returns 5 different columns extracted from the "aged cracks mechanically induced sharp edges dark shadows" column
+#    """
+#    oldDataSeries = df.iloc[:, index].squeeze()
+#    agedCracksInfoDf = oldDataSeries.str.findall(r"([\w\s]*)_x001D_")
+#    nonEmptAgedCracksInfoDf = agedCracksInfoDf.fillna("none").astype(str)
+#    print(nonEmptAgedCracksInfoDf.head())
+#    return (
+#        nonEmptAgedCracksInfoDf.iloc[:, 0],
+#        nonEmptAgedCracksInfoDf.iloc[:, 1],
+#        nonEmptAgedCracksInfoDf.iloc[:, 2],
+#        nonEmptAgedCracksInfoDf.iloc[:, 3],
+#    )
 
 
 def parseArguments():
