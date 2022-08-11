@@ -87,6 +87,7 @@ CategoricalColumnsDict = {
     "sight": [7],
     "relationship_cracks_aux_support": [157],
     "cracks_mechanically_induced": [158],
+    "location_of_cracks": [160],
 }
 
 OrdinalColumnsDict = {
@@ -113,16 +114,24 @@ def main(dataFile):
                 originalDataDf, CategoricalColumnsDict[feature]
             )
 
-        # elif feature == "cracks_mechanically_induced":
-        #    (
-        #        cleanDataDf["aged_cracks_mecha1"],
-        #        cleanDataDf["aged_cracks_mecha2"],
-        #        cleanDataDf["aged_cracks_mecha3"],
-        #        cleanDataDf["aged_cracks_mecha4"],
-        #    ) = createAgedCracksMechColumns(
-        #        originalDataDf, CategoricalColumnsDict[feature]
-        #    )
+        elif feature == "cracks_mechanically_induced":
+            (
+                cleanDataDf["aged_cracks_mecha1"],
+                cleanDataDf["aged_cracks_mecha2"],
+                cleanDataDf["aged_cracks_mecha3"],
+                cleanDataDf["aged_cracks_mecha4"],
+                cleanDataDf["aged_cracks_mecha5"],
+            ) = createAgedCracksMechColumns(
+                originalDataDf, CategoricalColumnsDict[feature]
+            )
 
+        elif feature == "location_of_cracks":
+            (
+                cleanDataDf["crack_location_1"],
+                cleanDataDf["crack_location_2"],
+            ) = createCrackLocationColumns(
+                originalDataDf, CategoricalColumnsDict[feature]
+            )
         else:
             cleanDataDf[feature] = fuseCategColumns(
                 originalDataDf, CategoricalColumnsDict[feature], feature
@@ -274,20 +283,35 @@ def createParallelRelationCracksColumn(oldDataframe, index):
     return nonEmptParaInfoDf
 
 
-# def createAgedCracksMechColumns(df, index):
-#    """
-#    Returns 5 different columns extracted from the "aged cracks mechanically induced sharp edges dark shadows" column
-#    """
-#    oldDataSeries = df.iloc[:, index].squeeze()
-#    agedCracksInfoDf = oldDataSeries.str.findall(r"([\w\s]*)_x001D_")
-#    nonEmptAgedCracksInfoDf = agedCracksInfoDf.fillna("none").astype(str)
-#    print(nonEmptAgedCracksInfoDf.head())
-#    return (
-#        nonEmptAgedCracksInfoDf.iloc[:, 0],
-#        nonEmptAgedCracksInfoDf.iloc[:, 1],
-#        nonEmptAgedCracksInfoDf.iloc[:, 2],
-#        nonEmptAgedCracksInfoDf.iloc[:, 3],
-#    )
+def createAgedCracksMechColumns(df, index):
+    """
+    Returns 5 different columns extracted from the "aged cracks mechanically induced sharp edges dark shadows" column
+    """
+    oldDataSeries = df.iloc[:, index].squeeze()
+    agedCracksInfoDf = oldDataSeries.str.split(pat="_x001D_", expand=True)
+    nonEmptAgedCracksInfoDf = agedCracksInfoDf.fillna("none").astype(str)
+    return (
+        nonEmptAgedCracksInfoDf.iloc[:, 0],
+        nonEmptAgedCracksInfoDf.iloc[:, 1],
+        nonEmptAgedCracksInfoDf.iloc[:, 2],
+        nonEmptAgedCracksInfoDf.iloc[:, 3],
+        nonEmptAgedCracksInfoDf.iloc[:, 4],
+    )
+
+
+def createCrackLocationColumns(df, index):
+    """
+    Returns 2 different columns extracted from the "location of cracks" column
+
+    Might be a good idea to generalise this function with the previous one
+    """
+    oldDataSeries = df.iloc[:, index].squeeze()
+    agedCracksInfoDf = oldDataSeries.str.split(pat="_x001D_", expand=True)
+    nonEmptAgedCracksInfoDf = agedCracksInfoDf.fillna("none").astype(str)
+    return (
+        nonEmptAgedCracksInfoDf.iloc[:, 0],
+        nonEmptAgedCracksInfoDf.iloc[:, 1],
+    )
 
 
 def parseArguments():
