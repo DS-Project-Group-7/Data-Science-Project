@@ -1,9 +1,11 @@
 from calendar import c
+from multiprocessing.sharedctypes import Value
 import numpy as np
 import pandas as pd
 import argparse
 
 from pyparsing import col
+import regex
 
 # Definition of Dictionaries that link a wanted new feature to the index of the the ones they are computed from
 # Eg. New feature "Support Type" from CategoricalColumnsDict will refer to columns 9 and 13 of the originial excel data file.
@@ -93,6 +95,7 @@ CategoricalColumnsDict = {
 OrdinalColumnsDict = {
     "auxiliary_support_condition": [65, 66, 67, 68],
     "media_condition": [90, 91, 92, 93],
+    "ground_condition": [115, 116, 117, 118],
     "painting_support_condition": [132, 133, 134, 135],
 }
 
@@ -139,7 +142,22 @@ def main(dataFile):
             if feature == "collection":
                 cleanDataDf[feature] = cleanDataDf[feature].replace(
                     to_replace=".*([sS]ingapore).*",
-                    value="National Heritage Board",
+                    value="Heritage Conservation Board (Singapore)",
+                    regex=True,
+                )
+                cleanDataDf[feature] = cleanDataDf[feature].replace(
+                    to_replace=".*([mM]alaysia).*",
+                    value="National Art Gallery (Malaysia)",
+                    regex=True,
+                )
+                cleanDataDf[feature] = cleanDataDf[feature].replace(
+                    to_replace=".*([pP]hilippines).*",
+                    value="Vargas Museum (Philippines)",
+                    regex=True,
+                )
+                cleanDataDf[feature] = cleanDataDf[feature].replace(
+                    to_replace=".*([bB]angkok).*",
+                    value="National Gallery (Thailand)",
                     regex=True,
                 )
             elif feature == "sight":
@@ -148,6 +166,8 @@ def main(dataFile):
                     cleanDataDf["width"],
                     cleanDataDf["area"],
                 ) = computeLenWidthAndArea(cleanDataDf, feature)
+            elif feature == "date":
+                cleanDataDf["decade"] = transformDatesToDecades(cleanDataDf, feature)
 
     for feature in OrdinalColumnsDict:
         cleanDataDf[feature] = fuseOrdinalColumns(
@@ -312,6 +332,25 @@ def createCrackLocationColumns(df, index):
         nonEmptAgedCracksInfoDf.iloc[:, 0],
         nonEmptAgedCracksInfoDf.iloc[:, 1],
     )
+
+
+def transformDatesToDecades(df, feature):
+    """
+    Extract all the dates from the date column and display the decade they are in.
+    If the format of the "date" record is "dddd - dddd", it computes the averages of both dates and shows the decade of the average.
+    """
+    # First we separate the record with a "dddd-dddd" format into two columns
+    allDatesDf = df[feature].str.extract(r"(\d{4})(?:-(\d{4}))*", expand=False)
+    nonEmptyAllDatesDf = allDatesDf.fillna(0).astype(float)
+
+    # Then we regroup everything into one column of average
+    avgDatesDf = (
+        nonEmptyAllDatesDf.iloc[:, 0] + nonEmptyAllDatesDf.iloc[:, 0:1].max(axis=1)
+    ) / 2
+
+    # Transform the result into the decade
+    decadDf = round(avgDatesDf / 10) * 10
+    return decadDf.astype(int)
 
 
 def parseArguments():
