@@ -3,6 +3,7 @@ from multiprocessing.sharedctypes import Value
 import numpy as np
 import pandas as pd
 import argparse
+import math
 
 from pyparsing import col
 import regex
@@ -342,14 +343,15 @@ def transformDatesToDecades(df, feature):
     # First we separate the record with a "dddd-dddd" format into two columns
     allDatesDf = df[feature].str.extract(r"(\d{4})(?:-(\d{4}))*", expand=False)
     nonEmptyAllDatesDf = allDatesDf.fillna(0).astype(float)
-
     # Then we regroup everything into one column of average
     avgDatesDf = (
-        nonEmptyAllDatesDf.iloc[:, 0] + nonEmptyAllDatesDf.iloc[:, 0:1].max(axis=1)
+        nonEmptyAllDatesDf.iloc[:, 0] + nonEmptyAllDatesDf.iloc[:, 0:2].max(axis=1)
     ) / 2
 
     # Transform the result into the decade
-    decadDf = round(avgDatesDf / 10) * 10
+    dividedDf = avgDatesDf / 10
+    flooredDf = dividedDf.apply(math.floor)
+    decadDf = flooredDf * 10
     return decadDf.astype(int)
 
 
