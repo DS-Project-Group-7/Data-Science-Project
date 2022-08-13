@@ -6,9 +6,9 @@ library(shiny)
 library(leaflet)
 library(shinythemes)
 library(shinydashboard)
+library(highcharter)
 library(dashboardthemes)
 source('helper.R')
-# https://d2h9b02ioca40d.cloudfront.net/v6.0.1/assets/lockup-70679.png
 
 header <- dashboardHeader(
   title = tags$a(href='https://bit.ly/3zmFzns', target = "_blank",
@@ -36,27 +36,20 @@ sidebar <- dashboardSidebar(
              tabName = "home",
              selected = T,
              icon = icon("house-user")),
+    menuItem("Summary", tabName = "summary",
+             icon = icon("plus")),
     menuItem("National Art Gallery (Malaysia)",
              tabName = "malay",
-             menuSubItem("Material", tabName = "malaymaterial"),
-             menuSubItem("Condition", tabName = "malaycondition"),
              icon = icon("landmark")),
-    menuItem("J.B. Vargas Museum (Philippines)",
-             menuSubItem("Material", tabName = "philimaterial"),
-             menuSubItem("Condition", tabName = "philicondition"),
+    menuItem("Vargas Museum (Philippines)",
+             tabName = "phil",
              icon = icon("landmark")),
     menuItem("Heritage Conservation Board (Singapore)",
-             menuSubItem("Material", tabName = "singmaterial"),
-             menuSubItem("Condition", tabName = "singcondition"),
+             tabName = "sing",
              icon = icon("landmark")),
     menuItem("National Gallery (Thailand)",
-             menuSubItem("Material", tabName = "thaimaterial"),
-             menuSubItem("Condition", tabName = "thaicondition"),
-             icon = icon("landmark")),
-    menuItem("Summary",
-             menuSubItem("Material", tabName = "summaterial"),
-             menuSubItem("Condition", tabName = "sumcondition"),
-             icon = icon("plus"))
+             tabName = "thai",
+             icon = icon("landmark"))
   )
 )
 
@@ -70,37 +63,62 @@ body <- dashboardBody(
               leafletOutput("mymap", height = 600)
             )
     ),
-    tabItem("malaymaterial",
+    tabItem("summary",
+            navbarPage("Material Summary",
+                       tabPanel("Auxiliary Support"),
+                       tabPanel("Painting Support",
+                                fluidRow(
+                                  column(12, highchartOutput("PS_eval"))
+                                ),
+                                sidebarLayout(
+                                  sidebarPanel(selectInput("PS", "Choose a support condition:",
+                                                        list("Planar" = 'planar_painting_support',
+                                                             "Warped" = 'warped_painting_support',
+                                                             "Indentation" = 'indentations_painting_support',
+                                                             "Positive Tension" = 'good_tension_painting_support',
+                                                             "Holes" = 'holes_painting_support',
+                                                             "Loose" = 'loose_painting_support',
+                                                             "Tears" = 'tears_painting_support',
+                                                             "Taunt" = 'taut_painting_support',
+                                                             "Surface Dirt" = 'surface_dirt_painting_support',
+                                                             "Mould" = 'mould_painting_support',
+                                                             "Stains" = 'staining_painting_support',
+                                                             "Corner Distortion" = 'corner_distortions_painting_support',
+                                                             "Top Distortion" = 'top_distortions_painting_support',
+                                                             "Bottom Distortion" = 'bottom_distortions_painting_support',
+                                                             "Overall Distortion" = 'overall_distortions_painting_support',
+                                                             "Insect Damage" = 'insect_damage_painting_support',
+                                                             "Rust Stain" = 'rust_stains_on_support_painting_support',
+                                                             "Deformation Around Tack Staples" = 'deformation_around_tacks_staples_painting_support',
+                                                             "Tears Around Tack Staples" = 'tears_around_tacks_staples_painting_support',
+                                                             "Loss of Tacks" = 'loss_of_tacks_insecure_support_painting_support'))
+                                  ),
+                                  mainPanel(highchartOutput("PS_planar"))
+                                )
+                       ),
+                       tabPanel("Ground Layer"),
+                       tabPanel("Paint Layer"),
+                       tabPanel("Frame"))
+    ),
+    tabItem("malay",
             fluidPage(
               titlePanel("National Art Gallery of Malaysia Material Summary")
             )
     ),
-    tabItem("malaycondition",
-            "Malaysia condition tab content"
+    tabItem("phil",
+            fluidPage(
+              titlePanel("Vargas Museun Material Summary")
+            )
     ),
-    tabItem("philimaterial",
-            "Philippine material tab content"
+    tabItem("sing",
+            fluidPage(
+              titlePanel("National Heritage Board Material Summary")
+            )
     ),
-    tabItem("philicondition",
-            "Philippine condition tab content"
-    ),
-    tabItem("singmaterial",
-            "Singapore material tab content"
-    ),
-    tabItem("singcondition",
-            "Singapore condition tab content"
-    ),
-    tabItem("thaimaterial",
-            "Thailand material tab content"
-    ),
-    tabItem("thaicondition",
-            "Thailand condition tab content"
-    ),
-    tabItem("summaterial",
-            "Summary material tab content"
-    ),
-    tabItem("sumcondition",
-            "Summary condition tab content"
+    tabItem("thai",
+            fluidPage(
+              titlePanel("National Art Gallery Thailand Material Summary")
+            )
     )
   )
 )

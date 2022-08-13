@@ -1,24 +1,51 @@
-
-
 library(shiny)
 library(sf)
 library(rgdal)
 library(leaflet)
 library(shinythemes)
 library(shinydashboard)
+library(highcharter)
+library(dplyr)
 library(dashboardthemes)
 source('helper.R')
 
+options(highcharter.theme = hc_theme_google())
+art <- read.csv("/Users/greysonchung/Desktop/Data-Science-Project/data/cleanData.csv")
 
 shinyServer(function(input, output) {
   output$mymap <- renderLeaflet({
     
-    leaflet() 
-      addTiles() %>% addProviderTiles(providers$CartoDB.Positron) %>%
+    leaflet() %>% # setView(lat = 10, lng = 115, zoom = 5.4) %>%
+      addTiles() %>% addProviderTiles(providers$CartoDB.Voyager) %>%
       addPopups(lat = 14.65385, lng = 121.06821, content_phil,
                 options = popupOptions(closeOnClick = F, keepInView = T)) %>%
-      addMarkers(lat = 3.1731, lng = 101.705246) %>%
-      addMarkers(lat = 1.32631052396, lng = 103.845852286) %>%
-      addMarkers(lat = 13.758915, lng = 100.49393)
+      addPopups(lat = 3.1731, lng = 101.705246, content_mala,
+                options = popupOptions(closeOnClick = F, keepInView = T)) %>%
+      addPopups(lat = 1.32631052396, lng = 103.845852286, content_sing,
+                options = popupOptions(closeOnClick = F, keepInView = T)) %>%
+      addPopups(lat = 13.758915, lng = 100.49393, content_thai,
+                options = popupOptions(closeOnClick = F, keepInView = T))
+  })
+  
+  output$PS_eval <- renderHighchart({
+    art %>% count(painting_support_condition, collection) %>%
+      hchart("column", stacking = "normal",
+             hcaes(x = painting_support_condition, y = n, group = collection)) %>%
+      hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
+      hc_xAxis(title = list(text = "Condition"), 
+               categories = c("Poor", "Fair", "Good", "Excellent")) %>%
+      hc_yAxis(title = list(text = "Number of Paintings")) %>%
+      hc_title(text = "Painting Support Condition")
+  })
+  
+  output$PS_planar <- renderHighchart({
+    art %>% count(planar_painting_support, collection) %>%
+      hchart("column", stacking = "normal",
+             hcaes(x = planar_painting_support, y = n, group = collection)) %>%
+      hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
+      hc_xAxis(title = list(text = "Planar"),
+               categories = c("No", "Yes")) %>%
+      hc_yAxis(title = list(text = "Number of Paintings")) %>%
+      hc_title(text = "Planar")
   })
 })

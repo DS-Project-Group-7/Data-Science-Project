@@ -2,10 +2,6 @@ customSentence <- function(numItems, type) {
   paste("Contact us")
 }
 
-customSentence_share <- function(numItems, type) {
-  paste("Love it? Share it!")
-}
-
 ##
 dropdownMenuCustom <- function (..., type = c("messages", "notifications", "tasks"), 
                                 badgeStatus = "primary", icon = NULL, .list = NULL, customSentence = customSentence) {
@@ -151,5 +147,24 @@ customTheme <- shinyDashboardThemeDIY(
 
 content_phil <- paste(sep = "<br/>",
                  "<b><a href='https://vargasmuseum.wordpress.com'>JB Vargas Museum</a></b>",
-                 "Museum Collection: "
+                 "Museum Collection: 59"
 )
+
+content_mala <- paste(sep = "<br/>",
+                 "<b><a href='https://www.artgallery.gov.my/en/homepage/'>National Art Gallery (Malaysia)</a></b>",
+                 "Museum Collection: 53"
+)
+
+content_sing <- paste(sep = "<br/>",
+                      "<b><a href='https://www.nhb.gov.sg'>National Heritage Board</a></b>",
+                      "Museum Collection: 63"
+)
+
+content_thai <- paste(sep = "<br/>",
+                      "<b><a href='https://www.museumthailand.com/en/museum/The-National-Gallery-Hor-Silp-Chao-Fa'>National Art Gallery (Thailand)</a></b>",
+                      "Museum Collection: 33"
+)
+
+
+
+
