@@ -39,13 +39,13 @@ shinyServer(function(input, output) {
   })
   
   output$PS_planar <- renderHighchart({
-    art %>% count(planar_painting_support, collection) %>%
+    art %>% count(!!sym(input$PS), collection) %>%
       hchart("column", stacking = "normal",
-             hcaes(x = planar_painting_support, y = n, group = collection)) %>%
+             hcaes(x = !!sym(input$PS), y = n, group = collection)) %>%
       hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
-      hc_xAxis(title = list(text = "Planar"),
+      hc_xAxis(title = list(text = names(PS_choiceVec)[PS_choiceVec == input$PS]),
                categories = c("No", "Yes")) %>%
       hc_yAxis(title = list(text = "Number of Paintings")) %>%
-      hc_title(text = "Planar")
+      hc_title(text = names(PS_choiceVec)[PS_choiceVec == input$PS])
   })
 })

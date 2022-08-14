@@ -71,7 +71,7 @@ body <- dashboardBody(
                                   column(12, highchartOutput("PS_eval"))
                                 ),
                                 sidebarLayout(
-                                  sidebarPanel(selectInput("PS", "Choose a support condition:",
+                                  sidebarPanel(selectInput("PS", "Choose a support condition to view a brief summary:",
                                                         list("Planar" = 'planar_painting_support',
                                                              "Warped" = 'warped_painting_support',
                                                              "Indentation" = 'indentations_painting_support',
