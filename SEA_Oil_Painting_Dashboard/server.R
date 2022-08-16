@@ -35,6 +35,33 @@ shinyServer(function(input, output) {
       hc_yAxis(title = list(text = "Number of Paintings")) %>%
       hc_title(text = "Painting Support Condition")
   })
+  
+  #Bar chart aux condition
+  output$AX_eval <- renderHighchart({
+    art %>% count(auxiliary_support_condition, collection) %>%
+      hchart("column", stacking = "normal",
+             hcaes(x = auxiliary_support_condition, y = n, group = collection)) %>%
+      hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
+      hc_xAxis(title = list(text = "Condition"), 
+               categories = c("Poor", "Fair", "Good" )) %>%
+      hc_yAxis(title = list(text = "Number of Paintings")) %>%
+      hc_title(text = "Auxiliary support condition")
+  })
+  
+  #Heat map aux condition
+  output$AX_heat <- renderHighchart({
+    art %>% group_by(!!sym(input$AX)) %>%
+      count(condition = auxiliary_support_condition) %>%
+      hchart("heatmap",
+             hcaes(x =  condition, y = !!sym(input$AX), value = n)) %>%
+      hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
+      hc_xAxis(title = list(text = "Aux Support Condition"), 
+               categories = c("Poor", "Fair", "Good" )) %>%
+      hc_yAxis(title = list(text = names(AX_choiceVec)[AX_choiceVec == input$AX]),
+               categories = c("No", "Yes")) %>%
+      hc_title(text = "Heatmap Auxiliary support condition")
+  })
+  
   #Bar chart options painting condition
   output$PS_planar <- renderHighchart({
     art %>% count(!!sym(input$PS), collection) %>%

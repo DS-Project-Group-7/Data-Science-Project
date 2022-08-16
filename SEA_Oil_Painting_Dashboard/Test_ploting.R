@@ -19,7 +19,7 @@ clean_data <-
 #Set Theme
 options(highcharter.theme = hc_theme_google())
 #Clean year to be decades
-clean_data$year<-paste0(substr(clean_data$date,1,3),"0s")
+#clean_data$year<-paste0(substr(clean_data$date,1,3),"0s")
 
 #Density area by time
 
@@ -91,6 +91,8 @@ hchart(
 #area -> media_condition  
 
 #Support type bar chart
+clean_data %>% count(auxiliary_support_condition, collection)
+
 sup_bar_data <-clean_data%>%
   select(
     country,
@@ -113,6 +115,21 @@ hchart(
 #heatmap
 #area vs time => overall condition
 
+test<-clean_data %>% 
+  group_by(planar_auxiliary_support,warped_auxiliary_support)%>%
+  summarise(Frequency = sum(auxiliary_support_condition))
+
+test<-clean_data%>%
+  count(auxiliary_support_condition,planar_auxiliary_support,warped_auxiliary_support)
+
+ggplot(test,aes(auxiliary_support_condition,planar_auxiliary_support,warped_auxiliary_support))+
+  geom_tile(aes(fill = n))
+
+
+
+
+
+  hchart(heatmap_data, "heatmap", hcaes(x = planar_auxiliary_support, y = warped_auxiliary_support, value = n), name = "Aux Condition")
 
 heatmap_data<-clean_data%>%
   group_by(
@@ -129,10 +146,10 @@ heatmap_data<-clean_data%>%
     #joins_split_auxiliary_support,
     #joins_not_flat_auxiliary_support
   )%>%
-  summarize(
-    condition = median(auxiliary_support_condition)
+  count(
+    condition = auxiliary_support_condition
   )
-hchart(heatmap_data, "heatmap", hcaes(x = planar_auxiliary_support, y = warped_auxiliary_support, value = condition), name = "Aux Condition")
+hchart(heatmap_data, "heatmap", hcaes(x = condition, y = planar_auxiliary_support, value = n), name = "Aux Condition")
 
 
 

@@ -65,7 +65,27 @@ body <- dashboardBody(
     ),
     tabItem("summary",
             navbarPage("Material Summary",
-                       tabPanel("Auxiliary Support"),
+                       tabPanel("Auxiliary Support",
+                                fluidRow(
+                                  column(12, highchartOutput("AX_eval"))
+                                ),
+                                sidebarLayout(
+                                  sidebarPanel(selectInput("AX", "Choose a support condition to view a brief summary:",
+                                                           list("Accretions" = 'accretions_auxiliary_support',
+                                                                "Indentations" = 'indentations_auxiliary_support',
+                                                                "Insect Damage" = 'insect_damage_auxiliary_support',
+                                                                "Joins Unstable" = 'joins_unstable_auxiliary_support',
+                                                                "Joins Split" = 'joins_split_auxiliary_support',
+                                                                "Joins not Flat" = 'joins_not_flat_auxiliary_support',
+                                                                "Mould" = 'mould_auxiliary_support',
+                                                                "Planar" = 'planar_auxiliary_support',
+                                                                "Surface Dirt" = 'surface_dirt_auxiliary_support',
+                                                                "Staining" = 'staining_auxiliary_support',
+                                                                "Warped" = 'warped_auxiliary_support'))
+                                  ),
+                                mainPanel(highchartOutput("AX_heat"))
+                                ),
+                       ),
                        tabPanel("Painting Support",
                                 fluidRow(
                                   column(12, highchartOutput("PS_eval"))

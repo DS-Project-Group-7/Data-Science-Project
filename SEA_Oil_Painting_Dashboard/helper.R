@@ -188,4 +188,18 @@ PS_choiceVec <- c(
   "Loss of Tacks" = 'loss_of_tacks_insecure_support_painting_support'
 )
 
+AX_choiceVec <- c(
+  "Accretions" = 'accretions_auxiliary_support',
+  "Indentations" = 'indentations_auxiliary_support',
+  "Insect Damage" = 'insect_damage_auxiliary_support',
+  "Joins Unstable" = 'joins_unstable_auxiliary_support',
+  "Joins Split" = 'joins_split_auxiliary_support',
+  "Joins not Flat" = 'joins_not_flat_auxiliary_support',
+  "Mould" = 'mould_auxiliary_support',
+  "Planar" = 'planar_auxiliary_support',
+  "Previous Treatment" = 'prev_treatment_auxiliary_support',
+  "Surface Dirt" = 'surface_dirt_auxiliary_support',
+  "Staining" = 'staining_auxiliary_support',
+  "Warped" = 'warped_auxiliary_support'
+)
 
