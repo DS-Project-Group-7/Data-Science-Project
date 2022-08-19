@@ -73,14 +73,15 @@ clean_data$area<-sapply(clean_data$area, function(x) x/100)
 
 den_data<-clean_data%>%
   select(
-    year,
-    area
+    decade,
+    area,
+    collection
   )
 
 
 hchart(
   density(den_data$area), 
-  type = "area", name = "area"
+  type = "area", name = "area" 
 )
 
 hchart(
