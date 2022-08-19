@@ -28,23 +28,29 @@ shinyServer(function(input, output) {
   })
   
   output$PS_eval <- renderHighchart({
-    art %>% count(painting_support_condition, collection) %>%
-      hchart("column", stacking = "normal",
-             hcaes(x = painting_support_condition, y = n, group = collection)) %>%
-      hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
-      hc_xAxis(title = list(text = "Condition"), 
-               categories = c("Poor", "Fair", "Good", "Excellent")) %>%
+    art %>% 
+      mutate(painting_support_condition = 
+               recode(painting_support_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good", "3" = "3 Excellent")) %>%
+      count(painting_support_condition, collection) %>%
+      hchart("bar", stacking = "normal",
+             hcaes(x = collection, y = n, group = painting_support_condition)) %>%
+      hc_xAxis(title = list(text = "Museum")) %>%
       hc_yAxis(title = list(text = "Number of Paintings")) %>%
-      hc_title(text = "Painting Support Condition")
+      hc_legend(title = list(text = "Condition Score"), reversed = TRUE) %>%
+      hc_title(text = "Painting Support Condition") %>%
+      hc_tooltip(pointFormat = tooltip_table(c("Support Condition:", "Number of paintings:"), 
+                 c("{point.painting_support_condition}", "{point.y}")), useHTML = TRUE)
   })
   
   output$PS_planar <- renderHighchart({
-    art %>% count(!!sym(input$PS), collection) %>%
-      hchart("column", stacking = "normal",
-             hcaes(x = !!sym(input$PS), y = n, group = collection)) %>%
+    art %>% 
+      mutate(!!sym(input$PS) := recode(!!sym(input$PS), "0" = "0 No", "1" = "1 Yes")) %>%
+      filter(between(decade, input$PS_decade[1], input$PS_decade[2])) %>%
+      count(!!sym(input$PS), collection) %>%
+      hchart("bar", stacking = "normal",
+             hcaes(x = collection, y = n, group = !!sym(input$PS))) %>%
+      hc_plotOptions(column = list(borderRadius = 5)) %>%
       hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
-      hc_xAxis(title = list(text = names(PS_choiceVec)[PS_choiceVec == input$PS]),
-               categories = c("No", "Yes")) %>%
       hc_yAxis(title = list(text = "Number of Paintings")) %>%
       hc_title(text = names(PS_choiceVec)[PS_choiceVec == input$PS])
   })
