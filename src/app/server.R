@@ -27,14 +27,23 @@ shinyServer(function(input, output) {
                 options = popupOptions(closeOnClick = F, keepInView = T))
   })
   
+  output$Decade_Sum <- renderHighchart({
+    art %>%
+      count(decade, collection) %>%
+      hchart("column", stacking = "normal", hcaes(x = decade, y = n, group = collection)) %>%
+      hc_xAxis(title = list(text = "Decades")) %>%
+      hc_yAxis(title = list(text = "Number of paintings")) %>%
+      hc_title(text = "Painting Distribution Throughout the Century") %>%
+      hc_legend(title = list(text = "Museum"))
+  })
+  
   output$PS_eval <- renderHighchart({
     art %>% 
       mutate(painting_support_condition = 
-               recode(painting_support_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good", "3" = "3 Excellent")) %>%
+             recode(painting_support_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good", "3" = "3 Excellent")) %>%
       count(painting_support_condition, collection) %>%
       hchart("bar", stacking = "normal",
              hcaes(x = collection, y = n, group = painting_support_condition)) %>%
-      hc_xAxis(title = list(text = "Museum")) %>%
       hc_yAxis(title = list(text = "Number of Paintings")) %>%
       hc_legend(title = list(text = "Condition Score"), reversed = TRUE) %>%
       hc_title(text = "Painting Support Condition") %>%
@@ -50,8 +59,20 @@ shinyServer(function(input, output) {
       hchart("bar", stacking = "normal",
              hcaes(x = collection, y = n, group = !!sym(input$PS))) %>%
       hc_plotOptions(column = list(borderRadius = 5)) %>%
+      hc_legend(title = list(text = "Is such condition present?"), reversed = TRUE) %>%
       hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
+      hc_xAxis(title = list(text = "Museum")) %>%
       hc_yAxis(title = list(text = "Number of Paintings")) %>%
       hc_title(text = names(PS_choiceVec)[PS_choiceVec == input$PS])
+  })
+  
+  output$PS_heatmap <- renderHighchart({
+    art %>%
+      mutate(!!sym(input$PS_1) := recode(!!sym(input$PS_1), "0" = "0 No", "1" = "1 Yes")) %>%
+      mutate(!!sym(input$PS_2) := recode(!!sym(input$PS_2), "0" = "0 No", "1" = "1 Yes")) %>%
+      count(!!sym(input$PS_1), !!sym(input$PS_2)) %>%
+      hchart("heatmap", hcaes(x = !!sym(input$PS_1), y = !!sym(input$PS_2), value = n)) %>%
+      hc_xAxis(title = list(text = names(PS_choiceVec)[PS_choiceVec == input$PS_1])) %>%
+      hc_yAxis(title = list(text = names(PS_choiceVec)[PS_choiceVec == input$PS_2]))
   })
 })
