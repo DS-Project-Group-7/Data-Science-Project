@@ -96,7 +96,11 @@ body <- dashboardBody(
                                   )
                                 )
                        ),
-                       tabPanel("Ground Layer"),
+                       tabPanel("Ground Layer",
+                                fluidRow(
+                                  column(12, highchartOutput("GR_eval"))
+                                )
+                       ),
                        tabPanel("Paint Layer"),
                        tabPanel("Frame"))
     ),
