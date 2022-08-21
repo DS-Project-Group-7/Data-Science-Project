@@ -54,7 +54,7 @@ shinyServer(function(input, output) {
                  c("{point.painting_support_condition}", "{point.y}")), useHTML = TRUE)
   })
   
-  output$PS_planar <- renderHighchart({
+  output$PS_visual <- renderHighchart({
     art %>% 
       mutate(!!sym(input$PS) := recode(!!sym(input$PS), "0" = "0 No", "1" = "1 Yes")) %>%
       filter(between(decade, input$PS_decade[1], input$PS_decade[2])) %>%
@@ -92,5 +92,30 @@ shinyServer(function(input, output) {
       hc_title(text = "Ground Layer Condition Overview") %>%
       hc_tooltip(pointFormat = tooltip_table(c("Ground Layer Condition:", "Number of paintings:"), 
                                              c("{point.ground_condition}", "{point.y}")), useHTML = TRUE)
+  })
+  
+  output$GR_visual <- renderHighchart({
+    if (input$GR == "canvas_wrapping") {
+      art %>%
+        mutate(!!sym(input$GR) := recode(!!sym(input$GR), NULL = "Unspecified", "to side edge" = "To Side Edge", "to face edge" = "To Face Edge", "to side edgeto face edge" = "Both")) %>%
+        count(!!sym(input$GR), collection) %>%
+        hchart("bar", stacking = "normal",
+               hcaes(x = collection, y = n, group = !!sym(input$GR))) %>%
+        hc_title(text = "Are Ground Applied To Face Edge or Side Edge?") %>%
+        hc_xAxis(title = list(text = "Museum")) %>%
+        hc_yAxis(title = list(text = "Number of Paintings"))
+    } else {
+      art %>% 
+        mutate(!!sym(input$GR) := recode(!!sym(input$GR), "0" = "0 No", "1" = "1 Yes")) %>%
+        filter(between(decade, input$GR_decade[1], input$GR_decade[2])) %>%
+        count(!!sym(input$GR), collection) %>%
+        hchart("bar", stacking = "normal",
+               hcaes(x = collection, y = n, group = !!sym(input$GR))) %>%
+        hc_legend(title = list(text = "Is such condition present?"), reversed = TRUE) %>%
+        hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
+        hc_xAxis(title = list(text = "Museum")) %>%
+        hc_yAxis(title = list(text = "Number of Paintings")) %>%
+        hc_title(text = names(GR_choiceVec)[GR_choiceVec == input$GR])
+    }
   })
 })
