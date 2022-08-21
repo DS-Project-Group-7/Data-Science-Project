@@ -69,6 +69,9 @@ body <- dashboardBody(
                        tabPanel("Dimensions",
                                 fluidRow(
                                   column(12, highchartOutput("DM_eval"))
+                                ),
+                                fluidRow(
+                                  column(12, highchartOutput("DM_bub"))
                                 )
                                 ),
                        tabPanel("Auxiliary Support",

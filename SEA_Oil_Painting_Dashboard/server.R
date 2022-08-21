@@ -38,9 +38,48 @@ shinyServer(function(input, output) {
       hc_title(text = "Scatter plot between width and length of four collections")%>%
       hc_tooltip(pointFormat = tooltip_table(c("Painting Title:","Width:", "Length:"), 
                                             c("{point.title}", "{point.x}","{point.y}")), useHTML = TRUE)
-    #Need to update tooltips
   })
   
+  #Dimensions for packedbubble plot 
+  output$DM_bub <- renderHighchart({
+    art %>% 
+      mutate(area = area/100) %>%
+      #filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
+      #count(auxiliary_support_condition, collection) %>%
+      select(collection,area,decade,country)%>%
+      hchart("packedbubble",hcaes(x = collection, value = area, group = collection))%>%
+      hc_tooltip(
+        useHTML = TRUE,
+        pointFormat = "<b>{point.name}:</b> {point.value}"
+      )%>%
+      hc_plotOptions(
+        packedbubble = list(
+          maxSize = "150%",
+          zMin = 0,
+          layoutAlgorithm = list(
+            gravitationalConstant =  0.05,
+            splitSeries =  TRUE, # TRUE to group points
+            seriesInteraction = TRUE,
+            dragBetweenSeries = TRUE,
+            parentNodeLimit = TRUE
+          ),
+          dataLabels = list(
+            enabled = TRUE,
+            format = "{point.name}",
+            filter = list(
+              property = "y",
+              operator = ">",
+              value = as.numeric(quantile(art$area, .95))
+            ),
+            style = list(
+              color = "black",
+              textOutline = "none",
+              fontWeight = "normal"
+            )
+          )
+        )
+      )
+  })
   
   #Bar chart painting condition
   output$PS_eval <- renderHighchart({
