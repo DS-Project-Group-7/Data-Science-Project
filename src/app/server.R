@@ -13,6 +13,8 @@ options(highcharter.theme = hc_theme_google())
 art <- read.csv("/Users/greysonchung/Desktop/Data-Science-Project/data/cleanData.csv")
 
 shinyServer(function(input, output) {
+  
+  # Homepage
   output$mymap <- renderLeaflet({
     
     leaflet() %>% # setView(lat = 10, lng = 115, zoom = 5.4) %>%
@@ -37,6 +39,7 @@ shinyServer(function(input, output) {
       hc_legend(title = list(text = "Museum"))
   })
   
+  # Painting Support
   output$PS_eval <- renderHighchart({
     art %>% 
       mutate(painting_support_condition = 
@@ -46,12 +49,12 @@ shinyServer(function(input, output) {
              hcaes(x = collection, y = n, group = painting_support_condition)) %>%
       hc_yAxis(title = list(text = "Number of Paintings")) %>%
       hc_legend(title = list(text = "Condition Score"), reversed = TRUE) %>%
-      hc_title(text = "Painting Support Condition") %>%
+      hc_title(text = "Painting Support Condition Overview") %>%
       hc_tooltip(pointFormat = tooltip_table(c("Support Condition:", "Number of paintings:"), 
                  c("{point.painting_support_condition}", "{point.y}")), useHTML = TRUE)
   })
   
-  output$PS_planar <- renderHighchart({
+  output$PS_visual <- renderHighchart({
     art %>% 
       mutate(!!sym(input$PS) := recode(!!sym(input$PS), "0" = "0 No", "1" = "1 Yes")) %>%
       filter(between(decade, input$PS_decade[1], input$PS_decade[2])) %>%
@@ -74,5 +77,45 @@ shinyServer(function(input, output) {
       hchart("heatmap", hcaes(x = !!sym(input$PS_1), y = !!sym(input$PS_2), value = n)) %>%
       hc_xAxis(title = list(text = names(PS_choiceVec)[PS_choiceVec == input$PS_1])) %>%
       hc_yAxis(title = list(text = names(PS_choiceVec)[PS_choiceVec == input$PS_2]))
+  })
+
+  # Ground Layer  
+  output$GR_eval <- renderHighchart({
+    art %>%
+      mutate(ground_condition = 
+               recode(ground_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good", "3" = "3 Excellent")) %>%
+      count(ground_condition, collection) %>%
+      hchart("bar", stacking = "normal",
+             hcaes(x = collection, y = n, group = ground_condition)) %>%
+      hc_yAxis(title = list(text = "Number of Paintings")) %>%
+      hc_legend(title = list(text = "Condition Score"), reversed = TRUE) %>%
+      hc_title(text = "Ground Layer Condition Overview") %>%
+      hc_tooltip(pointFormat = tooltip_table(c("Ground Layer Condition:", "Number of paintings:"), 
+                                             c("{point.ground_condition}", "{point.y}")), useHTML = TRUE)
+  })
+  
+  output$GR_visual <- renderHighchart({
+    if (input$GR == "canvas_wrapping") {
+      art %>%
+        mutate(!!sym(input$GR) := recode(!!sym(input$GR), NULL = "Unspecified", "to side edge" = "To Side Edge", "to face edge" = "To Face Edge", "to side edgeto face edge" = "Both")) %>%
+        count(!!sym(input$GR), collection) %>%
+        hchart("bar", stacking = "normal",
+               hcaes(x = collection, y = n, group = !!sym(input$GR))) %>%
+        hc_title(text = "Are Ground Applied To Face Edge or Side Edge?") %>%
+        hc_xAxis(title = list(text = "Museum")) %>%
+        hc_yAxis(title = list(text = "Number of Paintings"))
+    } else {
+      art %>% 
+        mutate(!!sym(input$GR) := recode(!!sym(input$GR), "0" = "0 No", "1" = "1 Yes")) %>%
+        filter(between(decade, input$GR_decade[1], input$GR_decade[2])) %>%
+        count(!!sym(input$GR), collection) %>%
+        hchart("bar", stacking = "normal",
+               hcaes(x = collection, y = n, group = !!sym(input$GR))) %>%
+        hc_legend(title = list(text = "Is such condition present?"), reversed = TRUE) %>%
+        hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
+        hc_xAxis(title = list(text = "Museum")) %>%
+        hc_yAxis(title = list(text = "Number of Paintings")) %>%
+        hc_title(text = names(GR_choiceVec)[GR_choiceVec == input$GR])
+    }
   })
 })
