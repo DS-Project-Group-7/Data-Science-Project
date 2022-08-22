@@ -82,7 +82,7 @@ body <- dashboardBody(
                                     sliderInput("PS_decade", "Select a time period for visualisation",
                                                 min = 1850, max = 1970, step = 10, value = c(1850, 1970))
                                   ),
-                                  mainPanel(highchartOutput("PS_visual"))
+                                  mainPanel(highchartOutput("PS_planar"))
                                 ),
                                 sidebarLayout(
                                   sidebarPanel(
@@ -96,22 +96,7 @@ body <- dashboardBody(
                                   )
                                 )
                        ),
-                       tabPanel("Ground Layer",
-                                fluidRow(
-                                  column(12, highchartOutput("GR_eval"))
-                                ),
-                                sidebarLayout(
-                                  sidebarPanel(
-                                    selectInput("GR", "Choose a ground layer condition to view a brief summary:",
-                                                GR_choiceVec),
-                                    sliderInput("GR_decade", "Select a time period for visualisation",
-                                                min = 1850, max = 1970, step = 10, value = c(1850, 1970))
-                                  ),
-                                  mainPanel(
-                                    highchartOutput("GR_visual")
-                                  )
-                                )
-                       ),
+                       tabPanel("Ground Layer"),
                        tabPanel("Paint Layer"),
                        tabPanel("Frame"))
     ),
