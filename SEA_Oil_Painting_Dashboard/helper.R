@@ -191,8 +191,7 @@ PS_choiceVec <- c(
 GR_choiceVec <- c(
   "Are Ground Layer Commercial or Artist Applied?" = 'ground_layer_application',
   "Size Layer Visible" = 'size_layer_visible',
-  "Thickly Applied" = 'thickly_applied',
-  "Thinly Applied" = 'thinly_applied',
+  "Are Ground Layer Thinly or Thickly Applied?" = 'ground_layer_thickness',
   "Coloured Ground" = 'coloured_ground',
   "Sulphate" = 'id_sulphate',
   "Carbonate" = 'id_carbonate',

@@ -55,7 +55,7 @@ shinyServer(function(input, output) {
       #hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
       hc_xAxis(title = list(text = "Width")) %>%
       hc_yAxis(title = list(text = "Length")) %>%
-      hc_title(text = "Scatter plot between width and length of four collections")%>%
+      hc_title(text = "Scatter Plot Between Width and Length of the Four Museums")%>%
       hc_tooltip(pointFormat = tooltip_table(c("Painting Title:","Width:", "Length:"), 
                                             c("{point.title}", "{point.x}","{point.y}")), useHTML = TRUE)
   })
@@ -68,7 +68,7 @@ shinyServer(function(input, output) {
       #count(auxiliary_support_condition, collection) %>%
       select(collection,area,decade,country,title)%>%
       hchart("packedbubble",hcaes(x = collection, value = area, group = collection))%>%
-      hc_title(text = "Bubble area of painting of four collections")%>%
+      hc_title(text = "Area Summary for the Four Museum")%>%
       hc_tooltip(
         useHTML = TRUE,
         pointFormat = tooltip_table(c("Painting Title:","Area:"), 
@@ -115,7 +115,7 @@ shinyServer(function(input, output) {
       hc_xAxis(title = list(text = "Museum")) %>%
       hc_yAxis(title = list(text = "Number of Paintings")) %>%
       hc_legend(title = list(text = "Condition Score"), reversed = TRUE) %>%
-      hc_title(text = "Auxiliary support condition")%>%
+      hc_title(text = "Auxiliary Support Condition")%>%
       hc_tooltip(pointFormat = tooltip_table(c("Auxiliary support condition:", "Number of paintings:"), 
                                              c("{point.auxiliary_support_condition}", "{point.y}")), useHTML = TRUE)
   })
@@ -213,7 +213,16 @@ shinyServer(function(input, output) {
         count(!!sym(input$GR), collection) %>%
         hchart("bar", stacking = "normal",
                hcaes(x = collection, y = n, group = !!sym(input$GR))) %>%
-        hc_title(text = "Are Ground Applied To Face Edge or Side Edge?") %>%
+        hc_title(text = "Commercial or Artist Applied Ground?") %>%
+        hc_xAxis(title = list(text = "Museum")) %>%
+        hc_yAxis(title = list(text = "Number of Paintings"))
+    } else if (input$GR == "ground_layer_thickness") {
+      art %>%
+        mutate(!!sym(input$GR) := recode(!!sym(input$GR), "thinly applied" = "Thinly Applied", "thickly applied" = "Thickly Applied", 'thickly appliedthinly applied' = 'Both')) %>%
+        count(!!sym(input$GR), collection) %>%
+        hchart("bar", stacking = "normal",
+               hcaes(x = collection, y = n, group = !!sym(input$GR))) %>%
+        hc_title(text = "Are Ground Applied Thinly or Thickly Applied?") %>%
         hc_xAxis(title = list(text = "Museum")) %>%
         hc_yAxis(title = list(text = "Number of Paintings"))
     } else {

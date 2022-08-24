@@ -11,6 +11,8 @@ library(highcharter)
 library(dashboardthemes)
 source('helper.R')
 
+tags$style("@import url(https://use.fontawesome.com/releases/v5.7.2/css/all.css);")
+
 header <- dashboardHeader(
   title = tags$a(href='https://bit.ly/3zmFzns', target = "_blank",
                  tags$img(src='https://bit.ly/3cSvLu7',
@@ -24,7 +26,7 @@ header <- dashboardHeader(
                        icon = icon("paper-plane"),
                        href = "mailto:haonanz1@student.unimelb.edu.au"
                      ),
-                     icon = icon("comment", class = "mystyle"),
+                     icon = icon("gear", class = "mystyle"),
                      tags$style(".mystyle {color:black;}")
                      
   )
@@ -37,20 +39,24 @@ sidebar <- dashboardSidebar(
              tabName = "home",
              selected = T,
              icon = icon("house-user")),
-    menuItem("Summary", tabName = "summary",
-             icon = icon("plus")),
-    menuItem("National Art Gallery (Malaysia)",
-             tabName = "malay",
-             icon = icon("landmark")),
-    menuItem("Vargas Museum (Philippines)",
-             tabName = "phil",
-             icon = icon("landmark")),
-    menuItem("Heritage Conservation Board (Singapore)",
-             tabName = "sing",
-             icon = icon("landmark")),
-    menuItem("National Gallery (Thailand)",
-             tabName = "thai",
-             icon = icon("landmark"))
+    menuItem("Dimension",
+             tabName = "dim",
+             icon = icon("chart-area")),
+    menuItem("Auxiliary Support",
+             tabName = "aux",
+             icon = icon("hand-point-right")),
+    menuItem("Painting Support",
+             tabName = "psup",
+             icon = icon("hand-point-right")),
+    menuItem("Ground Layer",
+             tabName = "gl",
+             icon = icon("hand-point-right")),
+    menuItem("Paint Layer",
+             tabName = "pl",
+             icon = icon("hand-point-right")),
+    menuItem("Frame",
+             tabName = "fr",
+             icon = icon("hand-point-right"))
   )
 )
 
@@ -67,93 +73,79 @@ body <- dashboardBody(
               )
             )
     ),
-    tabItem("summary",
-            navbarPage("Material Summary",
-                       tabPanel("Dimensions",
-                                fluidRow(
-                                  column(12, highchartOutput("DM_eval"))
-                                ),
-                                fluidRow(
-                                  column(12, highchartOutput("DM_bub"))
-                                )
-                                ),
-                       tabPanel("Auxiliary Support",
-                                fluidRow(
-                                  column(12, highchartOutput("AX_eval"))
-                                ),
-                                
-                                sidebarLayout(
-                                  sidebarPanel(selectInput("AX", "Choose a support condition to view a brief summary:",
-                                                           AX_choiceVec),
-                                               sliderInput("AX_decade", "Select a time period for visualisation", 
-                                                           min = 1850, max = 1970, step = 10, value = c(1850, 1970))
-                                  ),
-                                mainPanel(highchartOutput("AX_heat"))
-                                ),
-                       ),
-                       tabPanel("Painting Support",
-                                fluidRow(
-                                  column(12, highchartOutput("PS_eval"))
-                                ),
-                                sidebarLayout(
-                                  sidebarPanel(
-                                    selectInput("PS", "Choose a support condition to view a brief summary:",
-                                                PS_choiceVec),
-                                    sliderInput("PS_decade", "Select a time period for visualisation",
-                                                min = 1850, max = 1970, step = 10, value = c(1850, 1970))
-                                  ),
-                                  mainPanel(highchartOutput("PS_visual"))
-                                ),
-                                sidebarLayout(
-                                  sidebarPanel(
-                                    selectInput("PS_1", "Choose the first attribute:",
-                                                PS_choiceVec),
-                                    selectInput("PS_2", "Choose the second attribute:",
-                                                PS_choiceVec, selected = PS_choiceVec[2])
-                                  ),
-                                  mainPanel(
-                                    highchartOutput("PS_heatmap")
-                                  )
-                                )
-                       ),
-                       tabPanel("Ground Layer",
-                                fluidRow(
-                                  column(12, highchartOutput("GR_eval"))
-                                ),
-                                sidebarLayout(
-                                  sidebarPanel(
-                                    selectInput("GR", "Choose a ground layer condition to view a brief summary:",
-                                                GR_choiceVec),
-                                    sliderInput("GR_decade", "Select a time period for visualisation",
-                                                min = 1850, max = 1970, step = 10, value = c(1850, 1970))
-                                  ),
-                                  mainPanel(
-                                    highchartOutput("GR_visual")
-                                  )
-                                )
-                       ),
-                       tabPanel("Paint Layer"),
-                       tabPanel("Frame"))
-    ),
-    tabItem("malay",
-            fluidPage(
-              titlePanel("National Art Gallery of Malaysia Material Summary")
+    tabItem("dim",
+            fluidRow(
+              column(12, highchartOutput("DM_eval"))
+            ),
+            fluidRow(
+              column(12, highchartOutput("DM_bub"))
             )
     ),
-    tabItem("phil",
-            fluidPage(
-              titlePanel("Vargas Museun Material Summary")
+    tabItem("aux",
+            fluidRow(
+              column(12, highchartOutput("AX_eval"))
+            ),
+            
+            sidebarLayout(
+              sidebarPanel(selectInput("AX", "Choose a support condition to view a brief summary:",
+                                       AX_choiceVec),
+                           sliderInput("AX_decade", "Select a time period for visualisation", 
+                                       min = 1850, max = 1970, step = 10, value = c(1850, 1970))
+              ),
+              mainPanel(highchartOutput("AX_heat"))
             )
     ),
-    tabItem("sing",
-            fluidPage(
-              titlePanel("National Heritage Board Material Summary")
+    tabItem("psup",
+            fluidRow(
+              column(12, highchartOutput("PS_eval"))
+            ),
+            sidebarLayout(
+              sidebarPanel(
+                selectInput("PS", "Choose a support condition to view a brief summary:",
+                            PS_choiceVec),
+                sliderInput("PS_decade", "Select a time period for visualisation",
+                            min = 1850, max = 1970, step = 10, value = c(1850, 1970))
+              ),
+              mainPanel(highchartOutput("PS_visual"))
+            ),
+            sidebarLayout(
+              sidebarPanel(
+                selectInput("PS_1", "Choose the first attribute:",
+                            PS_choiceVec),
+                selectInput("PS_2", "Choose the second attribute:",
+                            PS_choiceVec, selected = PS_choiceVec[2])
+              ),
+              mainPanel(
+                highchartOutput("PS_heatmap")
+              )
             )
     ),
-    tabItem("thai",
-            fluidPage(
-              titlePanel("National Art Gallery Thailand Material Summary")
+    tabItem("gl",
+            fluidRow(
+              column(12, highchartOutput("GR_eval"))
+            ),
+            sidebarLayout(
+              sidebarPanel(
+                selectInput("GR", "Choose a ground layer condition to view a brief summary:",
+                            GR_choiceVec),
+                sliderInput("GR_decade", "Select a time period for visualisation",
+                            min = 1850, max = 1970, step = 10, value = c(1850, 1970))
+              ),
+              mainPanel(
+                highchartOutput("GR_visual")
+              )
             )
+    ),
+    tabItem("pl",
+            fluidPage(
+              titlePanel("Paint Layer Summary")
+            )
+    ),
+    tabItem("fr",
+            fluidPage(
+              titlePanel("Frame Summary")
+            )
+      
     )
   )
 )
