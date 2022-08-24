@@ -8,7 +8,7 @@ library(dashboardthemes)
 source('helper.R')
 
 options(highcharter.theme = hc_theme_google())
-art <- read.csv("data/cleanData.csv")
+art <- read.csv("../data/cleanData.csv")
 
 shinyServer(function(input, output) {
   output$mymap <- renderLeaflet({
