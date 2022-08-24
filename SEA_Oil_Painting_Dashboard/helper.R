@@ -188,6 +188,20 @@ PS_choiceVec <- c(
   "Loss of Tacks" = 'loss_of_tacks_insecure_support_painting_support'
 )
 
+GR_choiceVec <- c(
+  "Commercial Ground" = 'commercial_ground',
+  "Artist Applied Ground" = 'artist_applied_ground',
+  "Size Layer Visible" = 'size_layer_visible',
+  "Thickly Applied" = 'thickly_applied',
+  "Thinly Applied" = 'thinly_applied',
+  "Coloured Ground" = 'coloured_ground',
+  "Sulphate" = 'id_sulphate',
+  "Carbonate" = 'id_carbonate',
+  "Uniform Application" = 'uniform_application',
+  "Proprietary Paint" = 'ground_proprietary_paint',
+  "Are Ground Applied To Side or Face Edge?" = 'canvas_wrapping'
+)
+
 AX_choiceVec <- c(
   "Accretions" = 'accretions_auxiliary_support',
   "Indentations" = 'indentations_auxiliary_support',
@@ -202,4 +216,3 @@ AX_choiceVec <- c(
   "Staining" = 'staining_auxiliary_support',
   "Warped" = 'warped_auxiliary_support'
 )
-
