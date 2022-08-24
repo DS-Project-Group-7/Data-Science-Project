@@ -34,11 +34,7 @@ BooleanColumnsDict = {
     "accretions_media": 87,
     "discolouration_media": 88,
     "overpainting_media": 89,
-    "commercial_ground": 120,
-    "artist_applied_ground": 121,
     "size_layer_visible": 122,
-    "thickly_applied": 123,
-    "thinly_applied": 124,
     "coloured_ground": 125,
     "id_sulphate": 126,
     "uniform_application": 127,
@@ -69,6 +65,30 @@ BooleanColumnsDict = {
     "deformation_around_tacks_staples_painting_support": 153,
     "tears_around_tacks_staples_painting_support": 154,
     "loss_of_tacks_insecure_support_painting_support": 155,
+    "striped_frame": 164,
+    "carved_frame": 165,
+    "gesso_moldings_on_frame": 166,
+    "painted_or_stained_frame": 167,
+    "gilded_frame": 168,
+    "glass_frame": 173,
+    "perspex_frame": 174,
+    "unable_to_examine_reverse_frame": 175,
+    "screws_frame": 184,
+    "screweyes_frame": 185,
+    "dring_frame": 186,
+    "backing_board_presence": 189,
+    "surface_dirt_frame": 193,
+    "accretions_frame": 194,
+    "abrasions_frame": 195,
+    "flaking_frame": 196,
+    "losses_frame": 197,
+    "dented_frame": 198,
+    "chipped_frame": 199,
+    "cracking_frame": 200,
+    "corner_damage_frame": 201,
+    "mitres_separating_frame": 202,
+    "work_loose_frame": 203,
+    "surface_dirt_along_top_edge_frame": 204,
 }
 
 CategoricalColumnsDict = {
@@ -77,20 +97,29 @@ CategoricalColumnsDict = {
     "date": [13],
     "country": [14],
     "collection": [15],
+    "sight": [7],
     "support_type": [46, 47, 48, 49],
-    "canvas_wrapping": [129, 130],
-    "media_type_1": [112],
-    "media_type_2": [113],
-    "media_type_3": [114],
+    "commentary_auxiliary_support": [64],
     "wood_type_hardness": [76],
     "wood_type": [77],
     "wood_type_country": [78],
     "wood_type_locality": [79],
-    "commentary_auxiliary_support": [64],
-    "sight": [7],
+    "media_type_1": [112],
+    "media_type_2": [113],
+    "media_type_3": [114],
+    "ground_layer_application": [120, 121],
+    "ground_layer_limit": [129, 130],
+    "ground_layer_thickness": [123, 124],
     "relationship_cracks_aux_support": [157],
     "cracks_mechanically_induced": [158],
     "location_of_cracks": [160],
+    "frame_material": [162, 163],
+    "slip_presence_frame": [169, 170],
+    "glazed_frame": [171, 172],
+    "frame_affixed_to_wall_by": [177, 178, 179, 180],
+    "frame_hanging_system": [182, 183],
+    "frame_strand_wire": [187, 188],
+    "backing_board_type": [190, 191, 192],
 }
 
 OrdinalColumnsDict = {
@@ -98,6 +127,7 @@ OrdinalColumnsDict = {
     "media_condition": [90, 91, 92, 93],
     "ground_condition": [115, 116, 117, 118],
     "painting_support_condition": [132, 133, 134, 135],
+    "frame_condition": [205, 206, 207, 208],
 }
 
 
@@ -211,6 +241,7 @@ def fuseCategColumns(originalDf, indexList, colName):
     newColumn[colName] = originalDf.iloc[:, indexList[0]]
     for index in indexList[1:]:
         newColumn[colName] += originalDf.iloc[:, index]
+    newColumn[colName] = newColumn[colName].replace(to_replace="", value="Unspecified")
     return newColumn[colName]
 
 
@@ -274,9 +305,12 @@ def createCornerRelationCracksColumn(oldDataframe, index):
     """
     oldDataSeries = oldDataframe.iloc[:, index].squeeze()
     cornerInfoDf = oldDataSeries.str.extract(r"corner\s*(\S+)", expand=False)
-    nonEmptCornerInfoDf = cornerInfoDf.fillna("none").astype(
+    nonEmptCornerInfoDf = cornerInfoDf.fillna("Unspecified").astype(
         str
-    )  # transforms nans into "none" (nans are rows where no match was found)
+    )  # transforms nans into "Unspecified" (nans are rows where no match was found)
+    nonEmptCornerInfoDf = nonEmptCornerInfoDf.replace(
+        to_replace="", value="Unspecified"
+    )
     return nonEmptCornerInfoDf
 
 
@@ -290,7 +324,7 @@ def createParallelRelationCracksColumn(oldDataframe, index):
         r"(?:parallel|paarellel).+(top|bottom|right|left|hoizontal|vertical|all|cross)",
         expand=False,
     )
-    nonEmptParaInfoDf = paraInfoDf.fillna("none").astype(
+    nonEmptParaInfoDf = paraInfoDf.fillna("Unspecified").astype(
         str
     )  # transforms nans into "none" (nans are rows where no match was found)
     nonEmptParaInfoDf = nonEmptParaInfoDf.str.replace("cross", "cross bar")
@@ -301,6 +335,8 @@ def createParallelRelationCracksColumn(oldDataframe, index):
     nonEmptParaInfoDf = nonEmptParaInfoDf.str.replace("bottom", "bottom member")
     nonEmptParaInfoDf = nonEmptParaInfoDf.str.replace("left", "left member")
     nonEmptParaInfoDf = nonEmptParaInfoDf.str.replace("right", "right member")
+
+    nonEmptParaInfoDf = nonEmptParaInfoDf.replace(to_replace="", value="Unspecified")
     return nonEmptParaInfoDf
 
 
@@ -310,7 +346,11 @@ def createAgedCracksMechColumns(df, index):
     """
     oldDataSeries = df.iloc[:, index].squeeze()
     agedCracksInfoDf = oldDataSeries.str.split(pat="_x001D_", expand=True)
-    nonEmptAgedCracksInfoDf = agedCracksInfoDf.fillna("none").astype(str)
+    nonEmptAgedCracksInfoDf = agedCracksInfoDf.fillna("Unspecified").astype(str)
+
+    nonEmptAgedCracksInfoDf = nonEmptAgedCracksInfoDf.replace(
+        to_replace="", value="Unspecified"
+    )
     return (
         nonEmptAgedCracksInfoDf.iloc[:, 0],
         nonEmptAgedCracksInfoDf.iloc[:, 1],
@@ -327,11 +367,13 @@ def createCrackLocationColumns(df, index):
     Might be a good idea to generalise this function with the previous one
     """
     oldDataSeries = df.iloc[:, index].squeeze()
-    agedCracksInfoDf = oldDataSeries.str.split(pat="_x001D_", expand=True)
-    nonEmptAgedCracksInfoDf = agedCracksInfoDf.fillna("none").astype(str)
+    crackLocDf = oldDataSeries.str.split(pat="_x001D_", expand=True)
+    nonEmptyCrackLocDf = crackLocDf.fillna("Unspecified").astype(str)
+
+    nonEmptyCrackLocDf = nonEmptyCrackLocDf.replace(to_replace="", value="Unspecified")
     return (
-        nonEmptAgedCracksInfoDf.iloc[:, 0],
-        nonEmptAgedCracksInfoDf.iloc[:, 1],
+        nonEmptyCrackLocDf.iloc[:, 0],
+        nonEmptyCrackLocDf.iloc[:, 1],
     )
 
 
