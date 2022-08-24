@@ -46,11 +46,13 @@ shinyServer(function(input, output) {
       mutate(area = area/100) %>%
       #filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
       #count(auxiliary_support_condition, collection) %>%
-      select(collection,area,decade,country)%>%
+      select(collection,area,decade,country,title)%>%
       hchart("packedbubble",hcaes(x = collection, value = area, group = collection))%>%
+      hc_title(text = "Bubble area of painting of four collections")%>%
       hc_tooltip(
         useHTML = TRUE,
-        pointFormat = "<b>{point.name}:</b> {point.value}"
+        pointFormat = tooltip_table(c("Painting Title:","Area:"), 
+                                    c("{point.title}", "{point.value}"))
       )%>%
       hc_plotOptions(
         packedbubble = list(
