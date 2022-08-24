@@ -10,7 +10,7 @@ library(dashboardthemes)
 source('helper.R')
 
 options(highcharter.theme = hc_theme_google())
-art <- read.csv("/Users/greysonchung/Desktop/Data-Science-Project/data/cleanData.csv")
+art <- read.csv("../../data/cleanData.csv")
 
 shinyServer(function(input, output) {
   output$mymap <- renderLeaflet({
@@ -74,5 +74,33 @@ shinyServer(function(input, output) {
       hchart("heatmap", hcaes(x = !!sym(input$PS_1), y = !!sym(input$PS_2), value = n)) %>%
       hc_xAxis(title = list(text = names(PS_choiceVec)[PS_choiceVec == input$PS_1])) %>%
       hc_yAxis(title = list(text = names(PS_choiceVec)[PS_choiceVec == input$PS_2]))
+  })
+  
+  ######## Frame #######
+  output$Frame_eval <- renderHighchart({
+    art %>% 
+      mutate(frame_condition = 
+               recode(frame_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good", "3" = "3 Excellent")) %>%
+      count(frame_condition, collection) %>%
+      hchart("bar", stacking = "normal",
+             hcaes(x = collection, y = n, group = frame_condition)) %>%
+      hc_yAxis(title = list(text = "Number of Paintings")) %>%
+      hc_legend(title = list(text = "Condition Score"), reversed = TRUE) %>%
+      hc_title(text = "Frame Condition") %>%
+      hc_tooltip(pointFormat = tooltip_table(c("Frame Condition:", "Number of paintings:"), 
+                                             c("{point.frame_condition}", "{point.y}")), useHTML = TRUE)
+  })
+  
+  output$Frame_attr_graph <- renderHighchart({
+    art %>% 
+      filter(between(decade, input$frame_decade[1], input$frame_decade[2])) %>%
+      count(!!sym(input$frame_attribute), collection) %>%
+      hchart("bar", stacking = "normal",
+             hcaes(x = collection, y = n, group = !!sym(input$frame_attribute))) %>%
+      hc_plotOptions(column = list(borderRadius = 5)) %>%
+      hc_legend(title = list(text = "Value"), reversed = TRUE) %>%
+      hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
+      hc_xAxis(title = list(text = "Museum")) %>%
+      hc_yAxis(title = list(text = "Number of Paintings"))
   })
 })
