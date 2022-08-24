@@ -101,9 +101,10 @@ CategoricalColumnsDict = {
     "support_type": [46, 47, 48, 49],
     "commentary_auxiliary_support": [64],
     "wood_type_hardness": [76],
-    "wood_type": [77],
-    "wood_type_country": [78],
-    "wood_type_locality": [79],
+    "wood_type_country_locality": [77, 78, 79],
+    # "wood_type": [77],
+    # "wood_type_country": [78],
+    # "wood_type_locality": [79],
     "media_type_1": [112],
     "media_type_2": [113],
     "media_type_3": [114],
@@ -111,8 +112,6 @@ CategoricalColumnsDict = {
     "ground_layer_limit": [129, 130],
     "ground_layer_thickness": [123, 124],
     "relationship_cracks_aux_support": [157],
-    "cracks_mechanically_induced": [158],
-    "location_of_cracks": [160],
     "frame_material": [162, 163],
     "slip_presence_frame": [169, 170],
     "glazed_frame": [171, 172],
@@ -120,6 +119,13 @@ CategoricalColumnsDict = {
     "frame_hanging_system": [182, 183],
     "frame_strand_wire": [187, 188],
     "backing_board_type": [190, 191, 192],
+}
+
+MultipleValuesCatColDict = {
+    # format is "name_of_the_column":(index, number of columns we want to split it into)
+    "cracks_mechanically_induced": (158, 5),
+    "location_of_cracks": (160, 2),
+    "environmental_history": (161, 8),
 }
 
 OrdinalColumnsDict = {
@@ -148,24 +154,13 @@ def main(dataFile):
                 originalDataDf, CategoricalColumnsDict[feature]
             )
 
-        elif feature == "cracks_mechanically_induced":
+        if feature == "wood_type_country_locality":
             (
-                cleanDataDf["aged_cracks_mecha1"],
-                cleanDataDf["aged_cracks_mecha2"],
-                cleanDataDf["aged_cracks_mecha3"],
-                cleanDataDf["aged_cracks_mecha4"],
-                cleanDataDf["aged_cracks_mecha5"],
-            ) = createAgedCracksMechColumns(
-                originalDataDf, CategoricalColumnsDict[feature]
-            )
+                cleanDataDf["wood_type"],
+                cleanDataDf["wood_country"],
+                cleanDataDf["locality"],
+            ) = processWoodType(originalDataDf, CategoricalColumnsDict[feature])
 
-        elif feature == "location_of_cracks":
-            (
-                cleanDataDf["crack_location_1"],
-                cleanDataDf["crack_location_2"],
-            ) = createCrackLocationColumns(
-                originalDataDf, CategoricalColumnsDict[feature]
-            )
         else:
             cleanDataDf[feature] = fuseCategColumns(
                 originalDataDf, CategoricalColumnsDict[feature], feature
@@ -200,6 +195,12 @@ def main(dataFile):
             elif feature == "date":
                 cleanDataDf["decade"] = transformDatesToDecades(cleanDataDf, feature)
 
+    for feature in MultipleValuesCatColDict:
+        (index, ncol) = MultipleValuesCatColDict[feature]
+        dfList = splitMultivalueFeature(originalDataDf, index, ncol)
+        for i in range(ncol):
+            cleanDataDf[f"{feature}_{i+1}"] = dfList[i]
+
     for feature in OrdinalColumnsDict:
         cleanDataDf[feature] = fuseOrdinalColumns(
             originalDataDf, OrdinalColumnsDict[feature], feature
@@ -221,6 +222,7 @@ def makeBoolCol(originalDf, index):
     index : index of the column
     colName: name of the fused column
     """
+    # Triggers the warning: "PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead.  To get a de-fragmented frame, use `newframe = frame.copy()`"
     return (~originalDf.iloc[:, index].isnull()).astype(int)
 
 
@@ -340,41 +342,67 @@ def createParallelRelationCracksColumn(oldDataframe, index):
     return nonEmptParaInfoDf
 
 
-def createAgedCracksMechColumns(df, index):
-    """
-    Returns 5 different columns extracted from the "aged cracks mechanically induced sharp edges dark shadows" column
-    """
-    oldDataSeries = df.iloc[:, index].squeeze()
-    agedCracksInfoDf = oldDataSeries.str.split(pat="_x001D_", expand=True)
-    nonEmptAgedCracksInfoDf = agedCracksInfoDf.fillna("Unspecified").astype(str)
+def processWoodType(df, indexList):
+    woodTypeDf = df.iloc[:, indexList[0]].copy()
+    woodCountryDf = df.iloc[:, indexList[1]].copy()
+    woodLocDf = df.iloc[:, indexList[2]].copy().fillna("")
 
-    nonEmptAgedCracksInfoDf = nonEmptAgedCracksInfoDf.replace(
+    strExtractDf = (
+        woodTypeDf.str.extract(r"((.*?)(local\?))?(.*)", expand=False)
+        .fillna("")
+        .astype(str)
+    )
+    # This regex capture the 3 groups woodType, locality and country when they exist when "local?" exists but put the wood type into the last group when there is no "local?"
+    # It thus needs another filtering on country
+    woodTypeDf = strExtractDf.iloc[:, 1]
+    woodLocDf = woodLocDf + strExtractDf.iloc[:, 2]
+
+    countryList = [
+        "Malay",
+        "Philippines",
+        "Singapore",
+        "Thailand",
+        " Malay",
+        " Philippines",
+        " Singapore",
+        " Thailand",
+    ]
+
+    # Extract countries that were not catch in the preceeding step
+    extraCountriesDf = strExtractDf.iloc[:, 3].copy().str.strip()
+    extraCountriesDf[~(extraCountriesDf.isin(countryList))] = np.nan
+    extraCountriesDf = extraCountriesDf.fillna("")
+
+    extraWoodTypeDf = strExtractDf.iloc[:, 3].copy()
+    extraWoodTypeDf[extraWoodTypeDf.isin(countryList)] = np.nan
+    extraWoodTypeDf = extraWoodTypeDf.fillna("")
+
+    woodTypeDf = woodTypeDf.fillna("") + extraWoodTypeDf
+    woodCountryDf = woodCountryDf.fillna("") + extraCountriesDf
+
+    woodTypeDf = woodTypeDf.replace(to_replace="", value="Unspecified")
+    woodCountryDf = woodCountryDf.replace(
         to_replace="", value="Unspecified"
-    )
-    return (
-        nonEmptAgedCracksInfoDf.iloc[:, 0],
-        nonEmptAgedCracksInfoDf.iloc[:, 1],
-        nonEmptAgedCracksInfoDf.iloc[:, 2],
-        nonEmptAgedCracksInfoDf.iloc[:, 3],
-        nonEmptAgedCracksInfoDf.iloc[:, 4],
-    )
+    ).str.strip()
+    woodLocDf = woodLocDf.replace(to_replace="", value="Unspecified")
+
+    return (woodTypeDf, woodCountryDf, woodLocDf)
 
 
-def createCrackLocationColumns(df, index):
+def splitMultivalueFeature(df, index, nbCol):
     """
-    Returns 2 different columns extracted from the "location of cracks" column
-
-    Might be a good idea to generalise this function with the previous one
+    Returns n different columns extracted from the column given in index
     """
     oldDataSeries = df.iloc[:, index].squeeze()
     crackLocDf = oldDataSeries.str.split(pat="_x001D_", expand=True)
     nonEmptyCrackLocDf = crackLocDf.fillna("Unspecified").astype(str)
-
     nonEmptyCrackLocDf = nonEmptyCrackLocDf.replace(to_replace="", value="Unspecified")
-    return (
-        nonEmptyCrackLocDf.iloc[:, 0],
-        nonEmptyCrackLocDf.iloc[:, 1],
-    )
+
+    dfList = []
+    for i in range(nbCol):
+        dfList.append(nonEmptyCrackLocDf.iloc[:, i])
+
+    return dfList
 
 
 def transformDatesToDecades(df, feature):
