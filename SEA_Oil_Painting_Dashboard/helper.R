@@ -189,8 +189,7 @@ PS_choiceVec <- c(
 )
 
 GR_choiceVec <- c(
-  "Commercial Ground" = 'commercial_ground',
-  "Artist Applied Ground" = 'artist_applied_ground',
+  "Are Ground Layer Commercial or Artist Applied?" = 'ground_layer_application',
   "Size Layer Visible" = 'size_layer_visible',
   "Thickly Applied" = 'thickly_applied',
   "Thinly Applied" = 'thinly_applied',
@@ -199,7 +198,7 @@ GR_choiceVec <- c(
   "Carbonate" = 'id_carbonate',
   "Uniform Application" = 'uniform_application',
   "Proprietary Paint" = 'ground_proprietary_paint',
-  "Are Ground Applied To Side or Face Edge?" = 'canvas_wrapping'
+  "Are Ground Applied To Side or Face Edge?" = 'ground_layer_limit'
 )
 
 AX_choiceVec <- c(

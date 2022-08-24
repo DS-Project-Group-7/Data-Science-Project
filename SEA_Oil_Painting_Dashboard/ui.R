@@ -61,7 +61,10 @@ body <- dashboardBody(
     tabItem("home",
             fluidPage(
               titlePanel("Welcome to the Southeast Asia Painting Conservation Dashboard!"),
-              leafletOutput("mymap", height = 600)
+              leafletOutput("mymap", height = 500),
+              fluidRow(
+                column(12, highchartOutput("Decade_Sum"))
+              )
             )
     ),
     tabItem("summary",
@@ -93,34 +96,42 @@ body <- dashboardBody(
                                   column(12, highchartOutput("PS_eval"))
                                 ),
                                 sidebarLayout(
-                                  sidebarPanel(selectInput("PS", "Choose a support condition to view a brief summary:",
-                                                           list("Planar" = 'planar_painting_support',
-                                                                "Warped" = 'warped_painting_support',
-                                                                "Indentation" = 'indentations_painting_support',
-                                                                "Positive Tension" = 'good_tension_painting_support',
-                                                                "Holes" = 'holes_painting_support',
-                                                                "Loose" = 'loose_painting_support',
-                                                                "Tears" = 'tears_painting_support',
-                                                                "Taunt" = 'taut_painting_support',
-                                                                "Surface Dirt" = 'surface_dirt_painting_support',
-                                                                "Mould" = 'mould_painting_support',
-                                                                "Stains" = 'staining_painting_support',
-                                                                "Corner Distortion" = 'corner_distortions_painting_support',
-                                                                "Top Distortion" = 'top_distortions_painting_support',
-                                                                "Bottom Distortion" = 'bottom_distortions_painting_support',
-                                                                "Overall Distortion" = 'overall_distortions_painting_support',
-                                                                "Insect Damage" = 'insect_damage_painting_support',
-                                                                "Rust Stain" = 'rust_stains_on_support_painting_support',
-                                                                "Deformation Around Tack Staples" = 'deformation_around_tacks_staples_painting_support',
-                                                                "Tears Around Tack Staples" = 'tears_around_tacks_staples_painting_support',
-                                                                "Loss of Tacks" = 'loss_of_tacks_insecure_support_painting_support')),
-                                               sliderInput("PS_decade", "Select a time period for visualisation", 
-                                                           min = 1850, max = 1970, step = 10, value = c(1850, 1970))
+                                  sidebarPanel(
+                                    selectInput("PS", "Choose a support condition to view a brief summary:",
+                                                PS_choiceVec),
+                                    sliderInput("PS_decade", "Select a time period for visualisation",
+                                                min = 1850, max = 1970, step = 10, value = c(1850, 1970))
                                   ),
-                                  mainPanel(highchartOutput("PS_planar"))
+                                  mainPanel(highchartOutput("PS_visual"))
+                                ),
+                                sidebarLayout(
+                                  sidebarPanel(
+                                    selectInput("PS_1", "Choose the first attribute:",
+                                                PS_choiceVec),
+                                    selectInput("PS_2", "Choose the second attribute:",
+                                                PS_choiceVec, selected = PS_choiceVec[2])
+                                  ),
+                                  mainPanel(
+                                    highchartOutput("PS_heatmap")
+                                  )
                                 )
                        ),
-                       tabPanel("Ground Layer"),
+                       tabPanel("Ground Layer",
+                                fluidRow(
+                                  column(12, highchartOutput("GR_eval"))
+                                ),
+                                sidebarLayout(
+                                  sidebarPanel(
+                                    selectInput("GR", "Choose a ground layer condition to view a brief summary:",
+                                                GR_choiceVec),
+                                    sliderInput("GR_decade", "Select a time period for visualisation",
+                                                min = 1850, max = 1970, step = 10, value = c(1850, 1970))
+                                  ),
+                                  mainPanel(
+                                    highchartOutput("GR_visual")
+                                  )
+                                )
+                       ),
                        tabPanel("Paint Layer"),
                        tabPanel("Frame"))
     ),
