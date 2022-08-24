@@ -96,8 +96,12 @@ body <- dashboardBody(
                                   )
                                 )
                        ),
-                       tabPanel("Ground Layer"),
-                       tabPanel("Paint Layer"),
+                       tabPanel("Ground Layer"
+                                ),
+                       tabPanel("Paint Layer",
+                                fluidRow(
+                                  column(12, highchartOutput("painting_layer"))
+                                ) ),
                        tabPanel("Frame"))
     ),
     tabItem("malay",

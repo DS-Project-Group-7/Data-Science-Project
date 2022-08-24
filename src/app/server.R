@@ -10,7 +10,7 @@ library(dashboardthemes)
 source('helper.R')
 
 options(highcharter.theme = hc_theme_google())
-art <- read.csv("/Users/greysonchung/Desktop/Data-Science-Project/data/cleanData.csv")
+art <- read.csv("C:\\Users\\CHA\\Desktop\\Data-Science-Project-main\\Data-Science-Project-main\\src\\app\\cleanData.csv")
 
 shinyServer(function(input, output) {
   output$mymap <- renderLeaflet({
@@ -75,4 +75,21 @@ shinyServer(function(input, output) {
       hc_xAxis(title = list(text = names(PS_choiceVec)[PS_choiceVec == input$PS_1])) %>%
       hc_yAxis(title = list(text = names(PS_choiceVec)[PS_choiceVec == input$PS_2]))
   })
+  
+  output$painting_layer <- renderHighchart({
+    art %>% 
+      mutate(painting_support_condition = 
+               recode(media_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good", "3" = "3 Excellent")) %>%
+      count(media_condition, collection) %>%
+      hchart("bar", stacking = "normal",
+             hcaes(x = collection, y = n, group = media_condition)) %>%
+      hc_yAxis(title = list(text = "Number of Paintings")) %>%
+      hc_legend(title = list(text = "Condition Score"), reversed = TRUE) %>%
+      hc_title(text = "Media Condition") %>%
+      hc_tooltip(pointFormat = tooltip_table(c("Media Condition:", "Number of paintings:"), 
+                                             c("{point.media_condition}", "{point.y}")), useHTML = TRUE)
+  })
+  
+  
+  
 })
