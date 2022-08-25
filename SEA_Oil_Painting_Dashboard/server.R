@@ -242,4 +242,32 @@ shinyServer(function(input, output) {
         hc_title(text = names(GR_choiceVec)[GR_choiceVec == input$GR])
     }
   })
+  
+  ######## Frame #######
+  output$Frame_eval <- renderHighchart({
+    art %>% 
+      mutate(frame_condition = 
+               recode(frame_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good", "3" = "3 Excellent")) %>%
+      count(frame_condition, collection) %>%
+      hchart("bar", stacking = "normal",
+             hcaes(x = collection, y = n, group = frame_condition)) %>%
+      hc_yAxis(title = list(text = "Number of Paintings")) %>%
+      hc_legend(title = list(text = "Condition Score"), reversed = TRUE) %>%
+      hc_title(text = "Frame Condition") %>%
+      hc_tooltip(pointFormat = tooltip_table(c("Frame Condition:", "Number of paintings:"), 
+                                             c("{point.frame_condition}", "{point.y}")), useHTML = TRUE)
+  })
+  
+  output$Frame_attr_graph <- renderHighchart({
+    art %>% 
+      filter(between(decade, input$frame_decade[1], input$frame_decade[2])) %>%
+      count(!!sym(input$frame_attribute), collection) %>%
+      hchart("bar", stacking = "normal",
+             hcaes(x = collection, y = n, group = !!sym(input$frame_attribute))) %>%
+      hc_plotOptions(column = list(borderRadius = 5)) %>%
+      hc_legend(title = list(text = "Value"), reversed = TRUE) %>%
+      hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
+      hc_xAxis(title = list(text = "Museum")) %>%
+      hc_yAxis(title = list(text = "Number of Paintings"))
+  })
 })

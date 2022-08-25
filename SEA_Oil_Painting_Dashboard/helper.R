@@ -214,3 +214,13 @@ AX_choiceVec <- c(
   "Staining" = 'staining_auxiliary_support',
   "Warped" = 'warped_auxiliary_support'
 )
+
+Frame_choiceVec <- c(
+  "Frame material" = 'frame_material',
+  "Slip Presence" = 'slip_presence_frame',
+  "Glazed" = 'glazed_frame',
+  "Affixed to wall by" = 'frame_affixed_to_wall_by',
+  "Hanging system" = 'frame_hanging_system',
+  "Strand wire" = 'frame_strand_wire',
+  "Backing board" = 'backing_board_type'
+)
