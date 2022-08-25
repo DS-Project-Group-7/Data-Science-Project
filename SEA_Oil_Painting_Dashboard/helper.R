@@ -188,13 +188,29 @@ PS_choiceVec <- c(
   "Loss of Tacks" = 'loss_of_tacks_insecure_support_painting_support'
 )
 
+GR_choiceVec <- c(
+  "Are Ground Layer Commercial or Artist Applied?" = 'ground_layer_application',
+  "Size Layer Visible" = 'size_layer_visible',
+  "Are Ground Layer Thinly or Thickly Applied?" = 'ground_layer_thickness',
+  "Coloured Ground" = 'coloured_ground',
+  "Sulphate" = 'id_sulphate',
+  "Carbonate" = 'id_carbonate',
+  "Uniform Application" = 'uniform_application',
+  "Proprietary Paint" = 'ground_proprietary_paint',
+  "Are Ground Applied To Side or Face Edge?" = 'ground_layer_limit'
+)
 
-Frame_choiceVec <- c(
-  "Frame material" = 'frame_material',
-  "Slip Presence" = 'slip_presence_frame',
-  "Glazed" = 'glazed_frame',
-  "Affixed to wall by" = 'frame_affixed_to_wall_by',
-  "Hanging system" = 'frame_hanging_system',
-  "Strand wire" = 'frame_strand_wire',
-  "Backing board" = 'backing_board_type'
+AX_choiceVec <- c(
+  "Accretions" = 'accretions_auxiliary_support',
+  "Indentations" = 'indentations_auxiliary_support',
+  "Insect Damage" = 'insect_damage_auxiliary_support',
+  "Joins Unstable" = 'joins_unstable_auxiliary_support',
+  "Joins Split" = 'joins_split_auxiliary_support',
+  "Joins not Flat" = 'joins_not_flat_auxiliary_support',
+  "Mould" = 'mould_auxiliary_support',
+  "Planar" = 'planar_auxiliary_support',
+  "Previous Treatment" = 'prev_treatment_auxiliary_support',
+  "Surface Dirt" = 'surface_dirt_auxiliary_support',
+  "Staining" = 'staining_auxiliary_support',
+  "Warped" = 'warped_auxiliary_support'
 )

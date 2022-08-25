@@ -5,10 +5,11 @@
 library(shiny)
 library(leaflet)
 library(shinythemes)
+library(shinyWidgets)
 library(shinydashboard)
+library(highcharter)
 library(dashboardthemes)
 source('helper.R')
-# https://d2h9b02ioca40d.cloudfront.net/v6.0.1/assets/lockup-70679.png
 
 header <- dashboardHeader(
   title = tags$a(href='https://bit.ly/3zmFzns', target = "_blank",
@@ -36,27 +37,20 @@ sidebar <- dashboardSidebar(
              tabName = "home",
              selected = T,
              icon = icon("house-user")),
+    menuItem("Summary", tabName = "summary",
+             icon = icon("plus")),
     menuItem("National Art Gallery (Malaysia)",
              tabName = "malay",
-             menuSubItem("Material", tabName = "malaymaterial"),
-             menuSubItem("Condition", tabName = "malaycondition"),
              icon = icon("landmark")),
-    menuItem("J.B. Vargas Museum (Philippines)",
-             menuSubItem("Material", tabName = "philimaterial"),
-             menuSubItem("Condition", tabName = "philicondition"),
+    menuItem("Vargas Museum (Philippines)",
+             tabName = "phil",
              icon = icon("landmark")),
     menuItem("Heritage Conservation Board (Singapore)",
-             menuSubItem("Material", tabName = "singmaterial"),
-             menuSubItem("Condition", tabName = "singcondition"),
+             tabName = "sing",
              icon = icon("landmark")),
     menuItem("National Gallery (Thailand)",
-             menuSubItem("Material", tabName = "thaimaterial"),
-             menuSubItem("Condition", tabName = "thaicondition"),
-             icon = icon("landmark")),
-    menuItem("Summary",
-             menuSubItem("Material", tabName = "summaterial"),
-             menuSubItem("Condition", tabName = "sumcondition"),
-             icon = icon("plus"))
+             tabName = "thai",
+             icon = icon("landmark"))
   )
 )
 
@@ -67,47 +61,83 @@ body <- dashboardBody(
     tabItem("home",
             fluidPage(
               titlePanel("Welcome to the Southeast Asia Painting Conservation Dashboard!"),
-              leafletOutput("mymap", height = 600)
+              leafletOutput("mymap", height = 500),
+              fluidRow(
+                column(6, highchartOutput("Decade_Sum")),
+                column(6, highchartOutput("Size_sum"))
+              )
             )
     ),
-    tabItem("malaymaterial",
+    tabItem("summary",
+            navbarPage("Material Summary",
+                       tabPanel("Auxiliary Support"),
+                       tabPanel("Painting Support",
+                                fluidRow(
+                                  column(12, highchartOutput("PS_eval"))
+                                ),
+                                sidebarLayout(
+                                  sidebarPanel(
+                                    selectInput("PS", "Choose a support condition to view a brief summary:",
+                                                PS_choiceVec),
+                                    sliderInput("PS_decade", "Select a time period for visualisation",
+                                                min = 1850, max = 1970, step = 10, value = c(1850, 1970))
+                                  ),
+                                  mainPanel(highchartOutput("PS_planar"))
+                                ),
+                                sidebarLayout(
+                                  sidebarPanel(
+                                    selectInput("PS_1", "Choose the first attribute:",
+                                                PS_choiceVec),
+                                    selectInput("PS_2", "Choose the second attribute:",
+                                                PS_choiceVec, selected = PS_choiceVec[2])
+                                  ),
+                                  mainPanel(
+                                    highchartOutput("PS_heatmap")
+                                  )
+                                )
+                       ),
+                       tabPanel("Ground Layer"),
+                       tabPanel("Paint Layer"),
+                       tabPanel("Frame",
+                                fluidRow(
+                                  column(12, highchartOutput("Frame_eval"))
+                                ),
+                                sidebarLayout(
+                                  sidebarPanel(
+                                    selectInput("frame_attribute", "Choose a frame atribute to view a brief summary:",
+                                                Frame_choiceVec),
+                                    sliderInput("frame_decade", "Select a time period for visualisation",
+                                                min = 1850, max = 1970, step = 10, value = c(1850, 1970))
+                                  ),
+                                  mainPanel(highchartOutput("Frame_attr_graph"))
+                                )))
+    ),
+    tabItem("malay",
             fluidPage(
               titlePanel("National Art Gallery of Malaysia Material Summary")
             )
     ),
-    tabItem("malaycondition",
-            "Malaysia condition tab content"
+    tabItem("phil",
+            fluidPage(
+              titlePanel("Vargas Museun Material Summary")
+            )
     ),
-    tabItem("philimaterial",
-            "Philippine material tab content"
+    tabItem("sing",
+            fluidPage(
+              titlePanel("National Heritage Board Material Summary")
+            )
     ),
-    tabItem("philicondition",
-            "Philippine condition tab content"
-    ),
-    tabItem("singmaterial",
-            "Singapore material tab content"
-    ),
-    tabItem("singcondition",
-            "Singapore condition tab content"
-    ),
-    tabItem("thaimaterial",
-            "Thailand material tab content"
-    ),
-    tabItem("thaicondition",
-            "Thailand condition tab content"
-    ),
-    tabItem("summaterial",
-            "Summary material tab content"
-    ),
-    tabItem("sumcondition",
-            "Summary condition tab content"
+    tabItem("thai",
+            fluidPage(
+              titlePanel("National Art Gallery Thailand Material Summary")
+            )
     )
   )
 )
 
 
 ui <- dashboardPage(
-                    header, 
-                    sidebar, 
-                    body
+  header, 
+  sidebar, 
+  body
 )
