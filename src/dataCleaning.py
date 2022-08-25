@@ -73,22 +73,22 @@ BooleanColumnsDict = {
     "glass_frame": 173,
     "perspex_frame": 174,
     "unable_to_examine_reverse_frame": 175,
-    "screws_frame": 184,
-    "screweyes_frame": 185,
-    "dring_frame": 186,
-    "backing_board_presence": 189,
-    "surface_dirt_frame": 193,
-    "accretions_frame": 194,
-    "abrasions_frame": 195,
-    "flaking_frame": 196,
-    "losses_frame": 197,
-    "dented_frame": 198,
-    "chipped_frame": 199,
-    "cracking_frame": 200,
-    "corner_damage_frame": 201,
-    "mitres_separating_frame": 202,
-    "work_loose_frame": 203,
-    "surface_dirt_along_top_edge_frame": 204,
+    "screws_frame": 183,
+    "screweyes_frame": 184,
+    "dring_frame": 185,
+    "backing_board_presence": 188,
+    "surface_dirt_frame": 192,
+    "accretions_frame": 193,
+    "abrasions_frame": 194,
+    "flaking_frame": 195,
+    "losses_frame": 196,
+    "dented_frame": 197,
+    "chipped_frame": 198,
+    "cracking_frame": 199,
+    "corner_damage_frame": 200,
+    "mitres_separating_frame": 201,
+    "work_loose_frame": 202,
+    "surface_dirt_along_top_edge_frame": 203,
 }
 
 CategoricalColumnsDict = {
@@ -116,9 +116,9 @@ CategoricalColumnsDict = {
     "slip_presence_frame": [169, 170],
     "glazed_frame": [171, 172],
     "frame_affixed_to_wall_by": [177, 178, 179, 180],
-    "frame_hanging_system": [182, 183],
-    "frame_strand_wire": [187, 188],
-    "backing_board_type": [190, 191, 192],
+    "frame_hanging_system": [181, 182],
+    "frame_strand_wire": [186, 187],
+    "backing_board_type": [189, 190, 191],
 }
 
 MultipleValuesCatColDict = {
@@ -154,7 +154,7 @@ def main(dataFile):
                 originalDataDf, CategoricalColumnsDict[feature]
             )
 
-        if feature == "wood_type_country_locality":
+        elif feature == "wood_type_country_locality":
             (
                 cleanDataDf["wood_type"],
                 cleanDataDf["wood_country"],
@@ -241,10 +241,28 @@ def fuseCategColumns(originalDf, indexList, colName):
     # Since columns should be aligned (when a columns is not empty, all the others shuld be), we can just add them up
     # Might want to add a verification part though
     newColumn[colName] = originalDf.iloc[:, indexList[0]]
+    existingCatDf = newColumn[colName]
     for index in indexList[1:]:
-        newColumn[colName] += originalDf.iloc[:, index]
-    newColumn[colName] = newColumn[colName].replace(to_replace="", value="Unspecified")
-    return newColumn[colName]
+        additionalCatdF = originalDf.iloc[:, index]
+
+        # 2 boolean series to tag the empty cells
+        nonEmptAddCat = additionalCatdF != ""
+        nonEmptExistingCat = existingCatDf != ""
+
+        # Updating newCol
+        existingCatDf[(nonEmptAddCat) & (nonEmptExistingCat)] = "both"
+        existingCatDf[(nonEmptAddCat) & ~(nonEmptExistingCat)] = additionalCatdF[
+            ~(nonEmptExistingCat)
+        ]
+
+        # newColumn[colName][
+        #    newColumn[colName][originalDf.iloc[:, index] != ""] != ""
+        # ] = "both"
+        # newColumn[colName][newColumn[colName] == ""] += originalDf.iloc[:, index][
+        #    newColumn[colName] == ""
+        # ]
+    existingCatDf = existingCatDf.replace(to_replace="", value="Unspecified")
+    return existingCatDf
 
 
 def fuseOrdinalColumns(originalDf, orderedIndexList, colName):
@@ -343,6 +361,10 @@ def createParallelRelationCracksColumn(oldDataframe, index):
 
 
 def processWoodType(df, indexList):
+    """
+    Process the information in the wood type column: sometimes, the locality and the country of the wood is included in this column.
+    The goal of this script is to redirect this information into the wood locality and wood country columns, keeping uniquely the actual wood type in the wood type column.
+    """
     woodTypeDf = df.iloc[:, indexList[0]].copy()
     woodCountryDf = df.iloc[:, indexList[1]].copy()
     woodLocDf = df.iloc[:, indexList[2]].copy().fillna("")
