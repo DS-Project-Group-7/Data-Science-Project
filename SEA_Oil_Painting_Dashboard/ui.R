@@ -78,7 +78,8 @@ body <- dashboardBody(
     ),
     tabItem("dataPresentation",
             fluidPage(
-              column(6, DT::dataTableOutput('tbl'), style = "width:900px; overflow-y: scroll;overflow-x: scroll;")
+              titlePanel("Data Exploration"),
+              column(12, DT::dataTableOutput('tbl'), style = "width:900px; overflow-y: scroll;overflow-x: scroll;")
             )
     ),
     tabItem("dim",
@@ -104,6 +105,7 @@ body <- dashboardBody(
             )
     ),
     tabItem("psup",
+            titlePanel("Painting Support Condition Summary Page"),
             fluidRow(
               column(12, highchartOutput("PS_eval"))
             ),
@@ -126,6 +128,9 @@ body <- dashboardBody(
               mainPanel(
                 highchartOutput("PS_heatmap")
               )
+            ),
+            fluidRow(
+              verbatimTextOutput("PS_test")
             )
     ),
     tabItem("gl",
