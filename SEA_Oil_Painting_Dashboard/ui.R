@@ -56,7 +56,10 @@ sidebar <- dashboardSidebar(
              icon = icon("hand-point-right")),
     menuItem("Frame",
              tabName = "fr",
-             icon = icon("hand-point-right"))
+             icon = icon("hand-point-right")),
+    menuItem("Explore Database",
+             tabName = "dataPresentation",
+             icon = icon("plus"))
   )
 )
 
@@ -71,6 +74,11 @@ body <- dashboardBody(
               fluidRow(
                 column(12, highchartOutput("Decade_Sum"))
               )
+            )
+    ),
+    tabItem("dataPresentation",
+            fluidPage(
+              column(6, DT::dataTableOutput('tbl'), style = "width:900px; overflow-y: scroll;overflow-x: scroll;")
             )
     ),
     tabItem("dim",
