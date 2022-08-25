@@ -102,6 +102,9 @@ body <- dashboardBody(
                                        min = 1850, max = 1970, step = 10, value = c(1850, 1970))
               ),
               mainPanel(highchartOutput("AX_heat"))
+            ),
+            fluidRow(
+              column(12, highchartOutput("AX_wood"))
             )
     ),
     tabItem("psup",

@@ -144,7 +144,21 @@ shinyServer(function(input, output) {
                                              c("{point.y}","{point.condition}", "{point.n}")), useHTML = TRUE)
       #Need to update tooltips 
   })
-  
+  #Line chart Wood locality 
+  output$AX_wood <- renderHighchart({
+    art %>% 
+      mutate(locality = 
+               recode(locality, "local?" = "local", "Unspecified" = "import"))%>%
+      count(locality, decade) %>%
+      hchart("line",
+             hcaes(x = decade, y = n, group = locality)) %>%
+      hc_xAxis(title = list(text = "Decade")) %>%
+      hc_yAxis(title = list(text = "Number of Paintings")) %>%
+      hc_legend(title = list(text = "Locality"), reversed = TRUE) %>%
+      hc_title(text = "Wood type locality by decade")%>%
+      hc_tooltip(pointFormat = tooltip_table(c("Locality:", "Number of paintings:"), 
+                                             c("{point.locality}", "{point.y}")), useHTML = TRUE)
+  })
   # Painting Support
   output$PS_eval <- renderHighchart({
     art %>% 
