@@ -1,6 +1,4 @@
 library(shiny)
-library(sf)
-library(rgdal)
 library(leaflet)
 library(shinythemes)
 library(shinydashboard)
