@@ -25,7 +25,7 @@ shinyServer(function(input, output) {
                 options = popupOptions(closeOnClick = F, keepInView = T))
   })
   
-  output$tbl = DT::renderDataTable(clean_data, options = list(
+  output$tbl = DT::renderDataTable(art, options = list(
     pageLength=5))
   
   output$Decade_Sum <- renderHighchart({
