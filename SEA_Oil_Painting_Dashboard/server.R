@@ -4,17 +4,26 @@ library(shinythemes)
 library(shinydashboard)
 library(highcharter)
 library(dplyr)
+library(raster)
 library(dashboardthemes)
 source('helper.R')
 
 options(highcharter.theme = hc_theme_google())
 art <- read.csv("../data/cleanData.csv")
+malay <- getData('GADM', country='MYS', level=0)
+sing <- getData('GADM', country='SGP', level=0)
+phil <- getData('GADM', country='PHL', level=0)
+thai <- getData('GADM', country='THA', level=0)
 
 shinyServer(function(input, output) {
   output$mymap <- renderLeaflet({
     
-    leaflet() %>% # setView(lat = 10, lng = 115, zoom = 5.4) %>%
+    leaflet(options = leafletOptions(minZoom = 5, maxZoom = 5)) %>%
       addTiles() %>% addProviderTiles(providers$CartoDB.Voyager) %>%
+      addPolygons(data=malay, weight = 1, fillColor = "yellow") %>%
+      addPolygons(data=sing, weight = 1, fillColor = "red") %>%
+      addPolygons(data=phil, weight = 1, fillColor = "blue") %>%
+      addPolygons(data=thai, weight = 1, fillColor = "green") %>%
       addPopups(lat = 14.65385, lng = 121.06821, content_phil,
                 options = popupOptions(closeOnClick = F, keepInView = T)) %>%
       addPopups(lat = 3.1731, lng = 101.705246, content_mala,
@@ -52,7 +61,7 @@ shinyServer(function(input, output) {
   output$DM_eval <- renderHighchart({
     art %>% 
       #filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
-      select(collection, length,width,title) %>%
+      dplyr::select(collection, length,width,title) %>%
       hchart("scatter", 
              hcaes(x = width, y = length, group = collection)) %>%
       #hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
@@ -69,7 +78,7 @@ shinyServer(function(input, output) {
       mutate(area = area/100) %>%
       #filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
       #count(auxiliary_support_condition, collection) %>%
-      select(collection,area,decade,country,title)%>%
+      dplyr::select(collection,area,decade,country,title)%>%
       hchart("packedbubble",hcaes(x = collection, value = area, group = collection))%>%
       hc_title(text = "Area Summary for the Four Museum")%>%
       hc_tooltip(

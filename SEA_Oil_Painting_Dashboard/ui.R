@@ -70,7 +70,7 @@ body <- dashboardBody(
     tabItem("home",
             fluidPage(
               titlePanel("Welcome to the Southeast Asia Painting Conservation Dashboard!"),
-              leafletOutput("mymap", height = 500),
+              leafletOutput("mymap", height = 550),
               fluidRow(
                 column(12, highchartOutput("Decade_Sum"))
               )
