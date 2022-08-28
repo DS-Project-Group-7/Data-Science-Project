@@ -57,6 +57,9 @@ sidebar <- dashboardSidebar(
     menuItem("Frame",
              tabName = "fr",
              icon = icon("hand-point-right")),
+    menuItem("Explore Artist",
+             tabName = "artist",
+             icon = icon("users")),
     menuItem("Explore Database",
              tabName = "dataPresentation",
              icon = icon("table"))
@@ -163,6 +166,11 @@ body <- dashboardBody(
                             min = 1850, max = 1970, step = 10, value = c(1850, 1970))
               ),
               mainPanel(highchartOutput("Frame_attr_graph"))
+            )
+    ),
+    tabItem("artist",
+            fluidPage(
+              titlePanel("Explore Artists")
             )
     ),
     tabItem("dataPresentation",
