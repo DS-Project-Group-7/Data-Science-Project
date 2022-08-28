@@ -59,7 +59,7 @@ sidebar <- dashboardSidebar(
              icon = icon("hand-point-right")),
     menuItem("Explore Database",
              tabName = "dataPresentation",
-             icon = icon("plus"))
+             icon = icon("table"))
   )
 )
 
@@ -74,12 +74,6 @@ body <- dashboardBody(
               fluidRow(
                 column(12, highchartOutput("Decade_Sum"))
               )
-            )
-    ),
-    tabItem("dataPresentation",
-            fluidPage(
-              titlePanel("Data Exploration"),
-              column(12, DT::dataTableOutput('tbl'), style = "width:900px; overflow-y: scroll;overflow-x: scroll;")
             )
     ),
     tabItem("dim",
@@ -169,6 +163,12 @@ body <- dashboardBody(
                             min = 1850, max = 1970, step = 10, value = c(1850, 1970))
               ),
               mainPanel(highchartOutput("Frame_attr_graph"))
+            )
+    ),
+    tabItem("dataPresentation",
+            fluidPage(
+              titlePanel("Data Exploration"),
+              column(12, DT::dataTableOutput('tbl'), style = "width:900px; overflow-y: scroll;overflow-x: scroll;")
             )
     )
   )
