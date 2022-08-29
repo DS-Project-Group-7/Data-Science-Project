@@ -99,8 +99,16 @@ body <- dashboardBody(
                        tabPanel("Ground Layer"),
                         tabPanel("Paint Layer",
                                 fluidRow(
-                                  column(12, highchartOutput("painting_layer"))
-                                ) ),
+                                  column(12, highchartOutput("painting_layer")),
+                                sidebarLayout(
+                                  sidebarPanel(
+                                    selectInput("media_type", "Choose a frame atribute to view a brief summary:",
+                                                Painting_choiceVec),
+                                    sliderInput("frame_decade", "Select a time period for visualisation",
+                                                min = 1850, max = 1970, step = 10, value = c(1850, 1970))
+                                  ),
+                                  mainPanel(highchartOutput("PL_graph"))
+                                ))),
                        tabPanel("Frame",
                                 fluidRow(
                                   column(12, highchartOutput("Frame_eval"))
