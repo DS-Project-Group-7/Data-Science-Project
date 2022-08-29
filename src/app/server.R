@@ -88,6 +88,22 @@ shinyServer(function(input, output) {
       hc_tooltip(pointFormat = tooltip_table(c("Media Condition:", "Number of paintings:"), 
                                              c("{point.media_condition}", "{point.y}")), useHTML = TRUE)
   })
+    
+    output$PL_graph <- renderHighchart({
+      art %>% 
+        filter(between(decade, input$frame_decade[1], input$frame_decade[2])) %>%
+        mutate(painting_support_condition = 
+                 recode(media_type_1, "oil" = "oil", "acrylic" = "acrylic", "tempera" = "tempera")) %>%
+        count(media_type_1, collection) %>%
+        hchart("bar", stacking = "normal",
+               #hcaes(x = collection, y = n, group = !!sym(input$media_type))) %>%
+               hcaes(x = collection, y = n, group = media_type_1)) %>%
+        hc_yAxis(title = list(text = "Number of Paintings")) %>%
+        hc_legend(title = list(text = "Media Types"), reversed = TRUE) %>%
+        hc_title(text = "Media Types") %>%
+        hc_tooltip(pointFormat = tooltip_table(c("Media Types:", "Number of paintings:"), 
+                                               c("{point.media_type_1}", "{point.y}")), useHTML = TRUE)
+    })
   
   ######## Frame #######
   output$Frame_eval <- renderHighchart({

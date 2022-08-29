@@ -188,6 +188,14 @@ PS_choiceVec <- c(
   "Loss of Tacks" = 'loss_of_tacks_insecure_support_painting_support'
 )
 
+Painting_choiceVec <- c(
+  "Oil" = 'oil',
+  "Acrylic" = 'acrylic',
+  "Tempera" = 'tempera',
+  "Mixed Media" = 'mixed media',
+  "Emulsion" = 'emulsion'
+)
+
 
 Frame_choiceVec <- c(
   "Frame material" = 'frame_material',
