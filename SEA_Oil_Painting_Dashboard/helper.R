@@ -133,7 +133,7 @@ customTheme <- shinyDashboardThemeDIY(
   ,buttonBorderColorHover = "#969696"
   
   ,textboxBackColor = "#FFFFFF"
-  ,textboxBorderColor = "#FFFFFF"
+  ,textboxBorderColor = "#6C6C6C"
   ,textboxBorderRadius = "9"
   ,textboxBackColorSelect = "#F5F5F5"
   ,textboxBorderColorSelect = "#6C6C6C"
@@ -191,8 +191,7 @@ PS_choiceVec <- c(
 GR_choiceVec <- c(
   "Are Ground Layer Commercial or Artist Applied?" = 'ground_layer_application',
   "Size Layer Visible" = 'size_layer_visible',
-  "Thickly Applied" = 'thickly_applied',
-  "Thinly Applied" = 'thinly_applied',
+  "Are Ground Layer Thinly or Thickly Applied?" = 'ground_layer_thickness',
   "Coloured Ground" = 'coloured_ground',
   "Sulphate" = 'id_sulphate',
   "Carbonate" = 'id_carbonate',
@@ -214,4 +213,14 @@ AX_choiceVec <- c(
   "Surface Dirt" = 'surface_dirt_auxiliary_support',
   "Staining" = 'staining_auxiliary_support',
   "Warped" = 'warped_auxiliary_support'
+)
+
+Frame_choiceVec <- c(
+  "Frame material" = 'frame_material',
+  "Slip Presence" = 'slip_presence_frame',
+  "Glazed" = 'glazed_frame',
+  "Affixed to wall by" = 'frame_affixed_to_wall_by',
+  "Hanging system" = 'frame_hanging_system',
+  "Strand wire" = 'frame_strand_wire',
+  "Backing board" = 'backing_board_type'
 )

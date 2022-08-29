@@ -96,13 +96,24 @@ body <- dashboardBody(
                                   )
                                 )
                        ),
-                       tabPanel("Ground Layer"
-                                ),
-                       tabPanel("Paint Layer",
+                       tabPanel("Ground Layer"),
+                        tabPanel("Paint Layer",
                                 fluidRow(
                                   column(12, highchartOutput("painting_layer"))
                                 ) ),
-                       tabPanel("Frame"))
+                       tabPanel("Frame",
+                                fluidRow(
+                                  column(12, highchartOutput("Frame_eval"))
+                                ),
+                                sidebarLayout(
+                                  sidebarPanel(
+                                    selectInput("frame_attribute", "Choose a frame atribute to view a brief summary:",
+                                                Frame_choiceVec),
+                                    sliderInput("frame_decade", "Select a time period for visualisation",
+                                                min = 1850, max = 1970, step = 10, value = c(1850, 1970))
+                                  ),
+                                  mainPanel(highchartOutput("Frame_attr_graph"))
+                                )))
     ),
     tabItem("malay",
             fluidPage(

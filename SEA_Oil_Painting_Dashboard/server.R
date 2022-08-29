@@ -4,26 +4,71 @@ library(shinythemes)
 library(shinydashboard)
 library(highcharter)
 library(dplyr)
+library(raster)
 library(dashboardthemes)
 source('helper.R')
 
 options(highcharter.theme = hc_theme_google())
 art <- read.csv("../data/cleanData.csv")
+malay <- getData('GADM', country='MYS', level=0)
+sing <- getData('GADM', country='SGP', level=0)
+phil <- getData('GADM', country='PHL', level=0)
+thai <- getData('GADM', country='THA', level=0)
 
 shinyServer(function(input, output) {
+  output$sing_count <- renderValueBox({
+    valueBox(
+      value = "63", subtitle = "National Heritage Board",
+      icon = icon("institution"), color = "red", 
+      href = 'https://www.nhb.gov.sg'
+    )
+  })
+  
+  output$mala_count <- renderValueBox({
+    valueBox(
+      value = "53", subtitle = "National Art Gallery (Malaysia)",
+      icon = icon("university"), color = "orange", 
+      href = 'https://www.artgallery.gov.my/en/homepage/'
+    )
+  })
+  
+  output$phil_count <- renderValueBox({
+    valueBox(
+      value = "59", subtitle = "JB Vargas Museum",
+      icon = icon("university"), color = "blue", 
+      href = 'https://vargasmuseum.wordpress.com'
+    )
+  })
+  
+  output$thai_count <- renderValueBox({
+    valueBox(
+      value = "33", subtitle = "National Art Gallery (Thailand)",
+      icon = icon("university"), color = "green", 
+      href = 'https://www.museumthailand.com/en/museum/The-National-Gallery-Hor-Silp-Chao-Fa'
+    )
+  })
+  
   output$mymap <- renderLeaflet({
     
-    leaflet() %>% # setView(lat = 10, lng = 115, zoom = 5.4) %>%
+    leaflet(options = leafletOptions(minZoom = 5, maxZoom = 5)) %>%
       addTiles() %>% addProviderTiles(providers$CartoDB.Voyager) %>%
-      addPopups(lat = 14.65385, lng = 121.06821, content_phil,
-                options = popupOptions(closeOnClick = F, keepInView = T)) %>%
-      addPopups(lat = 3.1731, lng = 101.705246, content_mala,
-                options = popupOptions(closeOnClick = F, keepInView = T)) %>%
-      addPopups(lat = 1.32631052396, lng = 103.845852286, content_sing,
-                options = popupOptions(closeOnClick = F, keepInView = T)) %>%
-      addPopups(lat = 13.758915, lng = 100.49393, content_thai,
-                options = popupOptions(closeOnClick = F, keepInView = T))
+      addPolygons(data=malay, weight = 1, fillColor = "orange") %>%
+      addPolygons(data=sing, weight = 1, fillColor = "red") %>%
+      addPolygons(data=phil, weight = 1, fillColor = "blue") %>%
+      addPolygons(data=thai, weight = 1, fillColor = "green")
+      #addPopups(lat = 14.65385, lng = 121.06821, content_phil,
+      #          options = popupOptions(closeOnClick = F, keepInView = T)) %>%
+      #addPopups(lat = 3.1731, lng = 101.705246, content_mala,
+      #          options = popupOptions(closeOnClick = F, keepInView = T)) %>%
+      #addPopups(lat = 1.32631052396, lng = 103.845852286, content_sing,
+      #          options = popupOptions(closeOnClick = F, keepInView = T)) %>%
+      #addPopups(lat = 13.758915, lng = 100.49393, content_thai,
+      #          options = popupOptions(closeOnClick = F, keepInView = T))
   })
+  
+  output$tbl <- DT::renderDataTable(art, options = list(
+    pageLength = 10)
+  )
   
   output$Decade_Sum <- renderHighchart({
     art %>%
@@ -31,7 +76,7 @@ shinyServer(function(input, output) {
       hchart("column", stacking = "normal", hcaes(x = decade, y = n, group = collection)) %>%
       hc_xAxis(title = list(text = "Decades")) %>%
       hc_yAxis(title = list(text = "Number of paintings")) %>%
-      hc_title(text = "Painting Distribution Throughout the Century") %>%
+      hc_title(text = "Painting Frequency Distribution Throughout the Century") %>%
       hc_legend(title = list(text = "Museum"))
   })
   
@@ -49,13 +94,13 @@ shinyServer(function(input, output) {
   output$DM_eval <- renderHighchart({
     art %>% 
       #filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
-      select(collection, length,width,title) %>%
+      dplyr::select(collection, length, width, title) %>%
       hchart("scatter", 
              hcaes(x = width, y = length, group = collection)) %>%
       #hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
       hc_xAxis(title = list(text = "Width")) %>%
       hc_yAxis(title = list(text = "Length")) %>%
-      hc_title(text = "Scatter plot between width and length of four collections")%>%
+      hc_title(text = "Scatter Plot Between Width and Length of the Four Museums")%>%
       hc_tooltip(pointFormat = tooltip_table(c("Painting Title:","Width:", "Length:"), 
                                             c("{point.title}", "{point.x}","{point.y}")), useHTML = TRUE)
   })
@@ -66,9 +111,9 @@ shinyServer(function(input, output) {
       mutate(area = area/100) %>%
       #filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
       #count(auxiliary_support_condition, collection) %>%
-      select(collection,area,decade,country,title)%>%
+      dplyr::select(collection,area,decade,country,title)%>%
       hchart("packedbubble",hcaes(x = collection, value = area, group = collection))%>%
-      hc_title(text = "Bubble area of painting of four collections")%>%
+      hc_title(text = "Area Summary for the Four Museum")%>%
       hc_tooltip(
         useHTML = TRUE,
         pointFormat = tooltip_table(c("Painting Title:","Area:"), 
@@ -115,7 +160,7 @@ shinyServer(function(input, output) {
       hc_xAxis(title = list(text = "Museum")) %>%
       hc_yAxis(title = list(text = "Number of Paintings")) %>%
       hc_legend(title = list(text = "Condition Score"), reversed = TRUE) %>%
-      hc_title(text = "Auxiliary support condition")%>%
+      hc_title(text = "Auxiliary Support Condition")%>%
       hc_tooltip(pointFormat = tooltip_table(c("Auxiliary support condition:", "Number of paintings:"), 
                                              c("{point.auxiliary_support_condition}", "{point.y}")), useHTML = TRUE)
   })
@@ -141,12 +186,27 @@ shinyServer(function(input, output) {
                                              c("{point.y}","{point.condition}", "{point.n}")), useHTML = TRUE)
       #Need to update tooltips 
   })
-  
+  #Line chart Wood locality 
+  output$AX_wood <- renderHighchart({
+    art %>% 
+      mutate(locality = 
+               recode(locality, "local?" = "local", "Unspecified" = "import"))%>%
+      count(locality, decade) %>%
+      hchart("line",
+             hcaes(x = decade, y = n, group = locality)) %>%
+      hc_xAxis(title = list(text = "Decade")) %>%
+      hc_yAxis(title = list(text = "Number of Paintings")) %>%
+      hc_legend(title = list(text = "Locality"), reversed = TRUE) %>%
+      hc_title(text = "Wood type locality by decade")%>%
+      hc_tooltip(pointFormat = tooltip_table(c("Locality:", "Number of paintings:"), 
+                                             c("{point.locality}", "{point.y}")), useHTML = TRUE)
+  })
   # Painting Support
   output$PS_eval <- renderHighchart({
     art %>% 
       mutate(painting_support_condition = 
                recode(painting_support_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good", "3" = "3 Excellent")) %>%
+      filter(between(decade, input$PS_decade[1], input$PS_decade[2])) %>%
       count(painting_support_condition, collection) %>%
       hchart("bar", stacking = "normal",
              hcaes(x = collection, y = n, group = painting_support_condition)) %>%
@@ -213,7 +273,16 @@ shinyServer(function(input, output) {
         count(!!sym(input$GR), collection) %>%
         hchart("bar", stacking = "normal",
                hcaes(x = collection, y = n, group = !!sym(input$GR))) %>%
-        hc_title(text = "Are Ground Applied To Face Edge or Side Edge?") %>%
+        hc_title(text = "Commercial or Artist Applied Ground?") %>%
+        hc_xAxis(title = list(text = "Museum")) %>%
+        hc_yAxis(title = list(text = "Number of Paintings"))
+    } else if (input$GR == "ground_layer_thickness") {
+      art %>%
+        mutate(!!sym(input$GR) := recode(!!sym(input$GR), "thinly applied" = "Thinly Applied", "thickly applied" = "Thickly Applied", 'thickly appliedthinly applied' = 'Both')) %>%
+        count(!!sym(input$GR), collection) %>%
+        hchart("bar", stacking = "normal",
+               hcaes(x = collection, y = n, group = !!sym(input$GR))) %>%
+        hc_title(text = "Are Ground Applied Thinly or Thickly Applied?") %>%
         hc_xAxis(title = list(text = "Museum")) %>%
         hc_yAxis(title = list(text = "Number of Paintings"))
     } else {
@@ -229,5 +298,33 @@ shinyServer(function(input, output) {
         hc_yAxis(title = list(text = "Number of Paintings")) %>%
         hc_title(text = names(GR_choiceVec)[GR_choiceVec == input$GR])
     }
+  })
+  
+  ######## Frame #######
+  output$Frame_eval <- renderHighchart({
+    art %>% 
+      mutate(frame_condition = 
+               recode(frame_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good", "3" = "3 Excellent")) %>%
+      count(frame_condition, collection) %>%
+      hchart("bar", stacking = "normal",
+             hcaes(x = collection, y = n, group = frame_condition)) %>%
+      hc_yAxis(title = list(text = "Number of Paintings")) %>%
+      hc_legend(title = list(text = "Condition Score"), reversed = TRUE) %>%
+      hc_title(text = "Frame Condition") %>%
+      hc_tooltip(pointFormat = tooltip_table(c("Frame Condition:", "Number of paintings:"), 
+                                             c("{point.frame_condition}", "{point.y}")), useHTML = TRUE)
+  })
+  
+  output$Frame_attr_graph <- renderHighchart({
+    art %>% 
+      filter(between(decade, input$frame_decade[1], input$frame_decade[2])) %>%
+      count(!!sym(input$frame_attribute), collection) %>%
+      hchart("bar", stacking = "normal",
+             hcaes(x = collection, y = n, group = !!sym(input$frame_attribute))) %>%
+      hc_plotOptions(column = list(borderRadius = 5)) %>%
+      hc_legend(title = list(text = "Value"), reversed = TRUE) %>%
+      hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
+      hc_xAxis(title = list(text = "Museum")) %>%
+      hc_yAxis(title = list(text = "Number of Paintings"))
   })
 })
