@@ -72,8 +72,16 @@ body <- dashboardBody(
   tabItems(
     tabItem("home",
             fluidPage(
-              titlePanel("Welcome to the Southeast Asia Painting Conservation Dashboard!"),
+              titlePanel("Southeast Asia Painting Conservation Data Visualisation Dashboard"),
+              p(strong("Number of Paintings:")),
+              fluidRow(
+                column(3, valueBoxOutput("sing_count", width = 14)),
+                column(3, valueBoxOutput("mala_count", width = 14)),
+                column(3, valueBoxOutput("thai_count", width = 14)),
+                column(3, valueBoxOutput("phil_count", width = 14))
+              ),
               leafletOutput("mymap", height = 550),
+              br(),
               fluidRow(
                 column(12, highchartOutput("Decade_Sum"))
               )
@@ -105,7 +113,7 @@ body <- dashboardBody(
             )
     ),
     tabItem("psup",
-            titlePanel("Painting Support Condition Summary Page"),
+            titlePanel("Painting Support Overview"),
             fluidRow(
               column(12, highchartOutput("PS_eval"))
             ),

@@ -16,26 +16,59 @@ phil <- getData('GADM', country='PHL', level=0)
 thai <- getData('GADM', country='THA', level=0)
 
 shinyServer(function(input, output) {
+  output$sing_count <- renderValueBox({
+    valueBox(
+      value = "63", subtitle = "National Heritage Board",
+      icon = icon("institution"), color = "red", 
+      href = 'https://www.nhb.gov.sg'
+    )
+  })
+  
+  output$mala_count <- renderValueBox({
+    valueBox(
+      value = "53", subtitle = "National Art Gallery (Malaysia)",
+      icon = icon("university"), color = "orange", 
+      href = 'https://www.artgallery.gov.my/en/homepage/'
+    )
+  })
+  
+  output$phil_count <- renderValueBox({
+    valueBox(
+      value = "59", subtitle = "JB Vargas Museum",
+      icon = icon("university"), color = "blue", 
+      href = 'https://vargasmuseum.wordpress.com'
+    )
+  })
+  
+  output$thai_count <- renderValueBox({
+    valueBox(
+      value = "33", subtitle = "National Art Gallery (Thailand)",
+      icon = icon("university"), color = "green", 
+      href = 'https://www.museumthailand.com/en/museum/The-National-Gallery-Hor-Silp-Chao-Fa'
+    )
+  })
+  
   output$mymap <- renderLeaflet({
     
     leaflet(options = leafletOptions(minZoom = 5, maxZoom = 5)) %>%
       addTiles() %>% addProviderTiles(providers$CartoDB.Voyager) %>%
-      addPolygons(data=malay, weight = 1, fillColor = "yellow") %>%
+      addPolygons(data=malay, weight = 1, fillColor = "orange") %>%
       addPolygons(data=sing, weight = 1, fillColor = "red") %>%
       addPolygons(data=phil, weight = 1, fillColor = "blue") %>%
-      addPolygons(data=thai, weight = 1, fillColor = "green") %>%
-      addPopups(lat = 14.65385, lng = 121.06821, content_phil,
-                options = popupOptions(closeOnClick = F, keepInView = T)) %>%
-      addPopups(lat = 3.1731, lng = 101.705246, content_mala,
-                options = popupOptions(closeOnClick = F, keepInView = T)) %>%
-      addPopups(lat = 1.32631052396, lng = 103.845852286, content_sing,
-                options = popupOptions(closeOnClick = F, keepInView = T)) %>%
-      addPopups(lat = 13.758915, lng = 100.49393, content_thai,
-                options = popupOptions(closeOnClick = F, keepInView = T))
+      addPolygons(data=thai, weight = 1, fillColor = "green")
+      #addPopups(lat = 14.65385, lng = 121.06821, content_phil,
+      #          options = popupOptions(closeOnClick = F, keepInView = T)) %>%
+      #addPopups(lat = 3.1731, lng = 101.705246, content_mala,
+      #          options = popupOptions(closeOnClick = F, keepInView = T)) %>%
+      #addPopups(lat = 1.32631052396, lng = 103.845852286, content_sing,
+      #          options = popupOptions(closeOnClick = F, keepInView = T)) %>%
+      #addPopups(lat = 13.758915, lng = 100.49393, content_thai,
+      #          options = popupOptions(closeOnClick = F, keepInView = T))
   })
   
-  output$tbl = DT::renderDataTable(art, options = list(
-    pageLength=5))
+  output$tbl <- DT::renderDataTable(art, options = list(
+    pageLength = 10)
+  )
   
   output$Decade_Sum <- renderHighchart({
     art %>%
@@ -43,7 +76,7 @@ shinyServer(function(input, output) {
       hchart("column", stacking = "normal", hcaes(x = decade, y = n, group = collection)) %>%
       hc_xAxis(title = list(text = "Decades")) %>%
       hc_yAxis(title = list(text = "Number of paintings")) %>%
-      hc_title(text = "Painting Distribution Throughout the Century") %>%
+      hc_title(text = "Painting Frequency Distribution Throughout the Century") %>%
       hc_legend(title = list(text = "Museum"))
   })
   
@@ -61,7 +94,7 @@ shinyServer(function(input, output) {
   output$DM_eval <- renderHighchart({
     art %>% 
       #filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
-      dplyr::select(collection, length,width,title) %>%
+      dplyr::select(collection, length, width, title) %>%
       hchart("scatter", 
              hcaes(x = width, y = length, group = collection)) %>%
       #hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
@@ -173,6 +206,7 @@ shinyServer(function(input, output) {
     art %>% 
       mutate(painting_support_condition = 
                recode(painting_support_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good", "3" = "3 Excellent")) %>%
+      filter(between(decade, input$PS_decade[1], input$PS_decade[2])) %>%
       count(painting_support_condition, collection) %>%
       hchart("bar", stacking = "normal",
              hcaes(x = collection, y = n, group = painting_support_condition)) %>%

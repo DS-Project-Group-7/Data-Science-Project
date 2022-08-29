@@ -133,7 +133,7 @@ customTheme <- shinyDashboardThemeDIY(
   ,buttonBorderColorHover = "#969696"
   
   ,textboxBackColor = "#FFFFFF"
-  ,textboxBorderColor = "#FFFFFF"
+  ,textboxBorderColor = "#6C6C6C"
   ,textboxBorderRadius = "9"
   ,textboxBackColorSelect = "#F5F5F5"
   ,textboxBorderColorSelect = "#6C6C6C"
