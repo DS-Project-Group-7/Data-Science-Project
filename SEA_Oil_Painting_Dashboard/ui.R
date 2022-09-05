@@ -80,7 +80,10 @@ body <- dashboardBody(
                 column(3, valueBoxOutput("thai_count", width = 14)),
                 column(3, valueBoxOutput("phil_count", width = 14))
               ),
-              leafletOutput("mymap", height = 550),
+              fluidRow(
+                column(6, leafletOutput("mymap", height = 410)),
+                column(6, imageOutput("cooking_rice", width = "20%"))
+              ),
               br(),
               fluidRow(
                 column(12, highchartOutput("Decade_Sum"))
@@ -91,12 +94,13 @@ body <- dashboardBody(
                 (Balai Seni Lukis Negara), the J.B. Vargas Museum at the University of 
                 the Philippines (UP), the Heritage Conservation Centre in Singapore, 
                 the National Gallery in Bangkok and the Centre for Cultural Materials 
-                Conservation (CCMC) at the University of Melbourne in Australia. 
-                It focused on a survey examination of canvas paintings with some specific
-                materials analysis when possible. Results were also reviewed in the context 
-                of the supply of artists’ materials and art training opportunities, 
-                proposing that they provided the conditions for the transfer of ‘Western’ 
-                oil painting practice."))
+                Conservation (CCMC) at the University of Melbourne. It focused on a survey 
+                examination of 208 canvas paintings with some specific materials analysis when 
+                possible. Results were also reviewed in the context of the supply of 
+                artists’ materials and art training opportunities, proposing that they 
+                provided the conditions for the transfer of ‘Western’ oil painting practice."
+                   )
+                )
             )
     ),
     tabItem("dim",

@@ -50,7 +50,7 @@ shinyServer(function(input, output) {
   
   output$mymap <- renderLeaflet({
     
-    leaflet(options = leafletOptions(minZoom = 5, maxZoom = 5)) %>%
+    leaflet(options = leafletOptions(minZoom = 4.5, maxZoom = 4.5)) %>%
       addTiles() %>% addProviderTiles(providers$CartoDB.Voyager) %>%
       addPolygons(data=malay, weight = 1, fillColor = "orange") %>%
       addPolygons(data=sing, weight = 1, fillColor = "red") %>%
@@ -65,6 +65,12 @@ shinyServer(function(input, output) {
       #addPopups(lat = 13.758915, lng = 100.49393, content_thai,
       #          options = popupOptions(closeOnClick = F, keepInView = T))
   })
+  
+  output$cooking_rice <- renderImage({
+    list(src = "cooking_rice.png",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
   
   output$tbl <- DT::renderDataTable(art, options = list(
     pageLength = 10)
@@ -161,7 +167,7 @@ shinyServer(function(input, output) {
       hc_yAxis(title = list(text = "Number of Paintings")) %>%
       hc_legend(title = list(text = "Condition Score"), reversed = TRUE) %>%
       hc_title(text = "Auxiliary Support Condition")%>%
-      hc_tooltip(pointFormat = tooltip_table(c("Auxiliary support condition:", "Number of paintings:"), 
+      hc_tooltip(pointFormat = tooltip_table(c("Auxiliary Support Condition:", "Number of paintings:"), 
                                              c("{point.auxiliary_support_condition}", "{point.y}")), useHTML = TRUE)
   })
   
@@ -177,7 +183,7 @@ shinyServer(function(input, output) {
       hchart("heatmap",
              hcaes(x =  condition, y = !!sym(input$AX), value = n)) %>%
       hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
-      hc_xAxis(title = list(text = "Aux Support Condition"), 
+      hc_xAxis(title = list(text = "Auxiliary Support Condition"), 
                categories = c("Poor", "Fair", "Good" )) %>%
       hc_yAxis(title = list(text = names(AX_choiceVec)[AX_choiceVec == input$AX]),
                categories = c("No", "Yes")) %>%
@@ -197,7 +203,7 @@ shinyServer(function(input, output) {
       hc_xAxis(title = list(text = "Decade")) %>%
       hc_yAxis(title = list(text = "Number of Paintings")) %>%
       hc_legend(title = list(text = "Locality"), reversed = TRUE) %>%
-      hc_title(text = "Wood type locality by decade")%>%
+      hc_title(text = "Wood Type Locality Distribution Throughout the Century")%>%
       hc_tooltip(pointFormat = tooltip_table(c("Locality:", "Number of paintings:"), 
                                              c("{point.locality}", "{point.y}")), useHTML = TRUE)
   })
