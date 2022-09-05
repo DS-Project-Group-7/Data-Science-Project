@@ -42,7 +42,7 @@ shinyServer(function(input, output) {
   
   output$thai_count <- renderValueBox({
     valueBox(
-      value = "33", subtitle = "National Art Gallery (Thailand)",
+      value = "33", subtitle = "National Gallery (Thailand)",
       icon = icon("university"), color = "green", 
       href = 'https://www.museumthailand.com/en/museum/The-National-Gallery-Hor-Silp-Chao-Fa'
     )

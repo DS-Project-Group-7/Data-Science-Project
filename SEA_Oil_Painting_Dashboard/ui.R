@@ -73,6 +73,18 @@ body <- dashboardBody(
     tabItem("home",
             fluidPage(
               titlePanel("Southeast Asia Painting Conservation Data Visualisation Dashboard"),
+              br(),
+              p(em("The study behind this interactive dashboard was undertaken as a 
+                three-year joint project between the National Art Gallery of Malaysia, 
+                the J.B. Vargas Museum in Philippines, the Heritage Conservation Centre 
+                in Singapore, the National Gallery in Bangkok and the Centre for Cultural Materials 
+                Conservation at the University of Melbourne. It focused on a survey 
+                examination of 208 canvas paintings with some specific materials analysis when 
+                possible. Results were also reviewed in the context of the supply of 
+                artists’ materials and art training opportunities, proposing that they 
+                provided the conditions for the transfer of ‘Western’ oil painting practice.")
+              ),
+              br(),
               p(strong("Number of Paintings:")),
               fluidRow(
                 column(3, valueBoxOutput("sing_count", width = 14)),
@@ -88,20 +100,7 @@ body <- dashboardBody(
               br(),
               fluidRow(
                 column(12, highchartOutput("Decade_Sum"))
-              ),
-              br(),
-              p(em("The study behind this interactive dashboard was undertaken as a 
-                three-year joint project between the National Art Gallery of Malaysia 
-                (Balai Seni Lukis Negara), the J.B. Vargas Museum at the University of 
-                the Philippines (UP), the Heritage Conservation Centre in Singapore, 
-                the National Gallery in Bangkok and the Centre for Cultural Materials 
-                Conservation (CCMC) at the University of Melbourne. It focused on a survey 
-                examination of 208 canvas paintings with some specific materials analysis when 
-                possible. Results were also reviewed in the context of the supply of 
-                artists’ materials and art training opportunities, proposing that they 
-                provided the conditions for the transfer of ‘Western’ oil painting practice."
-                   )
-                )
+              )
             )
     ),
     tabItem("dim",
