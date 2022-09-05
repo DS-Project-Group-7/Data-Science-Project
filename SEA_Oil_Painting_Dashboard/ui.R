@@ -82,7 +82,8 @@ body <- dashboardBody(
               ),
               fluidRow(
                 column(6, leafletOutput("mymap", height = 410)),
-                column(6, imageOutput("cooking_rice", width = "20%"))
+                column(6, imageOutput("cooking_rice", width = "20%"),
+                       p(em("Cooking Rice, Fernando Amorsolo (1959)")))
               ),
               br(),
               fluidRow(
