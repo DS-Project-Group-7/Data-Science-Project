@@ -224,3 +224,10 @@ Frame_choiceVec <- c(
   "Strand wire" = 'frame_strand_wire',
   "Backing board" = 'backing_board_type'
 )
+
+Museum_choiceVec <- c(
+  "Vargas Museum (Philippines)",
+  "National Gallery (Thailand)",
+  "National Art Gallery (Malaysia)",
+  "Heritage Conservation Board (Singapore)"
+)

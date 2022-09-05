@@ -19,7 +19,7 @@ shinyServer(function(input, output) {
   output$sing_count <- renderValueBox({
     valueBox(
       value = "63", subtitle = "National Heritage Board",
-      icon = icon("institution"), color = "red", 
+      icon = icon("university"), color = "red", 
       href = 'https://www.nhb.gov.sg'
     )
   })
@@ -210,8 +210,8 @@ shinyServer(function(input, output) {
       count(painting_support_condition, collection) %>%
       hchart("bar", stacking = "normal",
              hcaes(x = collection, y = n, group = painting_support_condition)) %>%
-      hc_yAxis(title = list(text = "Number of Paintings")) %>%
-      hc_legend(title = list(text = "Condition Score"), reversed = TRUE) %>%
+      hc_yAxis(title = list(text = "Number of Paintings"), reversedStacks = F) %>%
+      hc_legend(title = list(text = "Condition Score"), reversed = F) %>%
       hc_title(text = "Painting Support Condition Overview") %>%
       hc_tooltip(pointFormat = tooltip_table(c("Support Condition:", "Number of paintings:"), 
                                              c("{point.painting_support_condition}", "{point.y}")), useHTML = TRUE)

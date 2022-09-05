@@ -84,7 +84,19 @@ body <- dashboardBody(
               br(),
               fluidRow(
                 column(12, highchartOutput("Decade_Sum"))
-              )
+              ),
+              br(),
+              p(em("The study behind this interactive dashboard was undertaken as a 
+                three-year joint project between the National Art Gallery of Malaysia 
+                (Balai Seni Lukis Negara), the J.B. Vargas Museum at the University of 
+                the Philippines (UP), the Heritage Conservation Centre in Singapore, 
+                the National Gallery in Bangkok and the Centre for Cultural Materials 
+                Conservation (CCMC) at the University of Melbourne in Australia. 
+                It focused on a survey examination of canvas paintings with some specific
+                materials analysis when possible. Results were also reviewed in the context 
+                of the supply of artists’ materials and art training opportunities, 
+                proposing that they provided the conditions for the transfer of ‘Western’ 
+                oil painting practice."))
             )
     ),
     tabItem("dim",
@@ -121,6 +133,7 @@ body <- dashboardBody(
               sidebarPanel(
                 selectInput("PS", "Choose a support condition to view a brief summary:",
                             PS_choiceVec),
+                checkboxGroupInput("PS_check", "Museum filter:", Museum_choiceVec, selected = Museum_choiceVec),
                 sliderInput("PS_decade", "Select a time period for visualisation",
                             min = 1850, max = 1970, step = 10, value = c(1850, 1970))
               ),
