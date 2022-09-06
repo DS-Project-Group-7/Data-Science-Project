@@ -9,7 +9,7 @@ library(dashboardthemes)
 source('helper.R')
 
 options(highcharter.theme = hc_theme_google())
-art <- read.csv("../data/cleanData.csv")
+art <- read.csv("../data/cleanData.csv")[,-1]
 malay <- getData('GADM', country='MYS', level=0)
 sing <- getData('GADM', country='SGP', level=0)
 phil <- getData('GADM', country='PHL', level=0)
@@ -72,8 +72,10 @@ shinyServer(function(input, output) {
     )
   }, deleteFile = FALSE)
   
-  output$tbl <- DT::renderDataTable(art, options = list(
-    pageLength = 10)
+  output$tbl <- DT::renderDataTable(display_art, rownames = FALSE, options = list(
+    pageLength = 10, autoWidth = T, 
+    columnDefs = list(list(width = '500px', className = 'dt-center', targets = "_all"))
+    )
   )
   
   output$Decade_Sum <- renderHighchart({

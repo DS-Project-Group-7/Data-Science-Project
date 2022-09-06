@@ -1,3 +1,13 @@
+simpleCap <- function(x) {
+  s <- strsplit(x, " ")[[1]]
+  paste(toupper(substring(s, 1,1)), substring(s, 2),
+        sep="", collapse=" ")
+}
+
+display_art <- read.csv("../data/cleanData.csv")[,-1]
+names(display_art) <- gsub("_", " ", names(display_art))
+names(display_art) <- sapply(names(display_art), simpleCap)
+
 customSentence <- function(numItems, type) {
   paste("Contact us")
 }

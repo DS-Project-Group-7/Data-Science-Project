@@ -17,7 +17,7 @@ header <- dashboardHeader(
   title = tags$a(href='https://bit.ly/3zmFzns', target = "_blank",
                  tags$img(src='https://bit.ly/3cSvLu7',
                           height='40', width='160')),
-  titleWidth = 350,
+  titleWidth = 280,
   dropdownMenuCustom(type = "message",
                      customSentence = customSentence,
                      messageItem(
@@ -33,7 +33,7 @@ header <- dashboardHeader(
 )
 
 sidebar <- dashboardSidebar(
-  width = 350,
+  width = 280,
   sidebarMenu(
     menuItem("Home",
              tabName = "home",
@@ -201,7 +201,8 @@ body <- dashboardBody(
     tabItem("dataPresentation",
             fluidPage(
               titlePanel("Data Exploration"),
-              column(12, DT::dataTableOutput('tbl'), style = "width:900px; overflow-y: scroll;overflow-x: scroll;")
+              
+              column(12, DT::dataTableOutput('tbl'), style = "width:1200px; overflow-y: scroll;overflow-x: scroll;")
             )
     )
   )
