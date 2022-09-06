@@ -94,7 +94,7 @@ body <- dashboardBody(
               ),
               fluidRow(
                 column(6, leafletOutput("mymap", height = 410)),
-                column(6, imageOutput("cooking_rice", width = "20%"),
+                column(6, imageOutput("cooking_rice"),
                        p(em("Cooking Rice, Fernando Amorsolo (1959), 
                             J.B. Vargas Museum, University of the Philippines")))
               ),

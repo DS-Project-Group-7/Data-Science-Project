@@ -3,13 +3,13 @@ library(leaflet)
 library(shinythemes)
 library(shinydashboard)
 library(highcharter)
+library(tidyr)
 library(dplyr)
 library(raster)
 library(dashboardthemes)
 source('helper.R')
 
 options(highcharter.theme = hc_theme_google())
-art <- read.csv("../data/cleanData.csv")[,-1]
 malay <- getData('GADM', country='MYS', level=0)
 sing <- getData('GADM', country='SGP', level=0)
 phil <- getData('GADM', country='PHL', level=0)
@@ -88,6 +88,8 @@ shinyServer(function(input, output) {
   
   output$cooking_rice <- renderImage({
     list(src = "cooking_rice.png",
+         width = "100%",
+         height = "100%",
          alt = "This is alternate text"
     )
   }, deleteFile = FALSE)
