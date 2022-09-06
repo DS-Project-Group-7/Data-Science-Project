@@ -18,7 +18,6 @@ dropdownMenuCustom <- function (..., type = c("messages", "notifications", "task
   type <- match.arg(type)
   if (!is.null(badgeStatus)) shinydashboard:::validateStatus(badgeStatus)
   items <- c(list(...), .list)
-  #lapply(items, shinydashboard:::tagAssert, type = "li")
   dropdownClass <- paste0("dropdown ", type, "-menu")
   if (is.null(icon)) {
     icon <- switch(type, messages = shiny::icon("envelope"), 
@@ -156,13 +155,13 @@ customTheme <- shinyDashboardThemeDIY(
 )
 
 content_phil <- paste(sep = "<br/>",
-                 "<b><a href='https://vargasmuseum.wordpress.com'>JB Vargas Museum</a></b>",
-                 "Museum Collection: 59"
+                      "<b><a href='https://vargasmuseum.wordpress.com'>JB Vargas Museum</a></b>",
+                      "Museum Collection: 59"
 )
 
 content_mala <- paste(sep = "<br/>",
-                 "<b><a href='https://www.artgallery.gov.my/en/homepage/'>National Art Gallery (Malaysia)</a></b>",
-                 "Museum Collection: 53"
+                      "<b><a href='https://www.artgallery.gov.my/en/homepage/'>National Art Gallery (Malaysia)</a></b>",
+                      "Museum Collection: 53"
 )
 
 content_sing <- paste(sep = "<br/>",
@@ -241,3 +240,23 @@ Museum_choiceVec <- c(
   "National Art Gallery (Malaysia)",
   "Heritage Conservation Board (Singapore)"
 )
+
+mala_labels <- sprintf(
+  "<strong>%s</strong><br/>Number of Paintings: 53",
+  "National Art Gallery (Malaysia)"
+) %>% lapply(htmltools::HTML)
+
+thai_labels <- sprintf(
+  "<strong>%s</strong><br/>Number of Paintings: 33",
+  "National Gallery (Thailand)"
+) %>% lapply(htmltools::HTML)
+
+phil_labels <- sprintf(
+  "<strong>%s</strong><br/>Number of Paintings: 59",
+  "Vargas Museum (Philippines)"
+) %>% lapply(htmltools::HTML)
+
+sing_labels <- sprintf(
+  "<strong>%s</strong><br/>Number of Paintings: 63",
+  "Heritage Conservation Board (Singapore)"
+) %>% lapply(htmltools::HTML)

@@ -201,7 +201,7 @@ body <- dashboardBody(
     tabItem("dataPresentation",
             fluidPage(
               titlePanel("Data Exploration"),
-              
+              br(),
               column(12, DT::dataTableOutput('tbl'), style = "width:1200px; overflow-y: scroll;overflow-x: scroll;")
             )
     )

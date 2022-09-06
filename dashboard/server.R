@@ -52,18 +52,38 @@ shinyServer(function(input, output) {
     
     leaflet(options = leafletOptions(minZoom = 4.5, maxZoom = 4.5)) %>%
       addTiles() %>% addProviderTiles(providers$CartoDB.Voyager) %>%
-      addPolygons(data=malay, weight = 1, fillColor = "orange") %>%
-      addPolygons(data=sing, weight = 1, fillColor = "red") %>%
-      addPolygons(data=phil, weight = 1, fillColor = "blue") %>%
-      addPolygons(data=thai, weight = 1, fillColor = "green")
-      #addPopups(lat = 14.65385, lng = 121.06821, content_phil,
-      #          options = popupOptions(closeOnClick = F, keepInView = T)) %>%
-      #addPopups(lat = 3.1731, lng = 101.705246, content_mala,
-      #          options = popupOptions(closeOnClick = F, keepInView = T)) %>%
-      #addPopups(lat = 1.32631052396, lng = 103.845852286, content_sing,
-      #          options = popupOptions(closeOnClick = F, keepInView = T)) %>%
-      #addPopups(lat = 13.758915, lng = 100.49393, content_thai,
-      #          options = popupOptions(closeOnClick = F, keepInView = T))
+      addPolygons(data=malay, weight = 1, fillColor = "orange", 
+                  highlightOptions = 
+                    highlightOptions(color = "white", weight = 2,bringToFront = TRUE),
+                  label = mala_labels,
+                  labelOptions = labelOptions(
+                    style = list("font-weight" = "normal", padding = "3px 8px"),
+                    textsize = "15px",
+                    direction = "auto")) %>%
+      addPolygons(data=sing, weight = 1, fillColor = "red",
+                  highlightOptions = 
+                    highlightOptions(color = "white", weight = 2,bringToFront = TRUE),
+                  label = sing_labels,
+                  labelOptions = labelOptions(
+                    style = list("font-weight" = "normal", padding = "3px 8px"),
+                    textsize = "15px",
+                    direction = "auto")) %>%
+      addPolygons(data=phil, weight = 1, fillColor = "blue",
+                  highlightOptions = 
+                    highlightOptions(color = "white", weight = 2,bringToFront = TRUE),
+                  label = phil_labels,
+                  labelOptions = labelOptions(
+                    style = list("font-weight" = "normal", padding = "3px 8px"),
+                    textsize = "15px",
+                    direction = "auto")) %>%
+      addPolygons(data=thai, weight = 1, fillColor = "green",
+                  highlightOptions = 
+                    highlightOptions(color = "white", weight = 2,bringToFront = TRUE),
+                  label = thai_labels,
+                  labelOptions = labelOptions(
+                    style = list("font-weight" = "normal", padding = "3px 8px"),
+                    textsize = "15px",
+                    direction = "auto"))
   })
   
   output$cooking_rice <- renderImage({
