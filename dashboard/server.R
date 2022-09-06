@@ -130,7 +130,7 @@ shinyServer(function(input, output) {
       hc_yAxis(title = list(text = "Length")) %>%
       hc_title(text = "Scatter Plot Between Width and Length of the Four Museums")%>%
       hc_tooltip(pointFormat = tooltip_table(c("Painting Title:","Width:", "Length:"), 
-                                            c("{point.title}", "{point.x}","{point.y}")), useHTML = TRUE)
+                                            c("{point.title}", "{point.x}mm","{point.y}mm")), useHTML = TRUE)
   })
   
   #Dimensions for packedbubble plot 
