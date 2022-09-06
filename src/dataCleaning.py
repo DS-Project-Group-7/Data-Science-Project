@@ -93,6 +93,7 @@ BooleanColumnsDict = {
 
 CategoricalColumnsDict = {
     "accession_number": [0],
+    "artist": [2],
     "title": [12],
     "date": [13],
     "country": [14],
@@ -194,6 +195,8 @@ def main(dataFile):
                 ) = computeLenWidthAndArea(cleanDataDf, feature)
             elif feature == "date":
                 cleanDataDf["decade"] = transformDatesToDecades(cleanDataDf, feature)
+            elif feature == "artist":
+                cleanDataDf[feature] = cleanDataDf[feature].str.title()
 
     for feature in MultipleValuesCatColDict:
         (index, ncol) = MultipleValuesCatColDict[feature]
