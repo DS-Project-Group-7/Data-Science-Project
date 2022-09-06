@@ -11,7 +11,7 @@ library(highcharter)
 library(dashboardthemes)
 source('helper.R')
 
-tags$style("@import url(https://use.fontawesome.com/releases/v5.7.2/css/all.css);")
+tags$style("@import url(https://use.fontawesome.com/releases/v5.15.4/css/all.css);")
 
 header <- dashboardHeader(
   title = tags$a(href='https://bit.ly/3zmFzns', target = "_blank",
@@ -44,25 +44,25 @@ sidebar <- dashboardSidebar(
              icon = icon("chart-area")),
     menuItem("Auxiliary Support",
              tabName = "aux",
-             icon = icon("hand-point-right")),
+             icon = icon("border-all")),
     menuItem("Painting Support",
              tabName = "psup",
-             icon = icon("hand-point-right")),
+             icon = icon("scroll")),
     menuItem("Ground Layer",
              tabName = "gl",
-             icon = icon("hand-point-right")),
+             icon = icon("paint-brush")),
     menuItem("Paint Layer",
              tabName = "pl",
-             icon = icon("hand-point-right")),
+             icon = icon("palette")),
     menuItem("Frame",
              tabName = "fr",
-             icon = icon("hand-point-right")),
+             icon = icon("crop-alt")),
     menuItem("Explore Artist",
              tabName = "artist",
              icon = icon("users")),
     menuItem("Explore Database",
              tabName = "dataPresentation",
-             icon = icon("table"))
+             icon = icon("th"))
   )
 )
 
@@ -95,7 +95,8 @@ body <- dashboardBody(
               fluidRow(
                 column(6, leafletOutput("mymap", height = 410)),
                 column(6, imageOutput("cooking_rice", width = "20%"),
-                       p(em("Cooking Rice, Fernando Amorsolo (1959)")))
+                       p(em("Cooking Rice, Fernando Amorsolo (1959), 
+                            J.B. Vargas Museum, University of the Philippines")))
               ),
               br(),
               fluidRow(
