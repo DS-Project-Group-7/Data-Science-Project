@@ -125,13 +125,14 @@ shinyServer(function(input, output) {
     art %>% 
       #filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
       dplyr::select(collection, length, width, title) %>%
+      rename(height = length) %>%
       hchart("scatter", 
              hcaes(x = width, y = height, group = collection)) %>%
       #hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
       hc_xAxis(title = list(text = "Width")) %>%
-      hc_yAxis(title = list(text = "Length")) %>%
-      hc_title(text = "Scatter Plot Between Width and Length of the Four Museums")%>%
-      hc_tooltip(pointFormat = tooltip_table(c("Painting Title:","Width:", "Length:"), 
+      hc_yAxis(title = list(text = "Height")) %>%
+      hc_title(text = "Scatter Plot Between Width and Height of the Four Museums")%>%
+      hc_tooltip(pointFormat = tooltip_table(c("Painting Title:","Width:", "Height:"), 
                                             c("{point.title}", "{point.x}mm","{point.y}mm")), useHTML = TRUE)
   })
   
