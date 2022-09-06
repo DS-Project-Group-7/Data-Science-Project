@@ -176,8 +176,17 @@ body <- dashboardBody(
             )
     ),
     tabItem("pl",
-            fluidPage(
-              titlePanel("Paint Layer Summary")
+            fluidRow(
+              column(12, highchartOutput("painting_layer"))
+            ),
+            sidebarLayout(
+              sidebarPanel(
+                selectInput("media_type", "Choose a frame atribute to view a brief summary:",
+                            Frame_choiceVec),
+                sliderInput("frame_decade", "Select a time period for visualisation",
+                            min = 1850, max = 1970, step = 10, value = c(1850, 1970))
+              ),
+              mainPanel(highchartOutput("PL_graph"))
             )
     ),
     tabItem("fr",

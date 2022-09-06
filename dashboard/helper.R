@@ -199,6 +199,14 @@ PS_choiceVec <- c(
   "Loss of Tacks" = 'loss_of_tacks_insecure_support_painting_support'
 )
 
+Painting_choiceVec <- c(
+  "Oil" = 'oil',
+  "Acrylic" = 'acrylic',
+  "Tempera" = 'tempera',
+  "Mixed Media" = 'mixed media',
+  "Emulsion" = 'emulsion'
+)
+
 GR_choiceVec <- c(
   "Are Ground Layer Commercial or Artist Applied?" = 'ground_layer_application',
   "Size Layer Visible" = 'size_layer_visible',

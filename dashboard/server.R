@@ -126,7 +126,7 @@ shinyServer(function(input, output) {
       #filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
       dplyr::select(collection, length, width, title) %>%
       hchart("scatter", 
-             hcaes(x = width, y = length, group = collection)) %>%
+             hcaes(x = width, y = height, group = collection)) %>%
       #hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
       hc_xAxis(title = list(text = "Width")) %>%
       hc_yAxis(title = list(text = "Length")) %>%
@@ -189,7 +189,7 @@ shinyServer(function(input, output) {
              hcaes(x = collection, y = n, group = auxiliary_support_condition)) %>%
       hc_xAxis(title = list(text = "Museum")) %>%
       hc_yAxis(title = list(text = "Number of Paintings")) %>%
-      hc_legend(title = list(text = "Condition Score"), reversed = TRUE) %>%
+      hc_legend(title = list(text = "Condition Score"), reversed = FALSE) %>%
       hc_title(text = "Auxiliary Support Condition")%>%
       hc_tooltip(pointFormat = tooltip_table(c("Auxiliary Support Condition:", "Number of paintings:"), 
                                              c("{point.auxiliary_support_condition}", "{point.y}")), useHTML = TRUE)
@@ -333,6 +333,37 @@ shinyServer(function(input, output) {
         hc_title(text = names(GR_choiceVec)[GR_choiceVec == input$GR])
     }
   })
+  #Paint layer
+  output$painting_layer <- renderHighchart({
+    art %>% 
+      mutate(painting_support_condition = 
+               recode(media_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good", "3" = "3 Excellent")) %>%
+      count(media_condition, collection) %>%
+      hchart("bar", stacking = "normal",
+             hcaes(x = collection, y = n, group = media_condition)) %>%
+      hc_yAxis(title = list(text = "Number of Paintings")) %>%
+      hc_legend(title = list(text = "Condition Score"), reversed = TRUE) %>%
+      hc_title(text = "Media Condition") %>%
+      hc_tooltip(pointFormat = tooltip_table(c("Media Condition:", "Number of paintings:"), 
+                                             c("{point.media_condition}", "{point.y}")), useHTML = TRUE)
+  })
+  
+  output$PL_graph <- renderHighchart({
+    art %>% 
+      filter(between(decade, input$frame_decade[1], input$frame_decade[2])) %>%
+      mutate(painting_support_condition = 
+               recode(media_type_1, "oil" = "oil", "acrylic" = "acrylic", "tempera" = "tempera")) %>%
+      count(media_type_1, collection) %>%
+      hchart("bar", stacking = "normal",
+             #hcaes(x = collection, y = n, group = !!sym(input$media_type))) %>%
+             hcaes(x = collection, y = n, group = media_type_1)) %>%
+      hc_yAxis(title = list(text = "Number of Paintings")) %>%
+      hc_legend(title = list(text = "Media Types"), reversed = TRUE) %>%
+      hc_title(text = "Media Types") %>%
+      hc_tooltip(pointFormat = tooltip_table(c("Media Types:", "Number of paintings:"), 
+                                             c("{point.media_type_1}", "{point.y}")), useHTML = TRUE)
+  })
+  
   
   ######## Frame #######
   output$Frame_eval <- renderHighchart({
