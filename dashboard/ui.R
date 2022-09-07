@@ -135,21 +135,24 @@ body <- dashboardBody(
             fluidRow(
               column(12, highchartOutput("PS_eval"))
             ),
-            textOutput("PS_tableinfo"),
-            actionButton("ps_hide", "Hide/Unhide Table", value = T),
+            fluidRow(
+              column(8, textOutput("PS_tableinfo")),
+              column(2),
+              column(2, actionButton("ps_hide", "Hide/Unhide Table", value = T))
+            ),
             br(),
             fluidRow(
               column(12, DT::dataTableOutput('PS_table'), style = 
-                       "width:1200px; overflow-y: scroll;overflow-x: scroll;")
+                       "width:1000px; overflow-y: scroll;overflow-x: scroll;")
             ),
             br(),
             sidebarLayout(
               sidebarPanel(
-                selectInput("PS", "Choose a support condition to view a brief summary:",
-                            PS_choiceVec),
                 checkboxGroupInput("PS_check", "Museum filter:", Museum_choiceVec, selected = Museum_choiceVec),
                 sliderInput("PS_decade", "Select a time period for visualisation",
-                            min = 1850, max = 1970, step = 10, value = c(1850, 1970))
+                            min = 1850, max = 1970, step = 10, value = c(1850, 1970)),
+                selectInput("PS", "Choose a support condition to view a brief summary:",
+                            PS_choiceVec)
               ),
               mainPanel(highchartOutput("PS_visual"))
             ),
