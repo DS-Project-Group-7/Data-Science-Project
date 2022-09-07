@@ -280,13 +280,28 @@ shinyServer(function(input, output) {
           input$PS_eval_click$name, "between", input$PS_decade[1], "and", input$PS_decade[2], sep = " ")
   })
   
-  output$PS_table <- DT::renderDataTable({
-    if (length(input$PS_eval_click)) {
+  toggle_ps_table <- reactiveVal(TRUE)
+  
+  observeEvent(input$ps_hide, {
+    toggle_ps_table(!toggle_ps_table())
+  })
+  
+  ps_table_on_off <- reactive({
+    if (toggle_ps_table()) {
       art %>%
         filter(between(decade, input$PS_decade[1], input$PS_decade[2])) %>%
         filter(painting_support_condition == substr(input$PS_eval_click$series, 1, 1) &
                  collection == input$PS_eval_click$name) %>%
         dplyr::select(accession_number, artist, title, decade)
+    }
+    else {
+      NULL
+    }
+  })
+  
+  output$PS_table <- DT::renderDataTable({
+    if (length(input$PS_eval_click)) {
+      ps_table_on_off()
     } else {
     }
   }, rownames = FALSE, options = list(

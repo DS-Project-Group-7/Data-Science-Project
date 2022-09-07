@@ -136,6 +136,7 @@ body <- dashboardBody(
               column(12, highchartOutput("PS_eval"))
             ),
             textOutput("PS_tableinfo"),
+            actionButton("ps_hide", "Hide/Unhide Table", value = T),
             br(),
             fluidRow(
               column(12, DT::dataTableOutput('PS_table'), style = 
