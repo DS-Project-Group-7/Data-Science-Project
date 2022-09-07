@@ -17,6 +17,9 @@ phil <- getData('GADM', country='PHL', level=0)
 thai <- getData('GADM', country='THA', level=0)
 
 shinyServer(function(input, output) {
+  
+  ################################ Homepage ################################
+  
   output$sing_count <- renderValueBox({
     valueBox(
       value = "63", subtitle = "National Heritage Board",
@@ -105,15 +108,7 @@ shinyServer(function(input, output) {
       hc_legend(title = list(text = "Museum"))
   })
   
-  output$Decade_Sum <- renderHighchart({
-    art %>%
-      count(decade, collection) %>%
-      hchart("column", stacking = "normal", hcaes(x = decade, y = n, group = collection)) %>%
-      hc_xAxis(title = list(text = "Decades")) %>%
-      hc_yAxis(title = list(text = "Number of paintings")) %>%
-      hc_title(text = "Painting Distribution Throughout the Century") %>%
-      hc_legend(title = list(text = "Museum"))
-  })
+  ################################ Dimension ################################
   
   #Dimensions for Scatter plot 
   output$DM_eval <- renderHighchart({
@@ -174,7 +169,8 @@ shinyServer(function(input, output) {
       )
   })
   
-  #Bar chart aux condition
+  ################################ Auxiliary Support ################################
+  
   output$AX_eval <- renderHighchart({
     art %>% 
       mutate(auxiliary_support_condition = 
@@ -229,7 +225,8 @@ shinyServer(function(input, output) {
                                              c("{point.locality}", "{point.y}")), useHTML = TRUE)
   })
   
-  # Painting Support
+  ################################ Painting Support ################################
+  
   output$PS_eval <- renderHighchart({
     art %>% 
       mutate(painting_support_condition = 
@@ -245,34 +242,6 @@ shinyServer(function(input, output) {
       hc_tooltip(pointFormat = tooltip_table(c("Support Condition:", "Number of paintings:"), 
                                              c("{point.painting_support_condition}", "{point.y}")), useHTML = TRUE) %>%
       hc_add_event_point(series = "series", event = "click")
-  })
-
-  output$PS_visual <- renderHighchart({
-    art %>% 
-      mutate(!!sym(input$PS) := recode(!!sym(input$PS), "0" = "0 No", "1" = "1 Yes")) %>%
-      filter(collection %in% input$PS_check) %>% 
-      filter(between(decade, input$PS_decade[1], input$PS_decade[2])) %>%
-      count(!!sym(input$PS), collection) %>%
-      hchart("bar", stacking = "normal",
-             hcaes(x = collection, y = n, group = !!sym(input$PS))) %>%
-      hc_plotOptions(column = list(borderRadius = 5)) %>%
-      hc_legend(title = list(text = "Is such condition present?"), reversed = TRUE) %>%
-      hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
-      hc_xAxis(title = list(text = "Museum")) %>%
-      hc_yAxis(title = list(text = "Number of Paintings")) %>%
-      hc_title(text = names(PS_choiceVec)[PS_choiceVec == input$PS])
-  })
-  
-  output$PS_heatmap <- renderHighchart({
-    art %>%
-      filter(collection %in% input$PS_check) %>% 
-      mutate(!!sym(input$PS_1) := recode(!!sym(input$PS_1), "0" = "0 No", "1" = "1 Yes")) %>%
-      mutate(!!sym(input$PS_2) := recode(!!sym(input$PS_2), "0" = "0 No", "1" = "1 Yes")) %>%
-      filter(collection %in% input$PS_check) %>% 
-      count(!!sym(input$PS_1), !!sym(input$PS_2)) %>%
-      hchart("heatmap", hcaes(x = !!sym(input$PS_1), y = !!sym(input$PS_2), value = n)) %>%
-      hc_xAxis(title = list(text = names(PS_choiceVec)[PS_choiceVec == input$PS_1])) %>%
-      hc_yAxis(title = list(text = names(PS_choiceVec)[PS_choiceVec == input$PS_2]))
   })
   
   output$PS_tableinfo <- renderText({
@@ -310,8 +279,37 @@ shinyServer(function(input, output) {
     autoWidth = T, pageLength = 5,
     columnDefs = list(list(width = '500px', className = 'dt-center', targets = "_all"))
   ))
+
+  output$PS_visual <- renderHighchart({
+    art %>% 
+      mutate(!!sym(input$PS) := recode(!!sym(input$PS), "0" = "0 No", "1" = "1 Yes")) %>%
+      filter(collection %in% input$PS_check) %>% 
+      filter(between(decade, input$PS_decade[1], input$PS_decade[2])) %>%
+      count(!!sym(input$PS), collection) %>%
+      hchart("bar", stacking = "normal",
+             hcaes(x = collection, y = n, group = !!sym(input$PS))) %>%
+      hc_plotOptions(column = list(borderRadius = 5)) %>%
+      hc_legend(title = list(text = "Is such condition present?"), reversed = TRUE) %>%
+      hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
+      hc_xAxis(title = list(text = "Museum")) %>%
+      hc_yAxis(title = list(text = "Number of Paintings")) %>%
+      hc_title(text = names(PS_choiceVec)[PS_choiceVec == input$PS])
+  })
   
-  # Ground Layer  
+  output$PS_heatmap <- renderHighchart({
+    art %>%
+      filter(collection %in% input$PS_check) %>% 
+      mutate(!!sym(input$PS_1) := recode(!!sym(input$PS_1), "0" = "0 No", "1" = "1 Yes")) %>%
+      mutate(!!sym(input$PS_2) := recode(!!sym(input$PS_2), "0" = "0 No", "1" = "1 Yes")) %>%
+      filter(collection %in% input$PS_check) %>% 
+      count(!!sym(input$PS_1), !!sym(input$PS_2)) %>%
+      hchart("heatmap", hcaes(x = !!sym(input$PS_1), y = !!sym(input$PS_2), value = n)) %>%
+      hc_xAxis(title = list(text = names(PS_choiceVec)[PS_choiceVec == input$PS_1])) %>%
+      hc_yAxis(title = list(text = names(PS_choiceVec)[PS_choiceVec == input$PS_2]))
+  })
+  
+  ################################ Ground Layer ################################
+  
   output$GR_eval <- renderHighchart({
     art %>%
       mutate(ground_condition = 
@@ -369,7 +367,8 @@ shinyServer(function(input, output) {
     }
   })
   
-  #Paint layer
+  ################################ Paint Layer ################################
+  
   output$painting_layer <- renderHighchart({
     art %>% 
       mutate(painting_support_condition = 
@@ -400,7 +399,8 @@ shinyServer(function(input, output) {
                                              c("{point.media_type_1}", "{point.y}")), useHTML = TRUE)
   })
   
-  ######## Frame #######
+  ################################ Frame ################################
+  
   output$Frame_eval <- renderHighchart({
     art %>% 
       mutate(frame_condition = 
@@ -428,7 +428,8 @@ shinyServer(function(input, output) {
       hc_yAxis(title = list(text = "Number of Paintings"))
   })
   
-  # Explore Artist
+  ################################ Explore Artist ################################
+  
   output$Artist_active <- renderHighchart({
     art %>%
       filter(artist %in% input$Artist) %>%
@@ -436,7 +437,8 @@ shinyServer(function(input, output) {
       hchart("column", hcaes(x = decade, y = n))
   })
   
-  # Explore Database
+  ################################ Explore Database ################################
+  
   output$tbl <- DT::renderDataTable(display_art, rownames = FALSE, options = list(
     pageLength = 10, autoWidth = T, 
     columnDefs = list(list(width = '500px', className = 'dt-center', targets = "_all"))

@@ -156,8 +156,13 @@ body <- dashboardBody(
               ),
               mainPanel(highchartOutput("PS_visual"))
             ),
+            fluidRow(
+              column(12, DT::dataTableOutput('PS_vtable'), style = 
+                       "width:1000px; overflow-y: scroll;overflow-x: scroll;")
+            ),
             sidebarLayout(
               sidebarPanel(
+                h4(strong("Heatmap for comparing two attributes")),
                 selectInput("PS_1", "Choose the first attribute:",
                             PS_choiceVec),
                 selectInput("PS_2", "Choose the second attribute:",
