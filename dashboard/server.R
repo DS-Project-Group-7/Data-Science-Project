@@ -281,9 +281,14 @@ shinyServer(function(input, output) {
   })
   
   toggle_ps_table <- reactiveVal(TRUE)
-  
   observeEvent(input$ps_hide, {
     toggle_ps_table(!toggle_ps_table())
+  })
+  observeEvent(input$PS_eval_click, {
+    if (!toggle_ps_table()) {
+      toggle_ps_table(!toggle_ps_table())
+    } else {
+    }
   })
   
   ps_table_on_off <- reactive({
@@ -293,10 +298,7 @@ shinyServer(function(input, output) {
         filter(painting_support_condition == substr(input$PS_eval_click$series, 1, 1) &
                  collection == input$PS_eval_click$name) %>%
         dplyr::select(accession_number, artist, title, decade)
-    }
-    else {
-      NULL
-    }
+    } else {}
   })
   
   output$PS_table <- DT::renderDataTable({
