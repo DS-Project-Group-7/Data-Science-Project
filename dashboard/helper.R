@@ -199,14 +199,6 @@ PS_choiceVec <- c(
   "Loss of Tacks" = 'loss_of_tacks_insecure_support_painting_support'
 )
 
-Painting_choiceVec <- c(
-  "Oil" = 'oil',
-  "Acrylic" = 'acrylic',
-  "Tempera" = 'tempera',
-  "Mixed Media" = 'mixed media',
-  "Emulsion" = 'emulsion'
-)
-
 GR_choiceVec <- c(
   "Are Ground Layer Commercial or Artist Applied?" = 'ground_layer_application',
   "Size Layer Visible" = 'size_layer_visible',
@@ -244,12 +236,22 @@ Frame_choiceVec <- c(
   "Backing board" = 'backing_board_type'
 )
 
+Painting_choiceVec <- c(
+  "Oil" = 'oil',
+  "Acrylic" = 'acrylic',
+  "Tempera" = 'tempera',
+  "Mixed Media" = 'mixed media',
+  "Emulsion" = 'emulsion'
+)
+
 Museum_choiceVec <- c(
   "Vargas Museum (Philippines)",
   "National Gallery (Thailand)",
   "National Art Gallery (Malaysia)",
   "Heritage Conservation Board (Singapore)"
 )
+
+Artist_choiceVec <- sort(unique(art$artist))
 
 mala_labels <- sprintf(
   "<strong>%s</strong><br/>Number of Paintings: 53",

@@ -3,6 +3,7 @@
 #
 
 library(shiny)
+library(shinyjs)
 library(leaflet)
 library(shinythemes)
 library(shinyWidgets)
@@ -134,6 +135,13 @@ body <- dashboardBody(
             fluidRow(
               column(12, highchartOutput("PS_eval"))
             ),
+            textOutput("PS_tableinfo"),
+            br(),
+            fluidRow(
+              column(12, DT::dataTableOutput('PS_table'), style = 
+                       "width:1200px; overflow-y: scroll;overflow-x: scroll;")
+            ),
+            br(),
             sidebarLayout(
               sidebarPanel(
                 selectInput("PS", "Choose a support condition to view a brief summary:",
@@ -154,9 +162,6 @@ body <- dashboardBody(
               mainPanel(
                 highchartOutput("PS_heatmap")
               )
-            ),
-            fluidRow(
-              verbatimTextOutput("PS_test")
             )
     ),
     tabItem("gl",
@@ -204,15 +209,21 @@ body <- dashboardBody(
             )
     ),
     tabItem("artist",
-            fluidPage(
-              titlePanel("Explore Artists")
-            )
+              titlePanel("Explore Artists"),
+              br(),
+              sidebarLayout(
+                sidebarPanel(
+                  selectInput("Artist", "Choose an artist to view their active years:", Artist_choiceVec)
+                ),
+                mainPanel(highchartOutput("Artist_active"))
+              )
     ),
     tabItem("dataPresentation",
             fluidPage(
               titlePanel("Data Exploration"),
               br(),
-              column(12, DT::dataTableOutput('tbl'), style = "width:1200px; overflow-y: scroll;overflow-x: scroll;")
+              column(12, DT::dataTableOutput('tbl'), style = 
+                       "width:1200px; overflow-y: scroll;overflow-x: scroll;")
             )
     )
   )
