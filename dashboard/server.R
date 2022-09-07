@@ -290,11 +290,48 @@ shinyServer(function(input, output) {
              hcaes(x = collection, y = n, group = !!sym(input$PS))) %>%
       hc_plotOptions(column = list(borderRadius = 5)) %>%
       hc_legend(title = list(text = "Is such condition present?"), reversed = TRUE) %>%
-      hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
       hc_xAxis(title = list(text = "Museum")) %>%
       hc_yAxis(title = list(text = "Number of Paintings")) %>%
-      hc_title(text = names(PS_choiceVec)[PS_choiceVec == input$PS])
+      hc_title(text = names(PS_choiceVec)[PS_choiceVec == input$PS]) %>%
+      hc_add_event_point(series = "series", event = "click")
   })
+  
+  output$PS_vtableinfo <- renderText({
+    paste("Currently displaying paintings with", names(PS_choiceVec)[PS_choiceVec == input$PS], "condition", "(", 
+          input$PS_visual_click$series, ")", "from", input$PS_visual_click$name, "between", input$PS_decade[1], 
+          "and", input$PS_decade[2], sep = " ")
+  })
+  
+  toggle_ps_vtable <- reactiveVal(TRUE)
+  observeEvent(input$ps_vhide, {
+    toggle_ps_vtable(!toggle_ps_vtable())
+  })
+  observeEvent(input$PS_visual_click, {
+    if (!toggle_ps_vtable()) {
+      toggle_ps_vtable(!toggle_ps_vtable())
+    } else {
+    }
+  })
+  
+  ps_vtable_on_off <- reactive({
+    if (toggle_ps_vtable()) {
+      art %>%
+        filter(between(decade, input$PS_decade[1], input$PS_decade[2])) %>%
+        filter(!!sym(input$PS) == substr(input$PS_visual_click$series, 1, 1) &
+                 collection == input$PS_visual_click$name) %>%
+        dplyr::select(accession_number, artist, title, decade)
+    } else {}
+  })
+  
+  output$PS_vtable <- DT::renderDataTable({
+    if (length(input$PS_visual_click)) {
+      ps_vtable_on_off()
+    } else {
+    }
+  }, rownames = FALSE, options = list(
+    autoWidth = T, pageLength = 5,
+    columnDefs = list(list(width = '500px', className = 'dt-center', targets = "_all"))
+  ))
   
   output$PS_heatmap <- renderHighchart({
     art %>%
