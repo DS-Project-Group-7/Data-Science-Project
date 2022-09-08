@@ -5,7 +5,7 @@ library(highcharter)
 
 
 
-clean_data <-
+art <-
   read.csv(
     "data/cleanData.csv"
   )
@@ -153,8 +153,57 @@ heatmap_data<-clean_data%>%
 hchart(heatmap_data, "heatmap", hcaes(x = condition, y = planar_auxiliary_support, value = n), name = "Aux Condition")
 
 
+#test packbubble
 
+avg_area_collection <-art %>% 
+  mutate(area = area/100) %>%
+  group_by(collection)%>%
+  summarise(area = mean(area), n = n())
 
+art %>% 
+  mutate(area = area/100) %>%
+  #group_by(collection)%>%
+  #summarise(area = mean(area), n = n())%>%
+  dplyr::select(collection,area,decade,country,title)
+  
+  
+  hchart("packedbubble",hcaes(x = collection, value = area, group = collection))%>%
+  hc_title(text = "Area Summary for the Four Museum")%>%
+  hc_tooltip(
+    useHTML = TRUE,
+    pointFormat = tooltip_table(c("Painting Title:","Area:"), 
+                                c("{point.title}", "{point.value}"))
+  )%>%
+  hc_plotOptions(
+    packedbubble = list(
+      maxSize = "150%",
+      zMin = 0,
+      layoutAlgorithm = list(
+        gravitationalConstant =  0.05,
+        splitSeries =  TRUE, # TRUE to group points
+        seriesInteraction = TRUE,
+        dragBetweenSeries = TRUE,
+        parentNodeLimit = TRUE
+      ),
+      dataLabels = list(
+        enabled = TRUE,
+        format = "{point.name}",
+        filter = list(
+          property = "y",
+          operator = ">",
+          value = as.numeric(quantile(art$area, .95))
+        ),
+        style = list(
+          color = "black",
+          textOutline = "none",
+          fontWeight = "normal"
+        )
+      )
+    )
+  )
+
+  
+ 
 #treemap
 tree_data<-clean_data%>%
   group_by(country)%>%
