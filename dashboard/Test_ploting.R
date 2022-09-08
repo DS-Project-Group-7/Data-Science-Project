@@ -21,6 +21,20 @@ art %>%
   hc_tooltip(pointFormat = tooltip_table(c("Locality:", "Number of paintings:"), 
                                          c("{point.locality}", "{point.y}")), useHTML = TRUE)
 
+art%>%
+  group_by(collection)%>%
+  summarise(n = n(),
+            area = sum(area/100),
+            avg_area = sum(area)/n
+           #unique = length(unique(collection))
+           )%>%
+  mutate(avg_area = as.numeric(round(avg_area,2)))%>%
+  arrange(-avg_area)%>%
+  hchart("treemap", hcaes(x = collection, value = avg_area, color = n))%>%
+  hc_legend(title = list(text = "number of painting"), reversed = FALSE) %>%
+  hc_title(text = "Treemap average area per no of paintings from four collections")%>%
+  hc_tooltip(pointFormat = tooltip_table(c("Area/no of painting:", "Number of paintings:"), 
+                                       c("{point.value}cm2", "{point.n}")), useHTML = TRUE)
 
 #clean_data%>%
 #  group_by(country)%>%

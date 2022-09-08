@@ -113,32 +113,46 @@ shinyServer(function(input, output) {
   #Dimensions for Scatter plot 
   output$DM_eval <- renderHighchart({
     art %>% 
-      #filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
       dplyr::select(collection, length, width, title) %>%
       rename(height = length) %>%
       hchart("scatter", 
              hcaes(x = width, y = height, group = collection)) %>%
-      #hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
       hc_xAxis(title = list(text = "Width")) %>%
       hc_yAxis(title = list(text = "Height")) %>%
       hc_title(text = "Scatter Plot Between Width and Height of the Four Museums")%>%
       hc_tooltip(pointFormat = tooltip_table(c("Painting Title:","Width:", "Height:"), 
                                              c("{point.title}", "{point.x}mm","{point.y}mm")), useHTML = TRUE)
   })
+  #Treemap for area per number of painting
+  output$DM_area <- renderHighchart({
+    art%>%
+      group_by(collection)%>%
+      summarise(n = n(),
+                area = sum(area/100),
+                avg_area = sum(area)/n
+                #unique = length(unique(collection))
+      )%>%
+      mutate(avg_area = as.numeric(round(avg_area,2)))%>%
+      arrange(-avg_area)%>%
+      hchart("treemap", hcaes(x = collection, value = avg_area, color = n))%>%
+      hc_legend(title = list(text = "number of painting"), reversed = FALSE) %>%
+      hc_title(text = "Treemap average area per no of paintings from four collections")%>%
+      hc_tooltip(pointFormat = tooltip_table(c("Area/no of painting:", "Number of paintings:"), 
+                                             c("{point.value}cm2", "{point.n}")), useHTML = TRUE)
+  })
+  
   
   #Dimensions for packedbubble plot 
   output$DM_bub <- renderHighchart({
     art %>% 
       mutate(area = area/100) %>%
-      #filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
-      #count(auxiliary_support_condition, collection) %>%
       dplyr::select(collection,area,decade,country,title)%>%
       hchart("packedbubble",hcaes(x = collection, value = area, group = collection))%>%
       hc_title(text = "Area Summary for the Four Museum")%>%
       hc_tooltip(
         useHTML = TRUE,
         pointFormat = tooltip_table(c("Painting Title:","Area:"), 
-                                    c("{point.title}", "{point.value}"))
+                                    c("{point.title}", "{point.value}cm2"))
       )%>%
       hc_plotOptions(
         packedbubble = list(
