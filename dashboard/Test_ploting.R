@@ -12,7 +12,7 @@ art %>%
   group_by(locality)%>%
   count(locality, decade) %>%
   mutate(cum_sum = cumsum(n))%>%
-  hchart("line",
+  hchart("areaspline",
          hcaes(x = decade, y = cum_sum, group = locality)) %>%
   hc_xAxis(title = list(text = "Decade")) %>%
   hc_yAxis(title = list(text = "Number of Paintings")) %>%
