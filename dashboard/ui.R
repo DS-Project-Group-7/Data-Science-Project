@@ -119,12 +119,13 @@ body <- dashboardBody(
             fluidRow(
               column(12, highchartOutput("AX_eval"))
             ),
-            
             sidebarLayout(
-              sidebarPanel(selectInput("AX", "Choose a support condition to view a brief summary:",
-                                       AX_choiceVec),
-                           sliderInput("AX_decade", "Select a time period for visualisation", 
-                                       min = 1850, max = 1970, step = 10, value = c(1850, 1970),sep = "")
+              sidebarPanel(
+                checkboxGroupInput("AX_check", "Museum filter:", Museum_choiceVec, selected = Museum_choiceVec),
+                sliderInput("AX_decade", "Select a time period for visualisation", 
+                            min = 1850, max = 1970, step = 10, value = c(1850, 1970),sep = ""),
+                selectInput("AX", "Choose a support condition to view a brief summary:",
+                            AX_choiceVec)
               ),
               mainPanel(highchartOutput("AX_heat"))
             ),

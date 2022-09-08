@@ -176,6 +176,7 @@ shinyServer(function(input, output) {
       mutate(auxiliary_support_condition = 
                recode(auxiliary_support_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good")) %>%
       filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
+      filter(collection %in% input$AX_check) %>% 
       count(auxiliary_support_condition, collection) %>%
       hchart("bar", stacking = "normal",
              hcaes(x = collection, y = n, group = auxiliary_support_condition)) %>%
@@ -194,6 +195,7 @@ shinyServer(function(input, output) {
              auxiliary_support_condition = 
                recode(auxiliary_support_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good"))%>% 
       group_by(!!sym(input$AX)) %>%
+      filter(collection %in% input$AX_check) %>% 
       filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
       count(condition = auxiliary_support_condition) %>%
       hchart("heatmap",
@@ -206,7 +208,6 @@ shinyServer(function(input, output) {
       hc_title(text = paste0("Heatmap ",names(AX_choiceVec)[AX_choiceVec == input$AX]," Condition"))%>%
       hc_tooltip(pointFormat = tooltip_table(c(names(AX_choiceVec)[AX_choiceVec == input$AX],"Auxiliary support condition:", "Number of paintings:"), 
                                              c("{point.y}","{point.condition}", "{point.n}")), useHTML = TRUE)
-    #Need to update tooltips 
   })
   
   #Line chart Wood locality 
@@ -215,6 +216,8 @@ shinyServer(function(input, output) {
       mutate(locality = 
                recode(locality, "local?" = "local", "Unspecified" = "import"))%>%
       group_by(locality)%>%
+      filter(collection %in% input$AX_check) %>% 
+      filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
       count(locality, decade) %>%
       mutate(cum_sum = cumsum(n)) %>%
       hchart("areaspline",
