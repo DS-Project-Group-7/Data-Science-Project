@@ -351,6 +351,7 @@ shinyServer(function(input, output) {
   
   output$GR_eval <- renderHighchart({
     art %>%
+      filter(between(decade, input$GR_decade[1], input$GR_decade[2])) %>%
       mutate(ground_condition = 
                recode(ground_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good", "3" = "3 Excellent")) %>%
       count(ground_condition, collection) %>%
@@ -359,9 +360,46 @@ shinyServer(function(input, output) {
       hc_yAxis(title = list(text = "Number of Paintings"), reversedStacks = F) %>%
       hc_legend(title = list(text = "Condition Score"), reversed = F) %>%
       hc_title(text = "Ground Layer Condition Overview") %>%
-      hc_tooltip(pointFormat = tooltip_table(c("Ground Layer Condition:", "Number of paintings:"), 
-                                             c("{point.ground_condition}", "{point.y}")), useHTML = TRUE)
+      hc_tooltip(pointFormat = tooltip_table(c("Ground Layer Condition:", "Number of paintings:"),
+                                             c("{point.ground_condition}", "{point.y}")), useHTML = TRUE) %>%
+      hc_add_event_point(series = "series", event = "click")
   })
+  
+  output$GR_tableinfo <- renderText({
+    paste("Currently displaying condition rating", input$GR_eval_click$series, "paintings from",
+          input$GR_eval_click$name, "between", input$GR_decade[1], "and", input$GR_decade[2], sep = " ")
+  })
+  
+  toggle_gr_table <- reactiveVal(TRUE)
+  observeEvent(input$GR_hide, {
+    toggle_gr_table(!toggle_gr_table())
+  })
+  observeEvent(input$GR_eval_click, {
+    if (!toggle_gr_table()) {
+      toggle_gr_table(!toggle_gr_table())
+    } else {
+    }
+  })
+  
+  gr_table_on_off <- reactive({
+    if (toggle_gr_table()) {
+      art %>%
+        filter(between(decade, input$GR_decade[1], input$GR_decade[2])) %>%
+        filter(ground_condition == substr(input$GR_eval_click$series, 1, 1) &
+                 collection == input$GR_eval_click$name) %>%
+        dplyr::select(accession_number, artist, title, decade)
+    } else {}
+  })
+  
+  output$GR_table <- DT::renderDataTable({
+    if (length(input$GR_eval_click)) {
+      gr_table_on_off()
+    } else {
+    }
+  }, rownames = FALSE, options = list(
+    autoWidth = T, pageLength = 5,
+    columnDefs = list(list(width = '500px', className = 'dt-center', targets = "_all"))
+  ))
   
   output$GR_visual <- renderHighchart({
     if (input$GR == "ground_layer_limit") {

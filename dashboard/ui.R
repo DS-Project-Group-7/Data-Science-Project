@@ -73,7 +73,7 @@ body <- dashboardBody(
   tabItems(
     tabItem("home",
             fluidPage(
-              titlePanel("Southeast Asia Painting Conservation Data Visualisation Dashboard"),
+              titlePanel(strong("Southeast Asia Painting Conservation Data Visualisation Dashboard")),
               br(),
               p(em("The study behind this interactive dashboard was undertaken as a 
                 three-year joint project between the National Art Gallery of Malaysia, 
@@ -106,6 +106,7 @@ body <- dashboardBody(
             )
     ),
     tabItem("dim",
+            titlePanel(strong("Painting Dimension Overview")),
             fluidRow(
               column(12, highchartOutput("DM_eval"))
             ),
@@ -114,7 +115,7 @@ body <- dashboardBody(
             )
     ),
     tabItem("aux",
-            titlePanel("Auxiliary Support Overview"),
+            titlePanel(strong("Auxiliary Support Overview")),
             fluidRow(
               column(12, highchartOutput("AX_eval"))
             ),
@@ -132,7 +133,7 @@ body <- dashboardBody(
             )
     ),
     tabItem("psup",
-            titlePanel("Painting Support Overview"),
+            titlePanel(strong("Painting Support Overview")),
             fluidRow(
               column(12, highchartOutput("PS_eval"))
             ),
@@ -180,11 +181,24 @@ body <- dashboardBody(
             )
     ),
     tabItem("gl",
+            titlePanel(strong("Ground Layer Overview")),
             fluidRow(
               column(12, highchartOutput("GR_eval"))
             ),
+            fluidRow(
+              column(8, textOutput("GR_tableinfo")),
+              column(2),
+              column(2, actionButton("GR_hide", "Hide/Unhide Table", value = T))
+            ),
+            br(),
+            fluidRow(
+              column(12, DT::dataTableOutput('GR_table'), style = 
+                       "width:1000px; overflow-y: scroll;overflow-x: scroll;")
+            ),
+            br(),
             sidebarLayout(
               sidebarPanel(
+                checkboxGroupInput("GR_check", "Museum filter:", Museum_choiceVec, selected = Museum_choiceVec),
                 selectInput("GR", "Choose a ground layer condition to view a brief summary:",
                             GR_choiceVec),
                 sliderInput("GR_decade", "Select a time period for visualisation",
@@ -224,7 +238,7 @@ body <- dashboardBody(
             )
     ),
     tabItem("artist",
-              titlePanel("Explore Artists"),
+              titlePanel(strong("Explore Artists")),
               br(),
               sidebarLayout(
                 sidebarPanel(
@@ -235,7 +249,7 @@ body <- dashboardBody(
     ),
     tabItem("dataPresentation",
             fluidPage(
-              titlePanel("Data Exploration"),
+              titlePanel(strong("Data Exploration")),
               br(),
               column(12, DT::dataTableOutput('tbl'), style = 
                        "width:1200px; overflow-y: scroll;overflow-x: scroll;")
