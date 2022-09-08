@@ -222,7 +222,7 @@ shinyServer(function(input, output) {
       hc_xAxis(title = list(text = "Decade")) %>%
       hc_yAxis(title = list(text = "Number of Paintings")) %>%
       hc_legend(title = list(text = "Locality"), reversed = TRUE) %>%
-      hc_title(text = "Wood Type Locality Distribution Throughout the Century")%>%
+      hc_title(text = "Cumulative sum wood type locality throughout the century")%>%
       hc_tooltip(pointFormat = tooltip_table(c("Locality:", "Number of paintings:"), 
                                              c("{point.locality}", "{point.y}")), useHTML = TRUE)
   })
