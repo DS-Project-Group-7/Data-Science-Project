@@ -180,8 +180,8 @@ shinyServer(function(input, output) {
       hchart("bar", stacking = "normal",
              hcaes(x = collection, y = n, group = auxiliary_support_condition)) %>%
       hc_xAxis(title = list(text = "Museum")) %>%
-      hc_yAxis(title = list(text = "Number of Paintings")) %>%
-      hc_legend(title = list(text = "Condition Score"), reversed = FALSE) %>%
+      hc_yAxis(title = list(text = "Number of Paintings"), reversedStacks = F) %>%
+      hc_legend(title = list(text = "Condition Score"), reversed = F) %>%
       hc_title(text = "Auxiliary Support Condition")%>%
       hc_tooltip(pointFormat = tooltip_table(c("Auxiliary Support Condition:", "Number of paintings:"), 
                                              c("{point.auxiliary_support_condition}", "{point.y}")), useHTML = TRUE)
@@ -356,8 +356,8 @@ shinyServer(function(input, output) {
       count(ground_condition, collection) %>%
       hchart("bar", stacking = "normal",
              hcaes(x = collection, y = n, group = ground_condition)) %>%
-      hc_yAxis(title = list(text = "Number of Paintings")) %>%
-      hc_legend(title = list(text = "Condition Score"), reversed = TRUE) %>%
+      hc_yAxis(title = list(text = "Number of Paintings"), reversedStacks = F) %>%
+      hc_legend(title = list(text = "Condition Score"), reversed = F) %>%
       hc_title(text = "Ground Layer Condition Overview") %>%
       hc_tooltip(pointFormat = tooltip_table(c("Ground Layer Condition:", "Number of paintings:"), 
                                              c("{point.ground_condition}", "{point.y}")), useHTML = TRUE)
