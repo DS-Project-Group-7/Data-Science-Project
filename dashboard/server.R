@@ -352,6 +352,7 @@ shinyServer(function(input, output) {
   output$GR_eval <- renderHighchart({
     art %>%
       filter(between(decade, input$GR_decade[1], input$GR_decade[2])) %>%
+      filter(collection %in% input$GR_check) %>%
       mutate(ground_condition = 
                recode(ground_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good", "3" = "3 Excellent")) %>%
       count(ground_condition, collection) %>%
@@ -404,33 +405,43 @@ shinyServer(function(input, output) {
   output$GR_visual <- renderHighchart({
     if (input$GR == "ground_layer_limit") {
       art %>%
+        filter(collection %in% input$GR_check) %>%
         mutate(!!sym(input$GR) := recode(!!sym(input$GR), "to side edge" = "To Side Edge", "to face edge" = "To Face Edge", "to side edgeto face edge" = "Both")) %>%
+        filter(between(decade, input$GR_decade[1], input$GR_decade[2])) %>%
         count(!!sym(input$GR), collection) %>%
         hchart("bar", stacking = "normal",
                hcaes(x = collection, y = n, group = !!sym(input$GR))) %>%
         hc_title(text = "Are Ground Applied To Face Edge or Side Edge?") %>%
         hc_xAxis(title = list(text = "Museum")) %>%
-        hc_yAxis(title = list(text = "Number of Paintings"))
+        hc_yAxis(title = list(text = "Number of Paintings"))  %>%
+        hc_add_event_point(series = "series", event = "click")
     } else if (input$GR == 'ground_layer_application') {
       art %>%
+        filter(collection %in% input$GR_check) %>%
         mutate(!!sym(input$GR) := recode(!!sym(input$GR), "artist applied ground" = "Artist Applied", "commercial ground" = "Commercial", 'commercial groundartist applied ground' = 'Both')) %>%
+        filter(between(decade, input$GR_decade[1], input$GR_decade[2])) %>%
         count(!!sym(input$GR), collection) %>%
         hchart("bar", stacking = "normal",
                hcaes(x = collection, y = n, group = !!sym(input$GR))) %>%
         hc_title(text = "Commercial or Artist Applied Ground?") %>%
         hc_xAxis(title = list(text = "Museum")) %>%
-        hc_yAxis(title = list(text = "Number of Paintings"))
+        hc_yAxis(title = list(text = "Number of Paintings")) %>%
+        hc_add_event_point(series = "series", event = "click")
     } else if (input$GR == "ground_layer_thickness") {
       art %>%
+        filter(collection %in% input$GR_check) %>%
         mutate(!!sym(input$GR) := recode(!!sym(input$GR), "thinly applied" = "Thinly Applied", "thickly applied" = "Thickly Applied", 'thickly appliedthinly applied' = 'Both')) %>%
+        filter(between(decade, input$GR_decade[1], input$GR_decade[2])) %>%
         count(!!sym(input$GR), collection) %>%
         hchart("bar", stacking = "normal",
                hcaes(x = collection, y = n, group = !!sym(input$GR))) %>%
         hc_title(text = "Are Ground Applied Thinly or Thickly Applied?") %>%
         hc_xAxis(title = list(text = "Museum")) %>%
-        hc_yAxis(title = list(text = "Number of Paintings"))
+        hc_yAxis(title = list(text = "Number of Paintings")) %>%
+        hc_add_event_point(series = "series", event = "click")
     } else {
       art %>% 
+        filter(collection %in% input$GR_check) %>%
         mutate(!!sym(input$GR) := recode(!!sym(input$GR), "0" = "0 No", "1" = "1 Yes")) %>%
         filter(between(decade, input$GR_decade[1], input$GR_decade[2])) %>%
         count(!!sym(input$GR), collection) %>%
@@ -440,7 +451,8 @@ shinyServer(function(input, output) {
         hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
         hc_xAxis(title = list(text = "Museum")) %>%
         hc_yAxis(title = list(text = "Number of Paintings")) %>%
-        hc_title(text = names(GR_choiceVec)[GR_choiceVec == input$GR])
+        hc_title(text = names(GR_choiceVec)[GR_choiceVec == input$GR]) %>%
+        hc_add_event_point(series = "series", event = "click")
     }
   })
   

@@ -207,6 +207,16 @@ body <- dashboardBody(
               mainPanel(
                 highchartOutput("GR_visual")
               )
+            ),
+            verbatimTextOutput("test"),
+            fluidRow(
+              column(8, textOutput("GR_vtableinfo")),
+              column(2),
+              column(2, actionButton("GR_vhide", "Hide/Unhide Table", value = T))
+            ),
+            fluidRow(
+              column(12, DT::dataTableOutput('GR_vtable'), style = 
+                       "width:1000px; overflow-y: scroll;overflow-x: scroll;")
             )
     ),
     tabItem("pl",

@@ -5,8 +5,27 @@ simpleCap <- function(x) {
 }
 
 display_art <- read.csv("../data/cleanData.csv")[,-1]
+display_art <- display_art %>%
+  mutate(auxiliary_support_condition = recode(auxiliary_support_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(media_condition = recode(media_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(ground_condition = recode(ground_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(painting_support_condition = recode(painting_support_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(frame_condition = recode(frame_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent"))
+
 names(display_art) <- gsub("_", " ", names(display_art))
 names(display_art) <- sapply(names(display_art), simpleCap)
+
+# Identify binary columns
+binary_column <- display_art %>%
+  purrr::map_lgl(~all(.x %in% c(0,1))) %>% 
+  .[-1] %>% 
+  as.data.frame() %>%  
+  setNames("values")
+binary_column_true <- rownames(binary_column)[which(binary_column == T, arr.ind = TRUE)[, 1]]
+display_art <- display_art %>%
+  mutate(across(binary_column_true, 
+                ~factor(ifelse(.x == "1","Yes","No"))))
+  
 
 art <- read.csv("../data/cleanData.csv")[,-1]
 
