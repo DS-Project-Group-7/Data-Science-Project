@@ -114,6 +114,7 @@ body <- dashboardBody(
             )
     ),
     tabItem("aux",
+            titlePanel("Auxiliary Support Overview"),
             fluidRow(
               column(12, highchartOutput("AX_eval"))
             ),
@@ -122,7 +123,7 @@ body <- dashboardBody(
               sidebarPanel(selectInput("AX", "Choose a support condition to view a brief summary:",
                                        AX_choiceVec),
                            sliderInput("AX_decade", "Select a time period for visualisation", 
-                                       min = 1850, max = 1970, step = 10, value = c(1850, 1970))
+                                       min = 1850, max = 1970, step = 10, value = c(1850, 1970),sep = "")
               ),
               mainPanel(highchartOutput("AX_heat"))
             ),
@@ -150,7 +151,7 @@ body <- dashboardBody(
               sidebarPanel(
                 checkboxGroupInput("PS_check", "Museum filter:", Museum_choiceVec, selected = Museum_choiceVec),
                 sliderInput("PS_decade", "Select a time period for visualisation",
-                            min = 1850, max = 1970, step = 10, value = c(1850, 1970)),
+                            min = 1850, max = 1970, step = 10, value = c(1850, 1970),sep = ""),
                 selectInput("PS", "Choose a support condition to view a brief summary:",
                             PS_choiceVec)
               ),
@@ -187,7 +188,7 @@ body <- dashboardBody(
                 selectInput("GR", "Choose a ground layer condition to view a brief summary:",
                             GR_choiceVec),
                 sliderInput("GR_decade", "Select a time period for visualisation",
-                            min = 1850, max = 1970, step = 10, value = c(1850, 1970))
+                            min = 1850, max = 1970, step = 10, value = c(1850, 1970),sep = "")
               ),
               mainPanel(
                 highchartOutput("GR_visual")
@@ -203,7 +204,7 @@ body <- dashboardBody(
                 selectInput("media_type", "Choose a frame atribute to view a brief summary:",
                             Painting_choiceVec),
                 sliderInput("frame_decade", "Select a time period for visualisation",
-                            min = 1850, max = 1970, step = 10, value = c(1850, 1970))
+                            min = 1850, max = 1970, step = 10, value = c(1850, 1970),sep = "")
               ),
               mainPanel(highchartOutput("PL_graph"))
             )
@@ -217,7 +218,7 @@ body <- dashboardBody(
                 selectInput("frame_attribute", "Choose a frame atribute to view a brief summary:",
                             Frame_choiceVec),
                 sliderInput("frame_decade", "Select a time period for visualisation",
-                            min = 1850, max = 1970, step = 10, value = c(1850, 1970))
+                            min = 1850, max = 1970, step = 10, value = c(1850, 1970),sep = "")
               ),
               mainPanel(highchartOutput("Frame_attr_graph"))
             )
