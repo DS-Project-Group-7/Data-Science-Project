@@ -5,10 +5,23 @@ library(highcharter)
 
 
 
-art <-
-  read.csv(
-    "data/cleanData.csv"
-  )
+art <- read.csv("../data/cleanData.csv")[,-1]
+art %>% 
+  mutate(locality = 
+           recode(locality, "local?" = "local", "Unspecified" = "import"))%>%
+  group_by(locality)%>%
+  count(locality, decade) %>%
+  mutate(cum_sum = cumsum(n))%>%
+  hchart("line",
+         hcaes(x = decade, y = cum_sum, group = locality)) %>%
+  hc_xAxis(title = list(text = "Decade")) %>%
+  hc_yAxis(title = list(text = "Number of Paintings")) %>%
+  hc_legend(title = list(text = "Locality"), reversed = TRUE) %>%
+  hc_title(text = "Cumulative sum wood type locality throughout the century")%>%
+  hc_tooltip(pointFormat = tooltip_table(c("Locality:", "Number of paintings:"), 
+                                         c("{point.locality}", "{point.y}")), useHTML = TRUE)
+
+
 #clean_data%>%
 #  group_by(country)%>%
 #  summarise(`adhered well to support`)

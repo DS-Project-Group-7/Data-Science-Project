@@ -214,9 +214,11 @@ shinyServer(function(input, output) {
     art %>% 
       mutate(locality = 
                recode(locality, "local?" = "local", "Unspecified" = "import"))%>%
+      group_by(locality)%>%
       count(locality, decade) %>%
+      mutate(cum_sum = cumsum(n)) %>%
       hchart("line",
-             hcaes(x = decade, y = n, group = locality)) %>%
+             hcaes(x = decade, y = cum_sum, group = locality)) %>%
       hc_xAxis(title = list(text = "Decade")) %>%
       hc_yAxis(title = list(text = "Number of Paintings")) %>%
       hc_legend(title = list(text = "Locality"), reversed = TRUE) %>%
