@@ -274,7 +274,8 @@ body <- dashboardBody(
 
 
 ui <- dashboardPage(
-                    header, 
-                    sidebar, 
-                    body
+  title = "SEA Conservation Dashboard",
+  header,
+  sidebar,
+  body
 )
