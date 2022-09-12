@@ -85,7 +85,7 @@ body <- dashboardBody(
                 artists’ materials and art training opportunities, proposing that they 
                 provided the conditions for the transfer of ‘Western’ oil painting practice.")
               ),
-              br(),
+              hr(),
               p(strong("Number of Paintings:")),
               fluidRow(
                 column(3, valueBoxOutput("sing_count", width = 14)),
@@ -99,7 +99,7 @@ body <- dashboardBody(
                        p(em("Cooking Rice, Fernando Amorsolo (1959), 
                             J.B. Vargas Museum, University of the Philippines")))
               ),
-              br(),
+              hr(),
               fluidRow(
                 column(12, highchartOutput("Decade_Sum"))
               )
@@ -110,9 +110,11 @@ body <- dashboardBody(
             fluidRow(
               column(12, highchartOutput("DM_eval"))
             ),
+            hr(),
             fluidRow(
               column(12, highchartOutput("DM_bub"))
             ),
+            hr(),
             fluidRow(
               column(12, highchartOutput("DM_area"))
             )
@@ -122,6 +124,7 @@ body <- dashboardBody(
             fluidRow(
               column(12, highchartOutput("AX_eval"))
             ),
+            hr(),
             sidebarLayout(
               sidebarPanel(
                 checkboxGroupInput("AX_check", "Museum filter:", Museum_choiceVec, selected = Museum_choiceVec),
@@ -132,6 +135,7 @@ body <- dashboardBody(
               ),
               mainPanel(highchartOutput("AX_heat"))
             ),
+            hr(),
             fluidRow(
               column(12, highchartOutput("AX_wood"))
             )
@@ -146,12 +150,11 @@ body <- dashboardBody(
               column(2),
               column(2, actionButton("ps_hide", "Hide/Unhide Table", value = T))
             ),
-            br(),
             fluidRow(
               column(12, DT::dataTableOutput('PS_table'), style = 
                        "width:1000px; overflow-y: scroll;overflow-x: scroll;")
             ),
-            br(),
+            hr(),
             sidebarLayout(
               sidebarPanel(
                 checkboxGroupInput("PS_check", "Museum filter:", Museum_choiceVec, selected = Museum_choiceVec),
@@ -171,6 +174,7 @@ body <- dashboardBody(
               column(12, DT::dataTableOutput('PS_vtable'), style = 
                        "width:1000px; overflow-y: scroll;overflow-x: scroll;")
             ),
+            hr(),
             sidebarLayout(
               sidebarPanel(
                 h4(strong("Heatmap for comparing two attributes")),
@@ -194,12 +198,11 @@ body <- dashboardBody(
               column(2),
               column(2, actionButton("GR_hide", "Hide/Unhide Table", value = T))
             ),
-            br(),
             fluidRow(
               column(12, DT::dataTableOutput('GR_table'), style = 
                        "width:1000px; overflow-y: scroll;overflow-x: scroll;")
             ),
-            br(),
+            hr(),
             sidebarLayout(
               sidebarPanel(
                 checkboxGroupInput("GR_check", "Museum filter:", Museum_choiceVec, selected = Museum_choiceVec),

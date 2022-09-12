@@ -10,7 +10,7 @@ library(raster)
 library(dashboardthemes)
 source('helper.R')
 
-options(highcharter.theme = hc_theme_google())
+options(highcharter.theme = hc_theme_hcrt())
 malay <- getData('GADM', country='MYS', level=0)
 sing <- getData('GADM', country='SGP', level=0)
 phil <- getData('GADM', country='PHL', level=0)
@@ -102,6 +102,7 @@ shinyServer(function(input, output) {
     art %>%
       count(decade, collection) %>%
       hchart("column", stacking = "normal", hcaes(x = decade, y = n, group = collection)) %>%
+      hc_chart(zoomType = "x") %>%
       hc_xAxis(title = list(text = "Decades")) %>%
       hc_yAxis(title = list(text = "Number of paintings")) %>%
       hc_title(text = "Painting Frequency Distribution Throughout the Century") %>%
@@ -236,6 +237,7 @@ shinyServer(function(input, output) {
       mutate(cum_sum = cumsum(n)) %>%
       hchart("areaspline",
              hcaes(x = decade, y = cum_sum, group = locality)) %>%
+      hc_chart(zoomType = "x") %>%
       hc_xAxis(title = list(text = "Decade")) %>%
       hc_yAxis(title = list(text = "Number of Paintings")) %>%
       hc_legend(title = list(text = "Locality"), reversed = TRUE) %>%
