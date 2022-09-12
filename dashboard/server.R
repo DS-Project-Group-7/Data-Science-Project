@@ -425,7 +425,6 @@ shinyServer(function(input, output) {
     if (input$GR == "ground_layer_limit") {
       art %>%
         filter(collection %in% input$GR_check) %>%
-        mutate(!!sym(input$GR) := recode(!!sym(input$GR), "to side edge" = "To Side Edge", "to face edge" = "To Face Edge", "to side edgeto face edge" = "Both")) %>%
         filter(between(decade, input$GR_decade[1], input$GR_decade[2])) %>%
         count(!!sym(input$GR), collection) %>%
         hchart("bar", stacking = "normal",
@@ -437,7 +436,6 @@ shinyServer(function(input, output) {
     } else if (input$GR == 'ground_layer_application') {
       art %>%
         filter(collection %in% input$GR_check) %>%
-        mutate(!!sym(input$GR) := recode(!!sym(input$GR), "artist applied ground" = "Artist Applied", "commercial ground" = "Commercial", 'commercial groundartist applied ground' = 'Both')) %>%
         filter(between(decade, input$GR_decade[1], input$GR_decade[2])) %>%
         count(!!sym(input$GR), collection) %>%
         hchart("bar", stacking = "normal",
@@ -449,7 +447,6 @@ shinyServer(function(input, output) {
     } else if (input$GR == "ground_layer_thickness") {
       art %>%
         filter(collection %in% input$GR_check) %>%
-        mutate(!!sym(input$GR) := recode(!!sym(input$GR), "thinly applied" = "Thinly Applied", "thickly applied" = "Thickly Applied", 'thickly appliedthinly applied' = 'Both')) %>%
         filter(between(decade, input$GR_decade[1], input$GR_decade[2])) %>%
         count(!!sym(input$GR), collection) %>%
         hchart("bar", stacking = "normal",
@@ -467,13 +464,51 @@ shinyServer(function(input, output) {
         hchart("bar", stacking = "normal",
                hcaes(x = collection, y = n, group = !!sym(input$GR))) %>%
         hc_legend(title = list(text = "Is such condition present?"), reversed = TRUE) %>%
-        hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
         hc_xAxis(title = list(text = "Museum")) %>%
         hc_yAxis(title = list(text = "Number of Paintings")) %>%
         hc_title(text = names(GR_choiceVec)[GR_choiceVec == input$GR]) %>%
         hc_add_event_point(series = "series", event = "click")
     }
   })
+  
+  toggle_gr_vtable <- reactiveVal(TRUE)
+  observeEvent(input$GR_vhide, {
+    toggle_gr_vtable(!toggle_gr_vtable())
+  })
+  observeEvent(input$GR_visual_click, {
+    if (!toggle_gr_vtable()) {
+      toggle_gr_vtable(!toggle_gr_vtable())
+    } else {
+    }
+  })
+  
+  gr_vtable_on_off <- reactive({
+    if (toggle_gr_vtable()) {
+      if (any(!!sym(input$GR) == special_vec)) {
+        art %>%
+          filter(between(decade, input$GR_decade[1], input$GR_decade[2])) %>%
+          filter(!!sym(input$GR) == input$GR_visual_click$series &
+                   collection == input$GR_visual_click$name) %>%
+          dplyr::select(accession_number, artist, title, decade)
+      } else {
+        art %>%
+          filter(between(decade, input$GR_decade[1], input$GR_decade[2])) %>%
+          filter(!!sym(input$GR) == substr(input$GR_visual_click$series, 1, 1) &
+                   collection == input$GR_visual_click$name) %>%
+          dplyr::select(accession_number, artist, title, decade)
+      }
+    } else {}
+  })
+  
+  output$GR_vtable <- DT::renderDataTable({
+    if (length(input$GR_visual_click)) {
+      gr_vtable_on_off()
+    } else {
+    }
+  }, rownames = FALSE, options = list(
+    autoWidth = T, pageLength = 5,
+    columnDefs = list(list(width = '500px', className = 'dt-center', targets = "_all"))
+  ))
   
   ################################ Paint Layer ################################
   

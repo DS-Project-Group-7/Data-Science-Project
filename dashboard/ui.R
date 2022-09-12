@@ -215,7 +215,6 @@ body <- dashboardBody(
                 highchartOutput("GR_visual")
               )
             ),
-            verbatimTextOutput("test"),
             fluidRow(
               column(8, textOutput("GR_vtableinfo")),
               column(2),
@@ -224,7 +223,8 @@ body <- dashboardBody(
             fluidRow(
               column(12, DT::dataTableOutput('GR_vtable'), style = 
                        "width:1000px; overflow-y: scroll;overflow-x: scroll;")
-            )
+            ),
+            hr()
     ),
     tabItem("pl",
             fluidRow(

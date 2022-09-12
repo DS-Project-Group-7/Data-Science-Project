@@ -293,6 +293,7 @@ sing_labels <- sprintf(
   "Heritage Conservation Board (Singapore)"
 ) %>% lapply(htmltools::HTML)
 
+special_vec <- c("ground_layer_limit", 'ground_layer_application', "ground_layer_thickness")
 
 
 # convert_log = function(x){if (x == 1){"Yes" else { "No "}}}
