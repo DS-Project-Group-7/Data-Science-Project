@@ -195,8 +195,6 @@ def main(dataFile):
                 ) = computeLenWidthAndArea(cleanDataDf, feature)
             elif feature == "date":
                 cleanDataDf["decade"] = transformDatesToDecades(cleanDataDf, feature)
-            elif feature == "artist":
-                cleanDataDf[feature] = cleanDataDf[feature].str.title()
 
     for feature in MultipleValuesCatColDict:
         (index, ncol) = MultipleValuesCatColDict[feature]
@@ -265,7 +263,7 @@ def fuseCategColumns(originalDf, indexList, colName):
         #    newColumn[colName] == ""
         # ]
     existingCatDf = existingCatDf.replace(to_replace="", value="Unspecified")
-    return existingCatDf
+    return existingCatDf.str.title()
 
 
 def fuseOrdinalColumns(originalDf, orderedIndexList, colName):
