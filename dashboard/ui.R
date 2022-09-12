@@ -111,10 +111,10 @@ body <- dashboardBody(
               column(12, highchartOutput("DM_eval"))
             ),
             fluidRow(
-              column(12, highchartOutput("DM_area"))
+              column(12, highchartOutput("DM_bub"))
             ),
             fluidRow(
-              column(12, highchartOutput("DM_bub"))
+              column(12, highchartOutput("DM_area"))
             )
     ),
     tabItem("aux",
