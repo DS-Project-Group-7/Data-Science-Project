@@ -258,8 +258,9 @@ shinyServer(function(input, output) {
   })
   #Event capture aux condition from chart to show the table
   output$aux_vtableinfo <- renderText({
-    paste("Currently displaying condition rating", input$AX_visual_click$series, "paintings from",
-          input$AX_visual_click$name, "between", input$AX_decade[1], "and", input$AX_decade[2], sep = " ")
+    paste("Currently displaying paintings with", names(AX_choiceVec)[AX_choiceVec == input$AX], "condition", "(", 
+          input$AX_visual_click$series, ")", "from", input$AX_visual_click$name, "between", input$AX_decade[1], 
+          "and", input$AX_decade[2], sep = " ")
   })
   #Toggle hide/show button
   toggle_aux_vtable <- reactiveVal(TRUE)
@@ -342,7 +343,8 @@ shinyServer(function(input, output) {
           hc_legend(title = list(text = "Locality"), reversed = TRUE) %>%
           hc_title(text = "Cumulative sum wood type locality throughout the century")%>%
           hc_tooltip(pointFormat = tooltip_table(c("Locality:", "Number of paintings:"),
-                                                 c("{point.locality}", "{point.y}")), useHTML = TRUE)
+                                                 c("{point.locality}", "{point.y}")), useHTML = TRUE)%>%
+      hc_add_event_point(series = "series", event = "click")
     } else {
       plot2<-art %>% 
           mutate(locality =
@@ -358,16 +360,16 @@ shinyServer(function(input, output) {
           hc_legend(title = list(text = "Locality"), reversed = TRUE) %>%
           hc_title(text = "Line Chart wood type locality throughout the century")%>%
           hc_tooltip(pointFormat = tooltip_table(c("Locality:", "Number of paintings:"),
-                                                 c("{point.locality}", "{point.y}")), useHTML = TRUE)
+                                                 c("{point.locality}", "{point.y}")), useHTML = TRUE)%>%
+        hc_add_event_point(series = "series", event = "click")
     }
   })
   
   output$AX_wood <- renderHighchart({   
     which_graph()
   })
-
- 
-  ################################ Painting Support ################################
+  
+ ################################ Painting Support ################################
   
   output$PS_eval <- renderHighchart({
     art %>% 
