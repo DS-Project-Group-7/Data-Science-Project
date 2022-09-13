@@ -124,6 +124,15 @@ body <- dashboardBody(
             fluidRow(
               column(12, highchartOutput("AX_eval"))
             ),
+            fluidRow(
+              column(8, textOutput("aux_tableinfo")),
+              column(2),
+              column(2, actionButton("aux_hide", "Hide/Unhide Table", value = T))
+            ),
+            fluidRow(
+              column(12, DT::dataTableOutput('aux_table'), style = 
+                       "width:1000px; overflow-y: scroll;overflow-x: scroll;")
+            ),
             hr(),
             sidebarLayout(
               sidebarPanel(
@@ -133,7 +142,20 @@ body <- dashboardBody(
                 selectInput("AX", "Choose a support condition to view a brief summary:",
                             AX_choiceVec)
               ),
-              mainPanel(highchartOutput("AX_heat"))
+              mainPanel(highchartOutput("AX_visual"))
+            ),
+            fluidRow(
+              column(8, textOutput("aux_vtableinfo")),
+              column(2),
+              column(2, actionButton("aux_vhide", "Hide/Unhide Table", value = T))
+            ),
+            fluidRow(
+              column(12, DT::dataTableOutput('aux_vtable'), style = 
+                       "width:1000px; overflow-y: scroll;overflow-x: scroll;")
+            ),
+            hr(),
+            fluidRow(
+              column(12, highchartOutput("AX_heat"))
             ),
             hr(),
             fluidRow(

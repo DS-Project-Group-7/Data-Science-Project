@@ -200,8 +200,98 @@ shinyServer(function(input, output) {
       hc_legend(title = list(text = "Condition Score"), reversed = F) %>%
       hc_title(text = "Auxiliary Support Condition")%>%
       hc_tooltip(pointFormat = tooltip_table(c("Auxiliary Support Condition:", "Number of paintings:"), 
-                                             c("{point.auxiliary_support_condition}", "{point.y}")), useHTML = TRUE)
+                                             c("{point.auxiliary_support_condition}", "{point.y}")), useHTML = TRUE)%>%
+      hc_add_event_point(series = "series", event = "click")
   })
+  #Event capture aux condition from chart to show the table
+  output$aux_tableinfo <- renderText({
+    paste("Currently displaying condition rating", input$AX_eval_click$series, "paintings from",
+          input$AX_eval_click$name, "between", input$AX_decade[1], "and", input$AX_decade[2], sep = " ")
+  })
+  #Toggle hide/show button
+  toggle_aux_table <- reactiveVal(TRUE)
+  observeEvent(input$aux_hide, {
+    toggle_aux_table(!toggle_aux_table())
+  })
+  observeEvent(input$AX_eval_click, {
+    if (!toggle_aux_table()) {
+      toggle_aux_table(!toggle_aux_table())
+    } else {
+    }
+  })
+  #Generate the aux condition table
+  aux_table_on_off <- reactive({
+    if (toggle_aux_table()) {
+      art %>%
+        filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
+        filter(auxiliary_support_condition == substr(input$AX_eval_click$series, 1, 1) &
+                 collection == input$AX_eval_click$name) %>%
+        dplyr::select(accession_number, artist, title, decade)
+    } else {}
+  })
+  
+  output$aux_table <- DT::renderDataTable({
+    if (length(input$AX_eval_click)) {
+      aux_table_on_off()
+    } else {
+    }
+  }, rownames = FALSE, options = list(
+    autoWidth = T, pageLength = 5,
+    columnDefs = list(list(width = '500px', className = 'dt-center', targets = "_all"))
+  ))
+  
+  #Bar chart for each attribute 
+  output$AX_visual <- renderHighchart({
+    art %>% 
+      mutate(!!sym(input$AX) := recode(!!sym(input$AX), "0" = "0 No", "1" = "1 Yes")) %>%
+      filter(collection %in% input$AX_check) %>% 
+      filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
+      count(!!sym(input$AX), collection) %>%
+      hchart("bar", stacking = "normal",
+             hcaes(x = collection, y = n, group = !!sym(input$AX))) %>%
+      hc_plotOptions(column = list(borderRadius = 5)) %>%
+      hc_legend(title = list(text = "Is such condition present?"), reversed = TRUE) %>%
+      hc_xAxis(title = list(text = "Museum")) %>%
+      hc_yAxis(title = list(text = "Number of Paintings")) %>%
+      hc_title(text = names(AX_choiceVec)[AX_choiceVec == input$AX]) %>%
+      hc_add_event_point(series = "series", event = "click")
+  })
+  #Event capture aux condition from chart to show the table
+  output$aux_vtableinfo <- renderText({
+    paste("Currently displaying condition rating", input$AX_visual_click$series, "paintings from",
+          input$AX_visual_click$name, "between", input$AX_decade[1], "and", input$AX_decade[2], sep = " ")
+  })
+  #Toggle hide/show button
+  toggle_aux_vtable <- reactiveVal(TRUE)
+  observeEvent(input$aux_vhide, {
+    toggle_aux_vtable(!toggle_aux_vtable())
+  })
+  observeEvent(input$AX_visual_click, {
+    if (!toggle_aux_vtable()) {
+      toggle_aux_vtable(!toggle_aux_vtable())
+    } else {
+    }
+  })
+  #Generate the aux condition table
+  aux_vtable_on_off <- reactive({
+    if (toggle_aux_vtable()) {
+      art %>%
+        filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
+        filter(!!sym(input$AX) == substr(input$AX_visual_click$series, 1, 1) &
+                 collection == input$AX_visual_click$name) %>%
+        dplyr::select(accession_number, artist, title, decade)
+    } else {}
+  })
+  
+  output$aux_vtable <- DT::renderDataTable({
+    if (length(input$AX_visual_click)) {
+      aux_vtable_on_off()
+    } else {
+    }
+  }, rownames = FALSE, options = list(
+    autoWidth = T, pageLength = 5,
+    columnDefs = list(list(width = '500px', className = 'dt-center', targets = "_all"))
+  ))
   
   #Heat map aux condition
   output$AX_heat <- renderHighchart({
