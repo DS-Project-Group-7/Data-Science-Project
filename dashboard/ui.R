@@ -158,9 +158,13 @@ body <- dashboardBody(
               column(12, highchartOutput("AX_heat"))
             ),
             hr(),
+            #fluidRow(
+            #  column(12, highchartOutput("AX_wood"))
+            #)
             fluidRow(
-              column(12, highchartOutput("AX_wood"))
-            )
+                column(12, highchartOutput("AX_wood"))
+            ),
+            actionButton("button", "Show Line Chart")
     ),
     tabItem("psup",
             titlePanel(strong("Painting Support Overview")),

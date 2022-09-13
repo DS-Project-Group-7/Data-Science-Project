@@ -315,27 +315,58 @@ shinyServer(function(input, output) {
                                              c("{point.y}","{point.condition}", "{point.n}")), useHTML = TRUE)
   })
   
-  #Line chart Wood locality 
-  output$AX_wood <- renderHighchart({
-    art %>% 
-      mutate(locality = 
-               recode(locality, "local?" = "local", "Unspecified" = "import"))%>%
-      group_by(locality)%>%
-      filter(collection %in% input$AX_check) %>% 
-      filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
-      count(locality, decade) %>%
-      mutate(cum_sum = cumsum(n)) %>%
-      hchart("areaspline",
-             hcaes(x = decade, y = cum_sum, group = locality)) %>%
-      hc_chart(zoomType = "x") %>%
-      hc_xAxis(title = list(text = "Decade")) %>%
-      hc_yAxis(title = list(text = "Number of Paintings")) %>%
-      hc_legend(title = list(text = "Locality"), reversed = TRUE) %>%
-      hc_title(text = "Cumulative sum wood type locality throughout the century")%>%
-      hc_tooltip(pointFormat = tooltip_table(c("Locality:", "Number of paintings:"), 
-                                             c("{point.locality}", "{point.y}")), useHTML = TRUE)
+  #Line chart Wood locality
+  #Set up default whichplot as True
+  whichplot <- reactiveVal(TRUE)
+   
+  #Trigger event 
+  observeEvent(input$button, {
+    whichplot(!whichplot())
+  })
+
+
+  which_graph <- reactive({
+    if (whichplot()) {
+    plot1<-art %>%
+        mutate(locality =
+                   recode(locality, "local?" = "local", "Unspecified" = "import"))%>%
+          group_by(locality)%>%
+          filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
+          count(locality, decade) %>%
+          mutate(cum_sum = cumsum(n)) %>%
+          hchart("areaspline",
+                 hcaes(x = decade, y = cum_sum, group = locality)) %>%
+          hc_chart(zoomType = "x") %>%
+          hc_xAxis(title = list(text = "Decade")) %>%
+          hc_yAxis(title = list(text = "Number of Paintings")) %>%
+          hc_legend(title = list(text = "Locality"), reversed = TRUE) %>%
+          hc_title(text = "Cumulative sum wood type locality throughout the century")%>%
+          hc_tooltip(pointFormat = tooltip_table(c("Locality:", "Number of paintings:"),
+                                                 c("{point.locality}", "{point.y}")), useHTML = TRUE)
+    } else {
+      plot2<-art %>% 
+          mutate(locality =
+                   recode(locality, "local?" = "local", "Unspecified" = "import"))%>%
+          group_by(locality)%>%
+          filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
+          count(locality, decade) %>%
+          hchart("line",
+                 hcaes(x = decade, y = n, group = locality)) %>%
+          hc_chart(zoomType = "x") %>%
+          hc_xAxis(title = list(text = "Decade")) %>%
+          hc_yAxis(title = list(text = "Number of Paintings")) %>%
+          hc_legend(title = list(text = "Locality"), reversed = TRUE) %>%
+          hc_title(text = "Line Chart wood type locality throughout the century")%>%
+          hc_tooltip(pointFormat = tooltip_table(c("Locality:", "Number of paintings:"),
+                                                 c("{point.locality}", "{point.y}")), useHTML = TRUE)
+    }
   })
   
+  output$AX_wood <- renderHighchart({   
+    which_graph()
+  })
+
+ 
   ################################ Painting Support ################################
   
   output$PS_eval <- renderHighchart({
