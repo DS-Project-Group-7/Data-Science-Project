@@ -678,11 +678,49 @@ shinyServer(function(input, output) {
       hc_legend(title = list(text = "Condition Score"), reversed = TRUE) %>%
       hc_title(text = "Frame Condition") %>%
       hc_tooltip(pointFormat = tooltip_table(c("Frame Condition:", "Number of paintings:"), 
-                                             c("{point.frame_condition}", "{point.y}")), useHTML = TRUE)
+                                             c("{point.frame_condition}", "{point.y}")), useHTML = TRUE)%>%
+      hc_add_event_point(series = "series", event = "click")
   })
+  
+  output$Frame_tableinfo <- renderText({
+    paste("Currently displaying condition rating", input$Frame_eval_click$series, "paintings from",
+          input$Frame_eval_click$name, "between", input$Frame_decade[1], "and", input$Frame_decade[2], sep = " ")
+  })
+  
+  toggle_frame_table <- reactiveVal(TRUE)
+  observeEvent(input$frame_hide, {
+    toggle_frame_table(!toggle_frame_table())
+  })
+  observeEvent(input$Frame_eval_click, {
+    if (!toggle_frame_table()) {
+      toggle_frame_table(!toggle_frame_table())
+    } else {
+    }
+  })
+  
+  frame_table_on_off <- reactive({
+    if (toggle_frame_table()) {
+      art %>%
+        filter(between(decade, input$frame_decade[1], input$frame_decade[2])) %>%
+        filter(frame_condition == substr(input$Frame_eval_click$series, 1, 1) &
+                 collection == input$Frame_eval_click$name) %>%
+        dplyr::select(accession_number, artist, title, decade)
+    } else {}
+  })
+  
+  output$Frame_table <- DT::renderDataTable({
+    if (length(input$Frame_eval_click)) {
+      frame_table_on_off()
+    } else {
+    }
+  }, rownames = FALSE, options = list(
+    autoWidth = T, pageLength = 5,
+    columnDefs = list(list(width = '500px', className = 'dt-center', targets = "_all"))
+  ))
   
   output$Frame_attr_graph <- renderHighchart({
     art %>% 
+      filter(collection %in% input$Frame_check) %>% 
       filter(between(decade, input$frame_decade[1], input$frame_decade[2])) %>%
       count(!!sym(input$frame_attribute), collection) %>%
       hchart("bar", stacking = "normal",
@@ -691,8 +729,46 @@ shinyServer(function(input, output) {
       hc_legend(title = list(text = "Value"), reversed = TRUE) %>%
       hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
       hc_xAxis(title = list(text = "Museum")) %>%
-      hc_yAxis(title = list(text = "Number of Paintings"))
+      hc_yAxis(title = list(text = "Number of Paintings")) %>%
+      hc_add_event_point(series = "series", event = "click")
   })
+  
+  output$Frame_vtableinfo <- renderText({
+    paste("Currently displaying paintings with", names(Frame_choiceVec)[Frame_choiceVec == input$Frame], "condition", "(", 
+          input$Frame_attr_graph_click$series, ")", "from", input$frame_attr_graph_click$name, "between", input$frame_decade[1], 
+          "and", input$frame_decade[2], sep = " ")
+  })
+  
+  toggle_frame_vtable <- reactiveVal(TRUE)
+  observeEvent(input$frame_vhide, {
+    toggle_frame_vtable(!toggle_frame_vtable())
+  })
+  observeEvent(input$Frame_attr_graph_click, {
+    if (!toggle_frame_vtable()) {
+      toggle_frame_vtable(!toggle_frame_vtable())
+    } else {
+    }
+  })
+  
+  frame_vtable_on_off <- reactive({
+    if (toggle_frame_vtable()) {
+      art %>%
+        filter(between(decade, input$frame_decade[1], input$frame_decade[2])) %>%
+        filter(!!sym(input$frame_attribute) == substr(input$Frame_attr_graph_click$series, 1, 1) &
+                 collection == input$Frame_attr_graph_click$name) %>%
+        dplyr::select(accession_number, artist, title, decade)
+    } else {}
+  })
+  
+  output$Frame_vtable <- DT::renderDataTable({
+    if (length(input$Frame_attr_graph_click)) {
+      frame_vtable_on_off()
+    } else {
+    }
+  }, rownames = FALSE, options = list(
+    autoWidth = T, pageLength = 5,
+    columnDefs = list(list(width = '500px', className = 'dt-center', targets = "_all"))
+  ))
   
   ################################ Explore Artist ################################
   

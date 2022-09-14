@@ -265,18 +265,40 @@ body <- dashboardBody(
             )
     ),
     tabItem("fr",
+            titlePanel(strong("Frame Overview")),
             fluidRow(
               column(12, highchartOutput("Frame_eval"))
             ),
+            fluidRow(
+              column(8, textOutput("Frame_tableinfo")),
+              column(2),
+              column(2, actionButton("frame_hide", "Hide/Unhide Table", value = T))
+            ),
+            fluidRow(
+              column(12, DT::dataTableOutput('Frame_table'), style = 
+                       "width:1000px; overflow-y: scroll;overflow-x: scroll;")
+            ),
+            hr(),
             sidebarLayout(
               sidebarPanel(
-                selectInput("frame_attribute", "Choose a frame atribute to view a brief summary:",
-                            Frame_choiceVec),
+                checkboxGroupInput("Frame_check", "Museum filter:", Museum_choiceVec, selected = Museum_choiceVec),
                 sliderInput("frame_decade", "Select a time period for visualisation",
-                            min = 1850, max = 1970, step = 10, value = c(1850, 1970),sep = "")
+                            min = 1850, max = 1970, step = 10, value = c(1850, 1970),sep = ""),
+                selectInput("frame_attribute", "Choose a frame attribute to view a brief summary:",
+                            Frame_choiceVec)
               ),
               mainPanel(highchartOutput("Frame_attr_graph"))
-            )
+            ),
+            fluidRow(
+              column(8, textOutput("Frame_vtableinfo")),
+              column(2),
+              column(2, actionButton("frame_vhide", "Hide/Unhide Table", value = T))
+            ),
+            fluidRow(
+              column(12, DT::dataTableOutput('Frame_vtable'), style = 
+                       "width:1000px; overflow-y: scroll;overflow-x: scroll;")
+            ),
+            hr()
     ),
     tabItem("artist",
               titlePanel(strong("Explore Artists")),
