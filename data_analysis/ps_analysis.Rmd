@@ -1,0 +1,13 @@
+---
+title: "Painting Support Analysis"
+date: '2022-09-18'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+```
