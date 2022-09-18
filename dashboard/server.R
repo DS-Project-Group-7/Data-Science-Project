@@ -103,6 +103,7 @@ shinyServer(function(input, output) {
       count(decade, collection) %>%
       hchart("column", stacking = "normal", hcaes(x = decade, y = n, group = collection)) %>%
       hc_chart(zoomType = "x") %>%
+      hc_tooltip(crosshairs = TRUE, shared = TRUE) %>%
       hc_xAxis(title = list(text = "Decades")) %>%
       hc_yAxis(title = list(text = "Number of paintings")) %>%
       hc_title(text = "Painting Frequency Distribution Throughout the Century") %>%
