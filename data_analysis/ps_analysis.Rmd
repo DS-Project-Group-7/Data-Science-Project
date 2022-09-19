@@ -9,5 +9,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-
+art <- read.csv("../data/cleanData.csv")
+art
 ```
