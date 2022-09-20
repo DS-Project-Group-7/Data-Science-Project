@@ -25,32 +25,37 @@ target_col <- c("collection", "auxiliary_support_condition", "media_condition",
 conditions <- art[, target_col]
 ```
 
-```{r}
 # Test independence between museum collection and auxiliary support condition
-aux_condition <- conditions %>%
-  count(collection, auxiliary_support_condition)
-aux_condition$collection <- factor(aux_condition$collection)
-aux_condition$auxiliary_support_condition <- factor(aux_condition$auxiliary_support_condition)
-aux_cond <- glm(n ~., data = aux_condition, family = poisson)
-anova(aux_cond)
+```{r}
+aux_contingency <- table(conditions$collection, conditions$auxiliary_support_condition)
+(test1 <- chisq.test(aux_contingency))
+test1$expected
 ```
+Here, we would like to test if there's an association between the museum collection and the condition of the auxiliary support. As we can see from the Pearson's chi-squared test from above, the $\chi^2$ statistics is 8.344, which is greater than the critical value $\chi^2_{0.95}(6)$ as the p-value 0.214 indicates, hence there is no association between the museum collection and the auxiliary support condition. However, one of the major problem here is that, given the sample size are small, the test statistics might not be approximated well by the $\chi^2$ distribution, as we can see there are one cell with expected counts less than 5. Therefore, a Fisher's exact test might be more appropriate.
 
 ```{r}
-1 - pchisq(8.198, 6)
+(test2 <- fisher.test(aux_contingency))
 ```
-Here, we would like to test if there's an association between the museum collection and the condition of the auxiliary support. As we can see from the deviance table above, the $\chi^2$ statistics is 8.198, which is less than the critical value $\chi^2_{0.95}(6)$ as the p-value 0.2240 indicates, hence we do not reject the hypothesis that there is no association between the museum collection and the condition of the auxiliary support.
+As we can see, the p-value returned by the Fisher's exact test is 0.2434, which is greater than the significance level of 0.05. Thus, there are no association between the two.
 
-```{r}
 # Test independence between museum collection and painting support condition
-ps_condition <- conditions %>%
-  count(collection, painting_support_condition)
-ps_cond <- glm(n ~ factor(collection) + factor(painting_support_condition), 
-               data = ps_condition, family = poisson)
-anova(ps_cond)
+```{r}
+(ps_contingency <- table(conditions$collection, conditions$painting_support_condition))
+(test1 <- chisq.test(ps_contingency))
+test1$expected
+```
+In the second test, we would like to test if there's an association between the museum collection and the painting support condition. As we can see from the deviance table above, the $\chi^2$ statistics is 4.870, which is less than the critical value $\chi^2_{0.95}(8)$ as the p-value is greater than the significant level of 0.05. Therefore, we do not reject the null hypothesis, and there's no association between museum collection and the painting support condition.
+
+```{r}
+# Test independence between museum collection and paint layer condition
+pl_condition <- table(conditions$collection, conditions$media_condition)
+X <- chisq.test(pl_condition)
+X 
+X$expected
 ```
 
 ```{r}
-1 - pchisq(4.87, 8)
+1 - pchisq(19.169, 9)
+table(conditions$collection, conditions$media_condition)
 ```
-
-In the seccond test, we would like to test if there's an association between the museum collection and the painting support condition. As we can see from the deviance table above, the $\chi^2$ statistics is 4.870, which is less than the critical value $\chi^2_{0.95}(8)$ as the p-value is less than the significant level of 0.05. Therefore, we do not reject the null hypothesis, and there's no association between museum collection and the painting support condition.
+In the third test, we tested if there's an association between the museum collection and the paint layer condition. As we can see from the deviance table above, the $\chi^2$ statistics is 15.309, which is smaller than the critical value $\chi^2_{0.95}(7)$ as the p-value is greater than the significance level of 0.05. In this case, we would reject the null hypothesis, thus, there's an association between the two factors. Although, we did rejected the null hypothesis, we still could not trust the result, given that there are quite a few cells in the contingency tables with expected count less than 5, therefore the $\chi^2$ approximation may not be good enough and the Chi-square test is not appropriate, and in this case the Fisher's exact test is preferred.
