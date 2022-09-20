@@ -38,7 +38,7 @@ anova(aux_cond)
 ```{r}
 1 - pchisq(8.198, 6)
 ```
-Here, we would like to test if there's an association between the museum collection and the condition of the auxiliary support. As we can see from the deviance table above, the $\chi^2$ statistics is 8.198, which is less than $\chi^2_{0.95}(6)$ as the p-value 0.2240 indicates, hence we do not reject the hypothesis that there is no association between the museum collection and the condition of the auxiliary support.
+Here, we would like to test if there's an association between the museum collection and the condition of the auxiliary support. As we can see from the deviance table above, the $\chi^2$ statistics is 8.198, which is less than the critical value $\chi^2_{0.95}(6)$ as the p-value 0.2240 indicates, hence we do not reject the hypothesis that there is no association between the museum collection and the condition of the auxiliary support.
 
 ```{r}
 # Test independence between museum collection and painting support condition
@@ -53,4 +53,4 @@ anova(ps_cond)
 1 - pchisq(4.87, 8)
 ```
 
-In the seccond test, we would like to test if there's an association between the museum collection and the painting support condition. As we can see from the deviance table above, the $\chi^2$ statistics is 4.870, which is less than $\chi^2_{0.95}(8)$ as the p-value is less than the significant level of 0.05. Therefore, we do not reject the null hypothesis, and there's no association between museum collection and the painting support condition.
+In the seccond test, we would like to test if there's an association between the museum collection and the painting support condition. As we can see from the deviance table above, the $\chi^2$ statistics is 4.870, which is less than the critical value $\chi^2_{0.95}(8)$ as the p-value is less than the significant level of 0.05. Therefore, we do not reject the null hypothesis, and there's no association between museum collection and the painting support condition.
