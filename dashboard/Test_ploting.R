@@ -6,6 +6,20 @@ library(highcharter)
 
 
 art <- read.csv("../data/cleanData.csv")[,-1]
+
+art %>%
+  #filter(artist %in% input$Artist) %>%
+  count(artist, decade,support_type)%>%
+  hchart("column", 
+       hcaes(x = decade, y = n, group = support_type)) %>%
+  hc_xAxis(title = list(text = "Decade")) %>%
+  hc_yAxis(title = list(text = "Number of Paintings"), reversedStacks = F) %>%
+  hc_legend(title = list(text = "support_type"), reversed = F) %>%
+  hc_title(text = "support_type by Artist")%>%
+  hc_tooltip(pointFormat = tooltip_table(c("support_type :", "Number of paintings:"), 
+                                         c("{point.group}", "{point.y}")), useHTML = TRUE)
+
+
 art %>% 
   mutate(locality = 
            recode(locality, "local?" = "local", "Unspecified" = "import"))%>%

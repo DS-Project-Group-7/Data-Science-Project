@@ -778,6 +778,35 @@ shinyServer(function(input, output) {
       hchart("column", hcaes(x = decade, y = n))
   })
   
+  output$Artist_media <- renderHighchart({
+    art %>%
+      filter(between(decade, input$Artist_decade[1], input$Artist_decade[2])) %>%
+      count(artist, decade,media_type_1)%>%
+      hchart("column", 
+             hcaes(x = decade, y = n, group = media_type_1)) %>%
+      hc_xAxis(title = list(text = "Decade")) %>%
+      hc_yAxis(title = list(text = "Number of Paintings"), reversedStacks = F) %>%
+      hc_legend(title = list(text = "Media type"), reversed = F) %>%
+      hc_title(text = "Media type by Artist")%>%
+      hc_tooltip(pointFormat = tooltip_table(c("Media type:", "Number of paintings:"), 
+                                             c("{point.media_type_1}", "{point.y}")), useHTML = TRUE)
+  })
+  
+  
+  output$Artist_support <- renderHighchart({
+    art %>%
+      filter(between(decade, input$Artist_decade[1], input$Artist_decade[2])) %>%
+      count(artist, decade,support_type)%>%
+      hchart("column", 
+             hcaes(x = decade, y = n, group = support_type)) %>%
+      hc_xAxis(title = list(text = "Decade")) %>%
+      hc_yAxis(title = list(text = "Number of Paintings"), reversedStacks = F) %>%
+      hc_legend(title = list(text = "support_type"), reversed = F) %>%
+      hc_title(text = "support_type by Artist")%>%
+      hc_tooltip(pointFormat = tooltip_table(c("support_type :", "Number of paintings:"), 
+                                             c("{point.group}", "{point.y}")), useHTML = TRUE)
+  })
+  
   ################################ Explore Database ################################
   
   output$tbl <- DT::renderDataTable(display_art, rownames = FALSE, options = list(

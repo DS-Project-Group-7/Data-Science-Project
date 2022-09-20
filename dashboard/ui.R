@@ -311,7 +311,19 @@ body <- dashboardBody(
                   selectInput("Artist", "Choose an artist to view their active years:", Artist_choiceVec)
                 ),
                 mainPanel(highchartOutput("Artist_active"))
-              )
+              ),
+            hr(),
+            sidebarLayout(
+              sidebarPanel(
+                sliderInput("Artist_decade", "Select a time period for visualisation",
+                            min = 1850, max = 1970, step = 10, value = c(1850, 1970),sep = "")
+              ),
+              mainPanel(highchartOutput("Artist_media"))
+            ),
+            hr(),
+            fluidRow(
+              column(12, highchartOutput("Artist_support"))
+            )
     ),
     tabItem("dataPresentation",
             fluidPage(
