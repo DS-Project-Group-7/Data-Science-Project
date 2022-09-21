@@ -65,30 +65,30 @@ BooleanColumnsDict = {
     "deformation_around_tacks_staples_painting_support": 153,
     "tears_around_tacks_staples_painting_support": 154,
     "loss_of_tacks_insecure_support_painting_support": 155,
-    "striped_frame": 164,
-    "carved_frame": 165,
-    "gesso_moldings_on_frame": 166,
-    "painted_or_stained_frame": 167,
-    "gilded_frame": 168,
-    "glass_frame": 173,
-    "perspex_frame": 174,
-    "unable_to_examine_reverse_frame": 175,
-    "screws_frame": 183,
-    "screweyes_frame": 184,
-    "dring_frame": 185,
-    "backing_board_presence": 188,
-    "surface_dirt_frame": 192,
-    "accretions_frame": 193,
-    "abrasions_frame": 194,
-    "flaking_frame": 195,
-    "losses_frame": 196,
-    "dented_frame": 197,
-    "chipped_frame": 198,
-    "cracking_frame": 199,
-    "corner_damage_frame": 200,
-    "mitres_separating_frame": 201,
-    "work_loose_frame": 202,
-    "surface_dirt_along_top_edge_frame": 203,
+    "striped_frame": 165,
+    "carved_frame": 166,
+    "gesso_moldings_on_frame": 167,
+    "painted_or_stained_frame": 168,
+    "gilded_frame": 169,
+    "glass_frame": 174,
+    "perspex_frame": 175,
+    "unable_to_examine_reverse_frame": 176,
+    "screws_frame": 184,
+    "screweyes_frame": 185,
+    "dring_frame": 186,
+    "backing_board_presence": 189,
+    "surface_dirt_frame": 193,
+    "accretions_frame": 194,
+    "abrasions_frame": 195,
+    "flaking_frame": 196,
+    "losses_frame": 197,
+    "dented_frame": 198,
+    "chipped_frame": 199,
+    "cracking_frame": 200,
+    "corner_damage_frame": 201,
+    "mitres_separating_frame": 202,
+    "work_loose_frame": 203,
+    "surface_dirt_along_top_edge_frame": 204,
 }
 
 CategoricalColumnsDict = {
@@ -112,21 +112,146 @@ CategoricalColumnsDict = {
     "ground_layer_application": [120, 121],
     "ground_layer_limit": [129, 130],
     "ground_layer_thickness": [123, 124],
-    "relationship_cracks_aux_support": [157],
-    "frame_material": [162, 163],
-    "slip_presence_frame": [169, 170],
-    "glazed_frame": [171, 172],
-    "frame_affixed_to_wall_by": [177, 178, 179, 180],
-    "frame_hanging_system": [181, 182],
-    "frame_strand_wire": [186, 187],
-    "backing_board_type": [189, 190, 191],
+    # "relationship_cracks_aux_support": [157],
+    "frame_material": [163, 164],
+    "slip_presence_frame": [170, 171],
+    "glazed_frame": [172, 173],
+    "frame_affixed_to_wall_by": [178, 179, 180, 181],
+    "frame_hanging_system": [182, 183],
+    "frame_strand_wire": [187, 188],
+    "backing_board_type": [190, 191, 192],
 }
 
 MultipleValuesCatColDict = {
-    # format is "name_of_the_column":(index, number of columns we want to split it into)
-    "cracks_mechanically_induced": (158, 5),
-    "location_of_cracks": (160, 2),
-    "environmental_history": (161, 8),
+    # format is "name_of_the_column":(index, list of possible values)
+    "relationship_cracks_aux_support": (
+        157,
+        [
+            "corner bisector crack (keying out)",
+            "corner circle (quadrant) cracks (stress at corners)",
+            "parallel to bottom member",
+            "parallel to top member",
+            "parallel to right member",
+            "parallel to left member",
+            "parallel to hoizontal members",
+            "parallel to vertical members",
+            "parallel to all edges",
+            "parallel to cross bars",
+        ],
+    ),
+    "cracks_mechanically_induced": (
+        158,
+        [
+            "local",
+            "overall",
+            "secondary horizontal and vertical",
+            "primary horizontal and vertical",
+            "secondary horizontal",
+            "secondary vertical",
+            "primary vertical",
+            "primary horizontal",
+            "primary diagonal",
+            "secondary diagonal",
+            "solid support expanding: minor",
+            "solid support expanding: major",
+            "large network of cracks",
+            "tight network of small cracks",
+            "local grid cracks (follows canvas weave)",
+            "overall grid cracks (follows canvas weave) ",
+            "local net cracks (primary cracks= secondary cracks)",
+            "overall net cracks (primary cracks= secondary cracks)",
+            "corn ear crack (from front)",
+            "tented paint due to stretched support",
+            "tented paint due to compressed support",
+            "blind cleavage due to water damage",
+            "due to loss of tension at bottom",
+            "tacking garland cracks",
+            "middle bisector cracks",
+            "stretcher bar ladder cracks",
+            "sigmoud cracks",
+            "herringbone cracks (from back)",
+            "cracks in thin paint",
+            "cracks in thick paint",
+            "local loss of cohesion in binder",
+            "local brittle paint",
+            "very brittle paint throughout",
+            "overall loss of cohesion in binder",
+            "due to changes or previous treatment",
+        ],
+    ),
+    "drying_cracks_the_paint_itself": (
+        159,
+        [
+            "overall",
+            "local",
+            "large network of cracks",
+            "tight network of small cracks",
+            "small evaporation holes",
+            "spiral cracks",
+            "cracks in whites",
+            "cracks in darks",
+            "cracks in thin paint",
+            "cracks in thick paint",
+            "buckling drying cracks",
+            "alligator drying cracks",
+            "brushstroke crack",
+            "grid crack ",
+            "net cracks (irregular, primary cracks = secondary cracks)",
+            "flame cracks (short cracks)",
+        ],
+    ),
+    "description_of_paint_loss": (
+        160,
+        [
+            "at the ground layer no dark shadows",
+            "at the support layer",
+            "at the interlayer",
+            "at the surface layer",
+            "losses due to external mechanical damage",
+            "at the support layer due to moisture delamination",
+            "overall large network of paint loss",
+            "overall tight network of paint loss",
+            "local large network of paint loss",
+            "local tight network of paint loss",
+        ],
+    ),
+    "location_of_cracks": (
+        161,
+        [
+            "at the ground layer, no dark shadows visble",
+            "at the support layer, dark shadows visible",
+            "at the interlayer",
+            "at the surface layer",
+            "along the bottom edge",
+            "along the bottom and top edge",
+            "along the side edges",
+            "along the top edge",
+            "in the upper half",
+            "in the lower half",
+        ],
+    ),
+    "environmental_history": (
+        162,
+        [
+            "24 hours air conditioning, values unknown",
+            "24 hours air conditioning at 22 degrees+2 degrees, 60% RH+5% RH",
+            "work hours airconditioning at 22 degrees+2 degrees, 50% RH+5% RH, off overnight",
+            "manually regulated airconditioning for humman comfort",
+            "manually regulated airconditionin for artworks",
+            "no air conditioning, climate monitored & stable",
+            "no air conditioning, climate monitored & unstable",
+            "in current conditions for years",
+            "prior storage/ display conditions in private home",
+            "prior storage/ display coniditons in private museum",
+            "prior storage display conditions unknown",
+        ],
+    ),
+}
+
+MultipleValuesLists = {
+    "cracks_mechanically_induced": [],
+    "location_of_cracks": [],
+    "environmental_history": ["no air conditioning, climate monitored & unstable"],
 }
 
 OrdinalColumnsDict = {
@@ -197,10 +322,15 @@ def main(dataFile):
                 cleanDataDf["decade"] = transformDatesToDecades(cleanDataDf, feature)
 
     for feature in MultipleValuesCatColDict:
-        (index, ncol) = MultipleValuesCatColDict[feature]
-        dfList = splitMultivalueFeature(originalDataDf, index, ncol)
-        for i in range(ncol):
-            cleanDataDf[f"{feature}_{i+1}"] = dfList[i]
+        (index, values) = MultipleValuesCatColDict[feature]
+        oldDataSeries = originalDataDf.iloc[:, index].squeeze()
+        for value in values:
+            cleanDataDf[feature + " : " + value] = oldDataSeries.str.contains(
+                value, regex=False
+            ).astype(int)
+        # dfList = splitMultivalueFeature(originalDataDf, index, ncol)
+        # for i in range(ncol):
+        #    cleanDataDf[f"{feature}_{i+1}"] = dfList[i]
 
     for feature in OrdinalColumnsDict:
         cleanDataDf[feature] = fuseOrdinalColumns(
@@ -251,7 +381,10 @@ def fuseCategColumns(originalDf, indexList, colName):
         nonEmptExistingCat = existingCatDf != ""
 
         # Updating newCol
-        existingCatDf[(nonEmptAddCat) & (nonEmptExistingCat)] = "both"
+        if colName == "ground_layer_application":
+            existingCatDf[(nonEmptAddCat) & (nonEmptExistingCat)] = "unsure"
+        else:
+            existingCatDf[(nonEmptAddCat) & (nonEmptExistingCat)] = "both"
         existingCatDf[(nonEmptAddCat) & ~(nonEmptExistingCat)] = additionalCatdF[
             ~(nonEmptExistingCat)
         ]
@@ -319,11 +452,11 @@ def computeLenWidthAndArea(oldDataframe, feature):
     )
 
 
-def createCornerRelationCracksColumn(oldDataframe, index):
-    """
+"""def createCornerRelationCracksColumn(oldDataframe, index):
+    '''
     Read the information in the `Relationship of cracks to aux. support` column and create the column of `corner cracks`.
     The values of this new column can either be none, circle or bissector, depending on the information in the original table.
-    """
+    '''
     oldDataSeries = oldDataframe.iloc[:, index].squeeze()
     cornerInfoDf = oldDataSeries.str.extract(r"corner\s*(\S+)", expand=False)
     nonEmptCornerInfoDf = cornerInfoDf.fillna("Unspecified").astype(
@@ -333,13 +466,13 @@ def createCornerRelationCracksColumn(oldDataframe, index):
         to_replace="", value="Unspecified"
     )
     return nonEmptCornerInfoDf
-
-
+"""
+"""
 def createParallelRelationCracksColumn(oldDataframe, index):
-    """
+    '''
     Read the information in the `Relationship of cracks to aux. support` column and create the column of `parallel cracks`.
     The values of this new column can either be none, top member, to all edges, vertical members, bottom member, crossbar or horizontal, depending on the information in the original table.
-    """
+    '''
     oldDataSeries = oldDataframe.iloc[:, index].squeeze()
     paraInfoDf = oldDataSeries.str.extract(
         r"(?:parallel|paarellel).+(top|bottom|right|left|hoizontal|vertical|all|cross)",
@@ -359,6 +492,7 @@ def createParallelRelationCracksColumn(oldDataframe, index):
 
     nonEmptParaInfoDf = nonEmptParaInfoDf.replace(to_replace="", value="Unspecified")
     return nonEmptParaInfoDf
+"""
 
 
 def processWoodType(df, indexList):
@@ -412,10 +546,11 @@ def processWoodType(df, indexList):
     return (woodTypeDf, woodCountryDf, woodLocDf)
 
 
+"""
 def splitMultivalueFeature(df, index, nbCol):
-    """
+    '''
     Returns n different columns extracted from the column given in index
-    """
+    '''
     oldDataSeries = df.iloc[:, index].squeeze()
     crackLocDf = oldDataSeries.str.split(pat="_x001D_", expand=True)
     nonEmptyCrackLocDf = crackLocDf.fillna("Unspecified").astype(str)
@@ -425,7 +560,10 @@ def splitMultivalueFeature(df, index, nbCol):
     for i in range(nbCol):
         dfList.append(nonEmptyCrackLocDf.iloc[:, i])
 
-    return dfList
+    return dfList"""
+
+# def createBinColumnValue(dataSeries, value):
+# return (dataSeries.str.contains(value))
 
 
 def transformDatesToDecades(df, feature):
