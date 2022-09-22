@@ -131,15 +131,29 @@ attr2 <- c()
 pval <- c()
 count <- 1
 for (i in 1:20) {
-  if (i == length(colnames(paint_support_df))) break
-  for (j in (i+1):20) {
-    attr1[count] <- colnames(paint_support_df)[i]
-    attr2[count] <- colnames(paint_support_df)[j]
-    pval[count] <- fisher.test(table(paint_support_df[,i], paint_support_df[,j]))$p.value
-    count <- count + 1
+  for (j in 1:20) {
+    if (i == j) {
+      
+    } else {
+      attr1[count] <- colnames(paint_support_df)[i]
+      attr2[count] <- colnames(paint_support_df)[j]
+      pval[count] <- fisher.test(table(paint_support_df[,i], paint_support_df[,j]))$p.value
+      count <- count + 1
+    }
   }
 }
 
-as.data.frame(cbind(attr1, attr2, pval))
+temp <- as.data.frame(cbind(attr1, attr2, pval))
+temp$pval <- as.double(temp$pval)
+temp$independent <- ifelse(temp$pval > 0.05, "Independent", "Not Independent")
+temp$independent <- as.factor(temp$independent)
+temp <- temp[, c("attr1", "attr2", "independent")]
+```
+
+```{r}
+ggplot(temp, aes(x = attr1, y = attr2, fill = independent)) +
+  geom_tile(color = "white") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1)) +
+  scale_fill_manual(values = c("#B6B0FF", "green"))
 ```
 
