@@ -57,8 +57,8 @@ As we can see that the returned p-value 0.5031 is greater than the significance 
 
 # Test independence between museum collection and paint layer condition
 ```{r}
-pl_condition <- table(conditions$collection, factor(conditions$media_condition, 
-                                                       levels = c("Poor", "Fair", "Good", "Excellent")))
+(pl_condition <- table(conditions$collection, factor(conditions$media_condition, 
+                                                       levels = c("Poor", "Fair", "Good", "Excellent"))))
 (test1 <- chisq.test(pl_condition))
 test1$expected
 ```
@@ -75,7 +75,7 @@ library(ggstatsplot)
 library(ggmosaic)
 ```
 
-```{r}
+```{r echo = FALSE,fig.width = 4, fig.height = 1.5}
 pl_mosaic <- conditions %>%
   count(collection, media_condition)
 pl_mosaic$media_condition <- factor(pl_mosaic$media_condition, levels = c("Poor", "Fair", "Good", "Excellent"))
@@ -89,4 +89,4 @@ ggplot(pl_mosaic) +
   ylab("Museum Collection") +
   guides(fill=guide_legend(title="Museum Collection", reverse = TRUE))
 ```
-
+Here, we used an effective visualisation technique for contingency table, mosaic plot. The idea of the mosaic plot is to represent each cell of the contingency table by a box, where the area of each box equals to the count of the cell. As the plot depicted, paintings with an excellent paint layer condition has an greater probability being from the heritage conservation board of Singapore, while paintings with good condition has less probability being from the National Gallery of Thailand.
