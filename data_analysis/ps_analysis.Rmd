@@ -27,7 +27,9 @@ conditions <- art[, target_col]
 
 # Test independence between museum collection and auxiliary support condition
 ```{r}
-aux_contingency <- table(conditions$collection, conditions$auxiliary_support_condition)
+aux_contingency <- table(conditions$collection, 
+                         factor(conditions$auxiliary_support_condition, 
+                                levels = c("Poor", "Fair", "Good")))
 (test1 <- chisq.test(aux_contingency))
 test1$expected
 ```
@@ -40,22 +42,51 @@ As we can see, the p-value returned by the Fisher's exact test is 0.2434, which 
 
 # Test independence between museum collection and painting support condition
 ```{r}
-(ps_contingency <- table(conditions$collection, conditions$painting_support_condition))
+(ps_contingency <- table(conditions$collection, factor(conditions$painting_support_condition, 
+                                                       levels = c("Poor", "Fair", "Good", "Excellent"))))
+ 
 (test1 <- chisq.test(ps_contingency))
 test1$expected
 ```
-In the second test, we would like to test if there's an association between the museum collection and the painting support condition. As we can see from the deviance table above, the $\chi^2$ statistics is 4.870, which is less than the critical value $\chi^2_{0.95}(8)$ as the p-value is greater than the significant level of 0.05. Therefore, we do not reject the null hypothesis, and there's no association between museum collection and the painting support condition.
+In the second test, we would like to test if there's an association between the museum collection and the painting support condition. As we can see from the deviance table above, the $\chi^2$ statistics is 4.870, which is less than the critical value $\chi^2_{0.95}(8)$ as the p-value is greater than the significant level of 0.05. Therefore, we do not reject the null hypothesis, and there's no association between museum collection and the painting support condition. However, we do notice there are several cells with expected count lower than 5. Thus, we will perform Fisher's exact test again.
 
 ```{r}
-# Test independence between museum collection and paint layer condition
-pl_condition <- table(conditions$collection, conditions$media_condition)
-X <- chisq.test(pl_condition)
-X 
-X$expected
+(test2 <- fisher.test(ps_contingency, workspace = 2e8))
 ```
+As we can see that the returned p-value 0.5031 is greater than the significance level of 0.05, thus, the two variables are independent.
 
+# Test independence between museum collection and paint layer condition
 ```{r}
-1 - pchisq(19.169, 9)
-table(conditions$collection, conditions$media_condition)
+pl_condition <- table(conditions$collection, factor(conditions$media_condition, 
+                                                       levels = c("Poor", "Fair", "Good", "Excellent")))
+(test1 <- chisq.test(pl_condition))
+test1$expected
 ```
 In the third test, we tested if there's an association between the museum collection and the paint layer condition. As we can see from the deviance table above, the $\chi^2$ statistics is 15.309, which is smaller than the critical value $\chi^2_{0.95}(7)$ as the p-value is greater than the significance level of 0.05. In this case, we would reject the null hypothesis, thus, there's an association between the two factors. Although, we did rejected the null hypothesis, we still could not trust the result, given that there are quite a few cells in the contingency tables with expected count less than 5, therefore the $\chi^2$ approximation may not be good enough and the Chi-square test is not appropriate, and in this case the Fisher's exact test is preferred.
+
+```{r}
+(test2 <- fisher.test(pl_condition, workspace = 2e8))
+```
+As we can see, the returned p-value is 0.005789, thus, we reject the null hypothesis, and there's an association between the museum collection and the paint layer condition.
+
+```{r}
+library(ggplot2)
+library(ggstatsplot)
+library(ggmosaic)
+```
+
+```{r}
+pl_mosaic <- conditions %>%
+  count(collection, media_condition)
+pl_mosaic$media_condition <- factor(pl_mosaic$media_condition, levels = c("Poor", "Fair", "Good", "Excellent"))
+
+ggplot(pl_mosaic) +
+  geom_mosaic(aes(weight = n, x = product(media_condition), fill = collection)) +
+  ggtitle("Paint Layer Condition Mosaic Plot") +
+  theme(axis.text.y = element_blank(), legend.key.size = unit(0.4, 'cm'),
+        legend.text = element_text(size=7)) +
+  xlab("Paint Layer Condition") + 
+  ylab("Museum Collection") +
+  guides(fill=guide_legend(title="Museum Collection", reverse = TRUE))
+```
+
