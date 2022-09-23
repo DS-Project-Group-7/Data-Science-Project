@@ -123,9 +123,10 @@ CategoricalColumnsDict = {
 }
 
 MultipleValuesCatColDict = {
-    # format is "name_of_the_column":(index, list of possible values)
+    # format is "name_of_the_column":(index, max number of values that are not in the list, list of possible values)
     "relationship_cracks_aux_support": (
         157,
+        2,
         [
             "corner bisector crack (keying out)",
             "corner circle (quadrant) cracks (stress at corners)",
@@ -141,6 +142,7 @@ MultipleValuesCatColDict = {
     ),
     "cracks_mechanically_induced": (
         158,
+        2,
         [
             "local",
             "overall",
@@ -181,6 +183,7 @@ MultipleValuesCatColDict = {
     ),
     "drying_cracks_the_paint_itself": (
         159,
+        2,
         [
             "overall",
             "local",
@@ -202,6 +205,7 @@ MultipleValuesCatColDict = {
     ),
     "description_of_paint_loss": (
         160,
+        2,
         [
             "at the ground layer no dark shadows",
             "at the support layer",
@@ -217,6 +221,7 @@ MultipleValuesCatColDict = {
     ),
     "location_of_cracks": (
         161,
+        2,
         [
             "at the ground layer, no dark shadows visble",
             "at the support layer, dark shadows visible",
@@ -232,6 +237,7 @@ MultipleValuesCatColDict = {
     ),
     "environmental_history": (
         162,
+        2,
         [
             "24 hours air conditioning, values unknown",
             "24 hours air conditioning at 22 degrees+2 degrees, 60% RH+5% RH",
@@ -322,15 +328,15 @@ def main(dataFile):
                 cleanDataDf["decade"] = transformDatesToDecades(cleanDataDf, feature)
 
     for feature in MultipleValuesCatColDict:
-        (index, values) = MultipleValuesCatColDict[feature]
+        (index, maxOther, values) = MultipleValuesCatColDict[feature]
         oldDataSeries = originalDataDf.iloc[:, index].squeeze()
         for value in values:
             cleanDataDf[feature + " : " + value] = oldDataSeries.str.contains(
                 value, regex=False
             ).astype(int)
-        # dfList = splitMultivalueFeature(originalDataDf, index, ncol)
-        # for i in range(ncol):
-        #    cleanDataDf[f"{feature}_{i+1}"] = dfList[i]
+        # dfListOthers = findOtherValues(oldDataSeries, maxOther, values)
+        # for i in range(maxOther):
+        #    cleanDataDf[f"{feature}_other_{i+1}"] = dfListOthers[i]
 
     for feature in OrdinalColumnsDict:
         cleanDataDf[feature] = fuseOrdinalColumns(
@@ -417,7 +423,7 @@ def fuseOrdinalColumns(originalDf, orderedIndexList, colName):
     newColumn[colName] = originalDf.iloc[:, orderedIndexList[0]]
     newColumn[colName] = 0  # set the default value to 0
 
-    for index in orderedIndexList[1:]:
+    for index in orderedIndexList:
         level += 1
         researchInOrigin = (originalDf.iloc[:, index] != 0) & (
             originalDf.iloc[:, index] != "n/a"
@@ -432,6 +438,8 @@ def fuseOrdinalColumns(originalDf, orderedIndexList, colName):
         newColumn.loc[researchInOrigin, colName] = level
         newColumn.loc[originalDf.iloc[:, index] == "n/a", colName] = np.nan
 
+    newColumn[colName] = newColumn[colName].replace(0, np.nan)
+    newColumn[colName] = newColumn[colName] - 1
     return newColumn[colName]
 
 
@@ -546,21 +554,20 @@ def processWoodType(df, indexList):
     return (woodTypeDf, woodCountryDf, woodLocDf)
 
 
-"""
-def splitMultivalueFeature(df, index, nbCol):
-    '''
-    Returns n different columns extracted from the column given in index
-    '''
-    oldDataSeries = df.iloc[:, index].squeeze()
-    crackLocDf = oldDataSeries.str.split(pat="_x001D_", expand=True)
-    nonEmptyCrackLocDf = crackLocDf.fillna("Unspecified").astype(str)
-    nonEmptyCrackLocDf = nonEmptyCrackLocDf.replace(to_replace="", value="Unspecified")
+def findOtherValues(oldDataSeries, n, values):
+    """
+    Returns n different columns extracted from the serie displaying the values that are not in the list of possible values
+    """
+    splittedDf = oldDataSeries.str.split(pat="_x001D_", expand=True)
+    nonEmptySplittedDf = splittedDf.fillna("Unspecified").astype(str)
+    nonEmptySplittedDf = nonEmptySplittedDf.replace(to_replace="", value="Unspecified")
 
     dfList = []
-    for i in range(nbCol):
-        dfList.append(nonEmptyCrackLocDf.iloc[:, i])
+    for i in range(n):
+        dfList.append(nonEmptySplittedDf.iloc[:, i])
 
-    return dfList"""
+    return dfList
+
 
 # def createBinColumnValue(dataSeries, value):
 # return (dataSeries.str.contains(value))
