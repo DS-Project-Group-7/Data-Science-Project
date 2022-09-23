@@ -284,7 +284,7 @@ body <- dashboardBody(
             hr(),
             sidebarLayout(
               sidebarPanel(
-                checkboxGroupInput("Frame_check", "Museum filter:", Museum_choiceVec, selected = Museum_choiceVec),
+                checkboxGroupInput("Frame_musium_filter_check", "Museum filter:", Museum_choiceVec, selected = Museum_choiceVec),
                 sliderInput("frame_decade", "Select a time period for visualisation",
                             min = 1850, max = 1970, step = 10, value = c(1850, 1970),sep = ""),
                 selectInput("frame_attribute", "Choose a frame attribute to view a brief summary:",

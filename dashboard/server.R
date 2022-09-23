@@ -719,7 +719,7 @@ shinyServer(function(input, output) {
   
   output$Frame_attr_graph <- renderHighchart({
     art %>% 
-      filter(collection %in% input$Frame_check) %>% 
+      filter(collection %in% input$Frame_musium_filter_check) %>% 
       filter(between(decade, input$frame_decade[1], input$frame_decade[2])) %>%
       count(!!sym(input$frame_attribute), collection) %>%
       hchart("bar", stacking = "normal",
@@ -733,8 +733,8 @@ shinyServer(function(input, output) {
   })
   
   output$Frame_vtableinfo <- renderText({
-    paste("Currently displaying paintings with", names(Frame_choiceVec)[Frame_choiceVec == input$Frame], "condition", "(", 
-          input$Frame_attr_graph_click$series, ")", "from", input$frame_attr_graph_click$name, "between", input$frame_decade[1], 
+    paste("Currently displaying paintings with", names(Frame_choiceVec)[Frame_choiceVec == input$frame_attribute], "(", 
+          input$Frame_attr_graph_click$series, ")", "from", input$Frame_attr_graph_click$name, "between", input$frame_decade[1], 
           "and", input$frame_decade[2], sep = " ")
   })
   
@@ -753,7 +753,7 @@ shinyServer(function(input, output) {
     if (toggle_frame_vtable()) {
       art %>%
         filter(between(decade, input$frame_decade[1], input$frame_decade[2])) %>%
-        filter(!!sym(input$frame_attribute) == substr(input$Frame_attr_graph_click$series, 1, 1) &
+        filter(!!sym(input$frame_attribute) == input$Frame_attr_graph_click$series &
                  collection == input$Frame_attr_graph_click$name) %>%
         dplyr::select(accession_number, artist, title, decade)
     } else {}
