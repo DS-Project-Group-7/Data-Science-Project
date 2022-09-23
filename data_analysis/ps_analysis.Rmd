@@ -94,6 +94,7 @@ Here, we used an effective visualisation technique for contingency table, mosaic
 # Testing independence of other binary attributes
 ```{r}
 paint_support_condition <- c(
+  'collection',
   'planar_painting_support',
   'warped_painting_support',
   'indentations_painting_support',
@@ -117,11 +118,12 @@ paint_support_condition <- c(
 )
 
 paint_support_df <- art[paint_support_condition]
-colnames(paint_support_df) <- c('planar', 'warped', 'indentations', 'good_tension', 'holes', 'loose',
-                                'tears', 'taut', 'surface_dirt', 'mould', 'staining', 'corner_distortions',
-                                'top_distortions', 'bottom_distortions', 'overall_distortions',
-                                'insect_damage', 'rust_stains', 'deformation_around_tacks_staples',
-                                'tears_around_tacks_staples', 'loss_of_tacks_insecure_support')
+colnames(paint_support_df) <- c('collection', 'planar', 'warped', 'indentations', 'good tension', 
+                                'holes', 'loose', 'tears', 'taut', 'surface dirt', 
+                                'mould', 'staining', 'corner distortions',
+                                'top distortions', 'bottom distortions', 'overall distortions',
+                                'insect damage', 'rust stains', 'deformation around tack staples',
+                                'tears around tack staples', 'loss of tack insecure support')
 paint_support_df <- paint_support_df %>% mutate_if(is.integer, as.factor)
 ```
 
@@ -130,13 +132,16 @@ attr1 <- c()
 attr2 <- c()
 pval <- c()
 count <- 1
-for (i in 1:20) {
-  for (j in 1:20) {
+for (i in 2:21) {
+  for (j in 2:21) {
     if (i == j) {
-      
     } else {
       attr1[count] <- colnames(paint_support_df)[i]
       attr2[count] <- colnames(paint_support_df)[j]
+      #test_df <- as.data.frame(ftable(paint_support_df$collection, paint_support_df[,j],
+      #                                paint_support_df[,i]))
+      #three_way <- glm(Freq ~ factor(Var3)*factor(Var1) + factor(Var2)*factor(Var1), family = poisson, data = test_df)
+      #pval[count] <- tail(anova(three_way, test = "Chi")$`Pr(>Chi)`, 1)
       pval[count] <- fisher.test(table(paint_support_df[,i], paint_support_df[,j]))$p.value
       count <- count + 1
     }
@@ -152,7 +157,8 @@ temp <- temp[, c("attr1", "attr2", "independent")]
 
 ```{r}
 ggplot(temp, aes(x = attr1, y = attr2, fill = independent)) +
-  geom_tile(color = "white") +
+  ggtitle("Painting Support Independence Testing Results") +
+  geom_tile(color = "white") + xlab("Attributes") + ylab("Attributes") + 
   theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1)) +
   scale_fill_manual(values = c("#B6B0FF", "green"))
 ```
