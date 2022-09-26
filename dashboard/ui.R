@@ -257,15 +257,36 @@ body <- dashboardBody(
             fluidRow(
               column(12, highchartOutput("painting_layer"))
             ),
+            fluidRow(
+              column(8, textOutput("PL_tableinfo")),
+              column(2),
+              column(2, actionButton("PL_hide", "Hide/Unhide Table", value = T))
+            ),
+            fluidRow(
+              column(12, DT::dataTableOutput('PL_table'), style = 
+                       "width:1000px; overflow-y: scroll;overflow-x: scroll;")
+            ),
+            hr(),
             sidebarLayout(
               sidebarPanel(
-                selectInput("media_type", "Choose a frame atribute to view a brief summary:",
+                checkboxGroupInput("Paint_Layer_filter_check", "Museum filter:", Museum_choiceVec, selected = Museum_choiceVec),
+                selectInput("paint_layer_type", "Choose a paint layer condition to view a brief summary:",
                             Painting_choiceVec),
-                sliderInput("frame_decade", "Select a time period for visualisation",
+                sliderInput("paint_decade", "Select a time period for visualisation",
                             min = 1850, max = 1970, step = 10, value = c(1850, 1970),sep = "")
               ),
-              mainPanel(highchartOutput("PL_graph"))
-            )
+              mainPanel(highchartOutput("PL_visual"))
+            ),
+            fluidRow(
+              column(8, textOutput("PL_vtableinfo")),
+              column(2),
+              column(2, actionButton("PL_vhide", "Hide/Unhide Table", value = T))
+            ),
+            fluidRow(
+              column(12, DT::dataTableOutput('PL_vtable'), style = 
+                       "width:1000px; overflow-y: scroll;overflow-x: scroll;")
+            ),
+            hr()
     ),
     tabItem("fr",
             titlePanel(strong("Frame Overview")),

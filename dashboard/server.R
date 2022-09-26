@@ -636,33 +636,108 @@ shinyServer(function(input, output) {
   
   output$painting_layer <- renderHighchart({
     art %>% 
-      mutate(painting_support_condition = 
+      mutate(media_condition = 
                recode(media_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good", "3" = "3 Excellent")) %>%
+      filter(collection %in% input$Paint_Layer_filter_check) %>% 
+      filter(between(decade, input$paint_decade[1], input$paint_decade[2])) %>%
       count(media_condition, collection) %>%
       hchart("bar", stacking = "normal",
              hcaes(x = collection, y = n, group = media_condition)) %>%
-      hc_yAxis(title = list(text = "Number of Paintings")) %>%
-      hc_legend(title = list(text = "Condition Score"), reversed = TRUE) %>%
+      hc_yAxis(title = list(text = "Number of Paintings"), reversedStacks = F) %>%
+      hc_legend(title = list(text = "Condition Score"), reversed = FALSE) %>%
       hc_title(text = "Media Condition") %>%
       hc_tooltip(pointFormat = tooltip_table(c("Media Condition:", "Number of paintings:"), 
-                                             c("{point.media_condition}", "{point.y}")), useHTML = TRUE)
+                                             c("{point.media_condition}", "{point.y}")), useHTML = TRUE)%>%
+      hc_add_event_point(series = "series", event = "click")
+  })
+  #Event capture aux condition from chart to show the table
+  output$PL_tableinfo <- renderText({
+    paste("Currently displaying condition rating", input$painting_layer_click$series, "paintings from",
+          input$painting_layer_click$name, "between", input$paint_decade[1], "and", input$paint_decade[2], sep = " ")
+  })
+  #Toggle hide/show button
+  toggle_PL_table <- reactiveVal(TRUE)
+  observeEvent(input$PL_hide, {
+    toggle_PL_table(!toggle_PL_table())
+  })
+  observeEvent(input$painting_layer_click, {
+    if (!toggle_PL_table()) {
+      toggle_PL_table(!toggle_PL_table())
+    } else {
+    }
+  })
+  #Generate the PL condition table
+  PL_table_on_off <- reactive({
+    if (toggle_PL_table()) {
+      art %>%
+        filter(between(decade, input$paint_decade[1], input$paint_decade[2])) %>%
+        filter(media_condition == substr(input$painting_layer_click$series, 1, 1) &
+                 collection == input$painting_layer_click$name) %>%
+        dplyr::select(accession_number, artist, title, decade)
+    } else {}
   })
   
-  output$PL_graph <- renderHighchart({
-    art %>% 
-      filter(between(decade, input$frame_decade[1], input$frame_decade[2])) %>%
-      mutate(painting_support_condition = 
-               recode(media_type_1, "oil" = "oil", "acrylic" = "acrylic", "tempera" = "tempera")) %>%
-      count(media_type_1, collection) %>%
+  output$PL_table <- DT::renderDataTable({
+    if (length(input$painting_layer_click)) {
+      PL_table_on_off()
+    } else {
+    }
+  }, rownames = FALSE, options = list(
+    autoWidth = T, pageLength = 5,
+    columnDefs = list(list(width = '500px', className = 'dt-center', targets = "_all"))
+  ))
+  output$PL_visual <- renderHighchart({
+    art %>%
+      mutate(!!sym(input$paint_layer_type) := recode(!!sym(input$paint_layer_type), "0" = "0 No", "1" = "1 Yes")) %>%
+      filter(collection %in% input$Paint_Layer_filter_check) %>%
+      filter(between(decade, input$paint_decade[1], input$paint_decade[2])) %>%
+      count(!!sym(input$paint_layer_type), collection) %>%
       hchart("bar", stacking = "normal",
-             #hcaes(x = collection, y = n, group = !!sym(input$media_type))) %>%
-             hcaes(x = collection, y = n, group = media_type_1)) %>%
+             hcaes(x = collection, y = n, group = !!sym(input$paint_layer_type))) %>%
       hc_yAxis(title = list(text = "Number of Paintings")) %>%
-      hc_legend(title = list(text = "Media Types"), reversed = TRUE) %>%
+      hc_xAxis(title = list(text = "Collection")) %>%
+      hc_legend(title = list(text = "Is such condition present?"), reversed = TRUE) %>%
       hc_title(text = "Media Types") %>%
-      hc_tooltip(pointFormat = tooltip_table(c("Media Types:", "Number of paintings:"), 
-                                             c("{point.media_type_1}", "{point.y}")), useHTML = TRUE)
+      hc_title(text = names(Painting_choiceVec)[Painting_choiceVec == input$paint_layer_type])%>%
+      hc_add_event_point(series = "series", event = "click")
   })
+  #Event capture PL condition from chart to show the table
+  output$PL_vtableinfo <- renderText({
+    paste("Currently displaying paintings with", names(Painting_choiceVec)[Painting_choiceVec == input$paint_layer_type], "condition", "(", 
+          input$PL_visual_click$series, ")", "from", input$PL_visual_click$name, "between", input$paint_decade[1], 
+          "and", input$paint_decade[2], sep = " ")
+  })
+  #Toggle hide/show button
+  toggle_PL_vtable <- reactiveVal(TRUE)
+  observeEvent(input$PL_vhide, {
+    toggle_PL_vtable(!toggle_PL_vtable())
+  })
+  observeEvent(input$PL_visual_click, {
+    if (!toggle_PL_vtable()) {
+      toggle_PL_vtable(!toggle_PL_vtable())
+    } else {
+    }
+  })
+  #Generate the PL condition table
+  PL_vtable_on_off <- reactive({
+    if (toggle_PL_vtable()) {
+      art %>%
+        filter(between(decade, input$paint_decade[1], input$paint_decade[2])) %>%
+        filter(!!sym(input$paint_layer_type) == substr(input$PL_visual_click$series, 1, 1) &
+                 collection == input$PL_visual_click$name) %>%
+        dplyr::select(accession_number, artist, title, decade)
+    } else {}
+  })
+  
+  output$PL_vtable <- DT::renderDataTable({
+    if (length(input$PL_visual_click)) {
+      PL_vtable_on_off()
+    } else {
+    }
+  }, rownames = FALSE, options = list(
+    autoWidth = T, pageLength = 5,
+    columnDefs = list(list(width = '500px', className = 'dt-center', targets = "_all"))
+  ))
   
   ################################ Frame ################################
   

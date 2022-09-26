@@ -257,11 +257,20 @@ Frame_choiceVec <- c(
 )
 
 Painting_choiceVec <- c(
-  "Oil" = 'oil',
-  "Acrylic" = 'acrylic',
-  "Tempera" = 'tempera',
-  "Mixed Media" = 'mixed media',
-  "Emulsion" = 'emulsion'
+  "Abrasions" = 'abrasions_media',
+  "Accretions" = 'accretions_media',
+  "Adhered well to support" = 'adhered_well_to_support',
+  "Blind Cleavage" = 'cleavage_media',
+  "Cracking" = 'cracking_media',
+  "Discolouration" = 'discolouration_media',
+  "Flaking" = 'flaking_media',
+  "Losses" = 'losses_media',
+  "Overpainting" = 'overpainting_media',
+  "Surface Dirt" = 'surface_dirt_media',
+  "Plastic Behaviour" = 'appears_plastic',
+  "Elastic Behaviour" = 'appears_elastic',
+  "Dry cured" = 'dry_cured',
+  "Infilling" = 'infilling'
 )
 
 Museum_choiceVec <- c(
