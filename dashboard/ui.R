@@ -254,6 +254,7 @@ body <- dashboardBody(
             hr()
     ),
     tabItem("pl",
+            titlePanel(strong("Paint Layer Overview")),
             fluidRow(
               column(12, highchartOutput("painting_layer"))
             ),
