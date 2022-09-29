@@ -8,7 +8,7 @@
 - Xuan Hung Ho
 - Haocong Chen
 
-Semester 1 report link: https://www.overleaf.com/6251728527gjcffbjhdkbw
+Semester 2 report link: https://www.overleaf.com/4274152164fdmrfbwkqpfr
 
 ## Directory
 - `data`: contains all project related data.
