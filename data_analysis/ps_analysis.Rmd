@@ -406,3 +406,12 @@ ggplot(temp, aes(x = attr1, y = attr2, fill = independent)) +
   theme(axis.text.x = element_text(angle = 30, hjust = 1, vjust = 1)) +
   scale_fill_manual(values = c("#B6B0FF", "green"))
 ```
+
+# Code for visualising relationship between two catgeorical variables
+```{r}
+temp <- as.data.frame(ftable(art$painting_support_condition, art$holes_painting_support))
+temp$Var1 <- factor(temp$Var1, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+ggplot(temp, aes(fill=Var2, y=Freq, x=Var1)) +
+  geom_bar(position="dodge", stat="identity")
+```
+
