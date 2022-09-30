@@ -125,7 +125,7 @@ ggplot(fr_mosaic) +
 With the mosaic plot above, we can see that 
 
 
-# Testing independence of other binary attributes
+# Testing independence between paint support condition
 ```{r}
 paint_support_condition <- c(
   'collection',
@@ -152,6 +152,7 @@ paint_support_condition <- c(
   'loss_of_tacks_insecure_support_painting_support'
 )
 
+art <- read.csv("../data/cleanData.csv")
 paint_support_df <- art[paint_support_condition]
 
 colnames(paint_support_df) <- c('collection', 'condition ratings', 'planar', 'warped', 'indentations', 'good tension', 
@@ -174,13 +175,13 @@ for (i in 2:22) {
     } else {
       attr1[count] <- colnames(paint_support_df)[i]
       attr2[count] <- colnames(paint_support_df)[j]
-      test_df <- as.data.frame(ftable(paint_support_df$collection, paint_support_df[,j],
-                                     paint_support_df[,i]))
-      test_df$wt <- ifelse(test_df$Freq == 0, 0, 1)
-      three_way <- glm(Freq ~ factor(Var3)*factor(Var1) + factor(Var2)*factor(Var1), 
-                       family = poisson, data = test_df, weights = wt)
-      pval[count] <- tail(anova(three_way, test = "Chi")$`Pr(>Chi)`, 1)
-      #pval[count] <- fisher.test(table(paint_support_df[,i], paint_support_df[,j]))$p.value
+      #test_df <- as.data.frame(ftable(paint_support_df$collection, paint_support_df[,j],
+      #                               paint_support_df[,i]))
+      #test_df$wt <- ifelse(test_df$Freq == 0, 0, 1)
+      #three_way <- glm(Freq ~ factor(Var3)*factor(Var1) + factor(Var2)*factor(Var1), 
+      #                 family = poisson, data = test_df, weights = wt)
+      #pval[count] <- tail(anova(three_way, test = "Chi")$`Pr(>Chi)`, 1)
+      pval[count] <- fisher.test(table(paint_support_df[,i], paint_support_df[,j]))$p.value
       count <- count + 1
     }
   }
@@ -195,13 +196,213 @@ temp <- temp[, c("attr1", "attr2", "independent")]
 
 ```{r}
 ggplot(temp, aes(x = attr1, y = attr2, fill = independent)) +
-  ggtitle("Painting Support Independence Testing Results") +
+  ggtitle("Independence Between Paint Support Condition") +
   geom_tile(color = "white") + xlab("Attributes") + ylab("Attributes") + 
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1)) +
+  theme(axis.text.x = element_text(angle = 40, hjust = 1, vjust = 1)) +
   scale_fill_manual(values = c("#B6B0FF", "green"))
 ```
 Given paintings were sourced from four different museums, thus we would like to test the condition independence of each condition attributes given the four levels of museum. To do this, we've fitted the log-linear model for each pairwise variables, and perform $\chi^2$ test to determine whether the are likely to be related or not given different museum. The fitted model is given below, where $\mathtt{M}$, $\mathtt{C1}$, and $\mathtt{C2}$ is the museum, first condition attribute, second condition attribute, respectively.
 $$log(\lambda_{ijk}) = \mu + \mathtt{M_i} + \mathtt{C1_j} + \mathtt{C2_k} + (\mathtt{M}\cdot\mathtt{C1})_{ij} + (\mathtt{M}\cdot\mathtt{C2})_{ik}$$
-However, the first problem we immediately encounter is the zero cells from the constructed contingency tables. Zero cell in contingency table can be distinguished as two types, sampling zeros and structural zeros, where the former is due to sampling variability, while the latter are cells known to have zero values. Thus, in our case the zeros can be treated as structural zeros, given the cell values are simply missing because it has no paintings in that category. Therefore, we will test quasi-independence, where zero cells will be excluded from analysis when testing independence. The second problem we encountered is some contingency tables were over crowded with zero cells. Therefore, the model fitted was saturated where the residual deviance and degrees of freedom was reduced to zeros, and the model overfits the data, and the test is not reliable.
+However, the first problem we immediately encounter is the zero cells from the constructed contingency tables. Zero cell in contingency table can be distinguished as two types, sampling zeros and structural zeros, where the former is due to sampling variability, while the latter are cells known to have zero values. Thus, in our case the zeros can be treated as structural zeros, given the cell values are simply missing because it has no paintings in that category. Therefore, we will test quasi-independence, where zero cells will be excluded from analysis when testing independence. The second problem we encountered is some contingency tables were over crowded with zero cells. where there's simply not enough data to provide a reliable model fit, the fitted model was saturated as the residual deviance and degrees of freedom was reduced to zeros, and the model overfits the data, thus the test is not reliable.
 
-Therefore, instead of testing the independence of two condition attributes given different museums, we simply test the independence between two condition attributes using fisher's exact test.
+Therefore, instead of testing the independence of two condition attributes given different museums, we simply tested the independence between two condition attributes using fisher's exact test. As the figure above depicted, the tile plot shows the result of independence testing, where the blue tiles indicates the the two condition attributes were independent from each other, while the green tiles indicates they were related.
+
+# Test independence of auxiliary support condition
+```{r}
+aux_support_condition <- c(
+  'auxiliary_support_condition',
+  'accretions_auxiliary_support',
+  'indentations_auxiliary_support',
+  'insect_damage_auxiliary_support',
+  'joins_unstable_auxiliary_support',
+  'joins_split_auxiliary_support',
+  'joins_not_flat_auxiliary_support',
+  'planar_auxiliary_support',
+  'prev_treatment_auxiliary_support',
+  'surface_dirt_auxiliary_support',
+  'staining_auxiliary_support',
+  'warped_auxiliary_support'
+)
+
+aux_support_df <- art[aux_support_condition]
+
+colnames(aux_support_df) <- c('condition ratings', 'accretions', 'indentations',
+                              'insect damage', 'joins unstable', 'joins split',
+                              'joins not flat', 'planar', 'previous treatment',
+                              'surface dirt', 'staining', 'warped')
+```
+
+```{r warning=T}
+attr1 <- c()
+attr2 <- c()
+pval <- c()
+count <- 1
+for (i in 1:12) {
+  for (j in 1:12) {
+    if (i == j) {
+    } else {
+      attr1[count] <- colnames(aux_support_df)[i]
+      attr2[count] <- colnames(aux_support_df)[j]
+      pval[count] <- fisher.test(table(aux_support_df[,i], aux_support_df[,j]))$p.value
+      count <- count + 1
+    }
+  }
+}
+
+temp <- as.data.frame(cbind(attr1, attr2, pval))
+temp$pval <- as.double(temp$pval)
+temp$independent <- ifelse(temp$pval > 0.05, "Independent", "Not Independent")
+temp$independent <- as.factor(temp$independent)
+temp <- temp[, c("attr1", "attr2", "independent")]
+```
+
+```{r}
+ggplot(temp, aes(x = attr1, y = attr2, fill = independent)) +
+  ggtitle("Independence Between Auxiliary Support Condition") +
+  geom_tile(color = "white") + xlab("Attributes") + ylab("Attributes") + 
+  theme(axis.text.x = element_text(angle = 30, hjust = 1, vjust = 1)) +
+  scale_fill_manual(values = c("#B6B0FF", "green"))
+```
+
+# Test independence of ground condition
+```{r}
+ground_layer_condition <- c(
+  'ground_layer_application',
+  'size_layer_visible',
+  'ground_layer_thickness',
+  'coloured_ground',
+  'id_sulphate',
+  'id_carbonate',
+  'uniform_application',
+  'ground_proprietary_paint',
+  'ground_layer_limit'
+)
+
+ground_df <- art[ground_layer_condition]
+colnames(ground_df) <- c('ground type', 'size visibility', 'thickness', 'coloured ground',
+                         'contains sulphate', 'contains carbonate', 'uniform application',
+                         'proprietary paint', 'application edge')
+```
+
+```{r warning=T}
+attr1 <- c()
+attr2 <- c()
+pval <- c()
+count <- 1
+for (i in 1:9) {
+  for (j in 1:9) {
+    if (i == j) {
+    } else {
+      attr1[count] <- colnames(ground_df)[i]
+      attr2[count] <- colnames(ground_df)[j]
+      pval[count] <- fisher.test(table(ground_df[,i], ground_df[,j]), workspace = 2e8)$p.value
+      count <- count + 1
+    }
+  }
+}
+
+temp <- as.data.frame(cbind(attr1, attr2, pval))
+temp$pval <- as.double(temp$pval)
+temp$independent <- ifelse(temp$pval > 0.05, "Independent", "Not Independent")
+temp$independent <- as.factor(temp$independent)
+temp <- temp[, c("attr1", "attr2", "independent")]
+```
+
+```{r}
+ggplot(temp, aes(x = attr1, y = attr2, fill = independent)) +
+  ggtitle("Independence Between Ground Layer Condition") +
+  geom_tile(color = "white") + xlab("Attributes") + ylab("Attributes") + 
+  theme(axis.text.x = element_text(angle = 30, hjust = 1, vjust = 1)) +
+  scale_fill_manual(values = c("#B6B0FF", "green"))
+```
+
+# Test independence of media condition
+```{r}
+media_layer_condition <- c(
+  'media_condition',
+  'abrasions_media',
+  'accretions_media',
+  'adhered_well_to_support',
+  'cleavage_media',
+  'cracking_media',
+  'discolouration_media',
+  'flaking_media',
+  'losses_media',
+  'overpainting_media',
+  'surface_dirt_media',
+  'appears_plastic',
+  'appears_elastic',
+  'dry_cured',
+  'infilling'
+)
+
+media_layer_df <- art[media_layer_condition]
+colnames(media_layer_df) <- c('condition rating', 'abrasions', 'accretions', 'support adherence',
+                              'cleavage', 'cracking', 'discolouration', 'flaking', 'losses', 
+                              'overpainting', 'surface dirt', 'appears plastic', 
+                              'appears elastic', 'dry cured', 'infilling')
+```
+
+```{r warning=T}
+attr1 <- c()
+attr2 <- c()
+pval <- c()
+count <- 1
+for (i in 1:15) {
+  for (j in 1:15) {
+    if (i == j) {
+    } else {
+      attr1[count] <- colnames(media_layer_df)[i]
+      attr2[count] <- colnames(media_layer_df)[j]
+      pval[count] <- fisher.test(table(media_layer_df[,i], 
+                                       media_layer_df[,j]), workspace = 2e8)$p.value
+      count <- count + 1
+    }
+  }
+}
+
+temp <- as.data.frame(cbind(attr1, attr2, pval))
+temp$pval <- as.double(temp$pval)
+temp$independent <- ifelse(temp$pval > 0.05, "Independent", "Not Independent")
+temp$independent <- as.factor(temp$independent)
+temp <- temp[, c("attr1", "attr2", "independent")]
+```
+
+```{r}
+ggplot(temp, aes(x = attr1, y = attr2, fill = independent)) +
+  ggtitle("Independence Between Media Layer Condition") +
+  geom_tile(color = "white") + xlab("Attributes") + ylab("Attributes") + 
+  theme(axis.text.x = element_text(angle = 30, hjust = 1, vjust = 1)) +
+  scale_fill_manual(values = c("#B6B0FF", "green"))
+```
+
+# Testing the independence between ground and media layer condition
+```{r}
+attr1 <- c()
+attr2 <- c()
+pval <- c()
+count <- 1
+for (i in 1:15) {
+  for (j in 1:9) {
+      attr1[count] <- colnames(media_layer_df)[i]
+      attr2[count] <- colnames(ground_df)[j]
+      pval[count] <- fisher.test(table(media_layer_df[,i], 
+                                       ground_df[,j]), workspace = 2e8)$p.value
+      count <- count + 1
+  }
+}
+
+temp <- as.data.frame(cbind(attr1, attr2, pval))
+temp$pval <- as.double(temp$pval)
+temp$independent <- ifelse(temp$pval > 0.05, "Independent", "Not Independent")
+temp$independent <- as.factor(temp$independent)
+temp <- temp[, c("attr1", "attr2", "independent")]
+```
+
+```{r}
+ggplot(temp, aes(x = attr1, y = attr2, fill = independent)) +
+  ggtitle("Independence Between Media Condition and Ground Condition") +
+  geom_tile(color = "white") + xlab("Media Condition") + ylab("Ground Layer Condition") + 
+  theme(axis.text.x = element_text(angle = 30, hjust = 1, vjust = 1)) +
+  scale_fill_manual(values = c("#B6B0FF", "green"))
+```
