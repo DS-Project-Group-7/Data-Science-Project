@@ -12,6 +12,11 @@ knitr::opts_chunk$set(echo = TRUE)
 library(dplyr)
 art <- read.csv("../data/cleanData.csv")
 art <- art %>%
+  filter(!is.na(auxiliary_support_condition)) %>%
+  filter(!is.na(media_condition)) %>%
+  filter(!is.na(ground_condition)) %>%
+  filter(!is.na(painting_support_condition)) %>%
+  filter(!is.na(frame_condition)) %>%
   mutate(auxiliary_support_condition = recode(auxiliary_support_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
   mutate(media_condition = recode(media_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
   mutate(ground_condition = recode(ground_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
@@ -58,7 +63,7 @@ As we can see that the returned p-value 0.5031 is greater than the significance 
 # Test independence between museum collection and paint layer condition
 ```{r}
 (pl_condition <- table(conditions$collection, factor(conditions$media_condition, 
-                                                       levels = c("Poor", "Fair", "Good", "Excellent"))))
+                       levels = c("Poor", "Fair", "Good", "Excellent"))))
 (test1 <- chisq.test(pl_condition))
 test1$expected
 ```
@@ -91,10 +96,40 @@ ggplot(pl_mosaic) +
 ```
 Here, we used an effective visualisation technique for contingency table, mosaic plot. The idea of the mosaic plot is to represent each cell of the contingency table by a box, where the area of each box equals to the count of the cell. As the plot depicted, paintings with an excellent paint layer condition has an greater probability being from the heritage conservation board of Singapore, while paintings with good condition has less probability being from the National Gallery of Thailand.
 
+# Testing independence between museum collection and frame condition
+```{r}
+(fr_condition <- table(conditions$collection, factor(conditions$frame_condition, 
+                       levels = c("Poor", "Fair", "Good", "Excellent"))))
+(test1 <- chisq.test(fr_condition))
+test1$expected
+```
+
+```{r}
+(test2 <- fisher.test(fr_condition, workspace = 2e8))
+```
+
+```{r echo = FALSE,fig.width = 4, fig.height = 1.5}
+fr_mosaic <- conditions %>%
+  count(collection, frame_condition)
+fr_mosaic$media_condition <- factor(fr_mosaic$frame_condition, levels = c("Poor", "Fair", "Good", "Excellent"))
+
+ggplot(fr_mosaic) +
+  geom_mosaic(aes(weight = n, x = product(frame_condition), fill = collection)) +
+  ggtitle("Frame Condition Mosaic Plot") +
+  theme(axis.text.y = element_blank(), legend.key.size = unit(0.4, 'cm'),
+        legend.text = element_text(size=7)) +
+  xlab("Frame Condition") + 
+  ylab("Museum Collection") +
+  guides(fill=guide_legend(title="Museum Collection", reverse = TRUE))
+```
+With the mosaic plot above, we can see that 
+
+
 # Testing independence of other binary attributes
 ```{r}
 paint_support_condition <- c(
   'collection',
+  'painting_support_condition',
   'planar_painting_support',
   'warped_painting_support',
   'indentations_painting_support',
@@ -118,7 +153,8 @@ paint_support_condition <- c(
 )
 
 paint_support_df <- art[paint_support_condition]
-colnames(paint_support_df) <- c('collection', 'planar', 'warped', 'indentations', 'good tension', 
+
+colnames(paint_support_df) <- c('collection', 'condition ratings', 'planar', 'warped', 'indentations', 'good tension', 
                                 'holes', 'loose', 'tears', 'taut', 'surface dirt', 
                                 'mould', 'staining', 'corner distortions',
                                 'top distortions', 'bottom distortions', 'overall distortions',
@@ -127,22 +163,24 @@ colnames(paint_support_df) <- c('collection', 'planar', 'warped', 'indentations'
 paint_support_df <- paint_support_df %>% mutate_if(is.integer, as.factor)
 ```
 
-```{r warning=FALSE}
+```{r warning=T}
 attr1 <- c()
 attr2 <- c()
 pval <- c()
 count <- 1
-for (i in 2:21) {
-  for (j in 2:21) {
+for (i in 2:22) {
+  for (j in 2:22) {
     if (i == j) {
     } else {
       attr1[count] <- colnames(paint_support_df)[i]
       attr2[count] <- colnames(paint_support_df)[j]
-      #test_df <- as.data.frame(ftable(paint_support_df$collection, paint_support_df[,j],
-      #                                paint_support_df[,i]))
-      #three_way <- glm(Freq ~ factor(Var3)*factor(Var1) + factor(Var2)*factor(Var1), family = poisson, data = test_df)
-      #pval[count] <- tail(anova(three_way, test = "Chi")$`Pr(>Chi)`, 1)
-      pval[count] <- fisher.test(table(paint_support_df[,i], paint_support_df[,j]))$p.value
+      test_df <- as.data.frame(ftable(paint_support_df$collection, paint_support_df[,j],
+                                     paint_support_df[,i]))
+      test_df$wt <- ifelse(test_df$Freq == 0, 0, 1)
+      three_way <- glm(Freq ~ factor(Var3)*factor(Var1) + factor(Var2)*factor(Var1), 
+                       family = poisson, data = test_df, weights = wt)
+      pval[count] <- tail(anova(three_way, test = "Chi")$`Pr(>Chi)`, 1)
+      #pval[count] <- fisher.test(table(paint_support_df[,i], paint_support_df[,j]))$p.value
       count <- count + 1
     }
   }
@@ -162,4 +200,8 @@ ggplot(temp, aes(x = attr1, y = attr2, fill = independent)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1)) +
   scale_fill_manual(values = c("#B6B0FF", "green"))
 ```
+Given paintings were sourced from four different museums, thus we would like to test the condition independence of each condition attributes given the four levels of museum. To do this, we've fitted the log-linear model for each pairwise variables, and perform $\chi^2$ test to determine whether the are likely to be related or not given different museum. The fitted model is given below, where $\mathtt{M}$, $\mathtt{C1}$, and $\mathtt{C2}$ is the museum, first condition attribute, second condition attribute, respectively.
+$$log(\lambda_{ijk}) = \mu + \mathtt{M_i} + \mathtt{C1_j} + \mathtt{C2_k} + (\mathtt{M}\cdot\mathtt{C1})_{ij} + (\mathtt{M}\cdot\mathtt{C2})_{ik}$$
+However, the first problem we immediately encounter is the zero cells from the constructed contingency tables. Zero cell in contingency table can be distinguished as two types, sampling zeros and structural zeros, where the former is due to sampling variability, while the latter are cells known to have zero values. Thus, in our case the zeros can be treated as structural zeros, given the cell values are simply missing because it has no paintings in that category. Therefore, we will test quasi-independence, where zero cells will be excluded from analysis when testing independence. The second problem we encountered is some contingency tables were over crowded with zero cells. Therefore, the model fitted was saturated where the residual deviance and degrees of freedom was reduced to zeros, and the model overfits the data, and the test is not reliable.
 
+Therefore, instead of testing the independence of two condition attributes given different museums, we simply test the independence between two condition attributes using fisher's exact test.
