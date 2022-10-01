@@ -1,3 +1,4 @@
+from ast import Break
 from calendar import c
 from multiprocessing.sharedctypes import Value
 import numpy as np
@@ -94,6 +95,7 @@ BooleanColumnsDict = {
 CategoricalColumnsDict = {
     "accession_number": [0],
     "artist": [2],
+    "canvas": [210],
     "title": [12],
     "date": [13],
     "country": [14],
@@ -285,6 +287,10 @@ def main(dataFile):
             ] = createParallelRelationCracksColumn(
                 originalDataDf, CategoricalColumnsDict[feature]
             )
+        elif feature == "canvas":
+            cleanDataDf[feature] = cleanCanvasMaterial(
+                originalDataDf, CategoricalColumnsDict[feature]
+            )
 
         elif feature == "wood_type_country_locality":
             (
@@ -458,6 +464,58 @@ def computeLenWidthAndArea(oldDataframe, feature):
         nonEmptyLenWidDf.iloc[:, 1],
         nonEmptyLenWidDf.iloc[:, 0] * nonEmptyLenWidDf.iloc[:, 1],
     )
+
+
+def cleanCanvasMaterial(oldDataframe, index):
+    """
+    Trim the information from the canvas column and only keep the material of the canvas
+    """
+    sparseDf = (
+        oldDataframe.iloc[:, index].squeeze().str.findall(r"(linen)|(cotton)|(brat)")
+    )
+    materialDic = {"canvas": []}
+    for i in range(len(sparseDf)):
+        tupleList = sparseDf.iloc[
+            i,
+        ]
+        isLinen = False
+        isCotton = False
+        isBast = False
+        for tuple in tupleList:
+            stopLook = False
+            for element in tuple:
+                if element == "linen":
+                    isLinen = True
+                elif element == "cotton":
+                    isCotton = True
+                elif element == "bast":
+                    isBast = True
+                if isBast * isCotton * isLinen:
+                    materialDic["canvas"].append("linen and cotton and bast")
+                    stopLook = True
+                    break
+            if stopLook:
+                break
+        if isLinen:
+            if isCotton:
+                materialDic["canvas"].append("linen and cotton")
+            elif isBast:
+                materialDic["canvas"].append("linen and bast")
+            else:
+                materialDic["canvas"].append("linen")
+        elif isCotton:
+            if isBast:
+                materialDic["canvas"].append("cotton and bast")
+            else:
+                materialDic["canvas"].append("cotton")
+        elif isBast:
+            materialDic["canvas"].append("bast")
+        else:
+            materialDic["canvas"].append("unspecified")
+
+    print(len(materialDic["canvas"]))
+    finalDf = pd.DataFrame.from_dict(materialDic)
+    return finalDf
 
 
 """def createCornerRelationCracksColumn(oldDataframe, index):
