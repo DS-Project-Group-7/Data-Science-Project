@@ -237,10 +237,13 @@ shinyServer(function(input, output) {
       aux_table_on_off()
     } else {
     }
-  }, rownames = FALSE, options = list(
+  }, 
+  rownames = FALSE,
+  options = list(
     autoWidth = T, pageLength = 5,
     columnDefs = list(list(width = '500px', className = 'dt-center', targets = "_all"))
-  ))
+  )
+  )
   
   #Bar chart for each attribute 
   output$AX_visual <- renderHighchart({
@@ -891,9 +894,13 @@ shinyServer(function(input, output) {
   
   ################################ Explore Database ################################
   
-  output$tbl <- DT::renderDataTable(display_art, rownames = FALSE, options = list(
-    pageLength = 10, autoWidth = T, 
-    columnDefs = list(list(width = '500px', className = 'dt-center', targets = "_all"))
+  output$tbl <- DT::renderDataTable(
+    display_art,
+    filter = "top",
+    rownames = FALSE, 
+    options = list(
+      pageLength = 10, autoWidth = T, 
+      columnDefs = list(list(width = '500px', className = 'dt-center', targets = "_all"))
   )
   )
 })
