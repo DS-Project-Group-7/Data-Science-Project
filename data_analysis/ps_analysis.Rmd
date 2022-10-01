@@ -435,3 +435,18 @@ ggplot(temp) +
 Here we use mosaic plot to visualize the relationship between two categorical variables, mosaic plot is effective way to visualize contingency table. The height of each box is the proportion of individuals in the column which fall into that cell, while the width of each box is same for all boxes in the same column and is equal to the total count in that column.
 
 Here we can see that, there's a clear distinction between different support condition, the proportion of paintings with no holes increases as the paint support condition increases from poor to excellent. And it is worth noting that most of the paintings were classified with fair and good condition, while poor and excellent only account for a small proportion.
+
+temp <- as.data.frame(ftable(art$insect_damage_painting_support, art$holes_painting_support))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('insect_damage', 'holes', 'n')
+temp <- as.data.frame(ftable(art$insect_damage_painting_support, art$surface_dirt_painting_support))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('insect_damage', 'surface_dirt', 'n')
+ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(insect_damage), fill = surface_dirt)) +
+  ggtitle("Relationship between paint support condition and holes") +
+  xlab('Paint Support Condition')
