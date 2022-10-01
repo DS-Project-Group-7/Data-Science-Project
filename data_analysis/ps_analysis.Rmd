@@ -409,9 +409,29 @@ ggplot(temp, aes(x = attr1, y = attr2, fill = independent)) +
 
 # Code for visualising relationship between two catgeorical variables
 ```{r}
+art <- art %>%
+  filter(!is.na(auxiliary_support_condition)) %>%
+  filter(!is.na(media_condition)) %>%
+  filter(!is.na(ground_condition)) %>%
+  filter(!is.na(painting_support_condition)) %>%
+  filter(!is.na(frame_condition)) %>%
+  mutate(auxiliary_support_condition = recode(auxiliary_support_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(media_condition = recode(media_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(ground_condition = recode(ground_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(painting_support_condition = recode(painting_support_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(frame_condition = recode(frame_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent"))
+
 temp <- as.data.frame(ftable(art$painting_support_condition, art$holes_painting_support))
 temp$Var1 <- factor(temp$Var1, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
-ggplot(temp, aes(fill=Var2, y=Freq, x=Var1)) +
-  geom_bar(position="dodge", stat="identity")
-```
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('pscondition', 'Holes', 'n')
 
+ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(pscondition), fill = Holes)) +
+  ggtitle("Relationship between paint support condition and holes") +
+  xlab('Paint Support Condition')
+```
+Here we use mosaic plot to visualize the relationship between two categorical variables, mosaic plot is effective way to visualize contingency table. The height of each box is the proportion of individuals in the column which fall into that cell, while the width of each box is same for all boxes in the same column and is equal to the total count in that column.
+
+Here we can see that, there's a clear distinction between different support condition, the proportion of paintings with no holes increases as the paint support condition increases from poor to excellent. And it is worth noting that most of the paintings were classified with fair and good condition, while poor and excellent only account for a small proportion.
