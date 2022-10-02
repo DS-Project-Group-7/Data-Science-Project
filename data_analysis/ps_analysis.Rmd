@@ -414,7 +414,6 @@ art <- art %>%
   filter(!is.na(media_condition)) %>%
   filter(!is.na(ground_condition)) %>%
   filter(!is.na(painting_support_condition)) %>%
-  filter(!is.na(frame_condition)) %>%
   mutate(auxiliary_support_condition = recode(auxiliary_support_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
   mutate(media_condition = recode(media_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
   mutate(ground_condition = recode(ground_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
@@ -436,11 +435,23 @@ Here we use mosaic plot to visualize the relationship between two categorical va
 
 Here we can see that, there's a clear distinction between different support condition, the proportion of paintings with no holes increases as the paint support condition increases from poor to excellent. And it is worth noting that most of the paintings were classified with fair and good condition, while poor and excellent only account for a small proportion.
 
-temp <- as.data.frame(ftable(art$insect_damage_painting_support, art$holes_painting_support))
+```{r}
+temp <- as.data.frame(ftable(art$painting_support_condition, art$good_tension_painting_support))
+temp$Var1 <- factor(temp$Var1, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
 temp <- temp %>%
-  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes')) %>%
-  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
-colnames(temp) <- c('insect_damage', 'holes', 'n')
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('pscondition', 'Good_tension', 'n')
+
+ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(pscondition), fill = Good_tension)) +
+  ggtitle("Relationship between paint support condition and good tension") +
+  xlab('Paint Support Condition') +
+  ylab('Good Tension') +
+  scale_fill_discrete(name = "Good Tension")
+```
+As for the relationship between paint support condition and good tension, we can see a clear difference with the previous chart, as painting support condition increases from poor to excellent, the proportion of paintings with good tension also increases, as expected.
+
+```{r}
 temp <- as.data.frame(ftable(art$insect_damage_painting_support, art$surface_dirt_painting_support))
 temp <- temp %>%
   mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes')) %>%
@@ -449,4 +460,14 @@ colnames(temp) <- c('insect_damage', 'surface_dirt', 'n')
 ggplot(temp) +
   geom_mosaic(aes(weight = n, x = product(insect_damage), fill = surface_dirt)) +
   ggtitle("Relationship between paint support condition and holes") +
-  xlab('Paint Support Condition')
+  xlab('Insect Damage') +
+  ylab('Surface Dirt') +
+  scale_fill_discrete(name = "Surface Dirt")
+```
+Here we further investigate the relationship between insect damage and surface dirt in paint support layer, we can notice that when painting has no insect damage, there's an even chance for the painting 
+to have surface dirt present. On the other hand, when there is insect damage present in a painting, it is highly likely that surface dirt would also appear. However, we do need to mention that paintings with insect damage only accounts for a small proportion of the sample population. To make the final conclusion, we may need more samples to reduce the non-response bias.
+
+```{r}
+
+```
+
