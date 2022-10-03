@@ -471,7 +471,7 @@ def cleanCanvasMaterial(oldDataframe, index):
     Trim the information from the canvas column and only keep the material of the canvas
     """
     sparseDf = (
-        oldDataframe.iloc[:, index].squeeze().str.findall(r"(linen)|(cotton)|(brat)")
+        oldDataframe.iloc[:, index].squeeze().str.findall(r"(linen)|(cotton)|(bast)")
     )
     materialDic = {"canvas": []}
     for i in range(len(sparseDf)):
