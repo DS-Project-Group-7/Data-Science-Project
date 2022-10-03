@@ -190,10 +190,10 @@ shinyServer(function(input, output) {
   output$AX_eval <- renderHighchart({
     art %>% 
       mutate(auxiliary_support_condition = 
-               recode(auxiliary_support_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good")) %>%
+               recode(auxiliary_support_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good",.missing = "5 Unspecified")) %>%
       filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
       filter(collection %in% input$AX_check) %>% 
-      filter(!is.na(auxiliary_support_condition)) %>% 
+      #filter(!is.na(auxiliary_support_condition)) %>% 
       count(auxiliary_support_condition, collection) %>%
       hchart("bar", stacking = "normal",
              hcaes(x = collection, y = n, group = auxiliary_support_condition)) %>%
@@ -224,11 +224,19 @@ shinyServer(function(input, output) {
   #Generate the aux condition table
   aux_table_on_off <- reactive({
     if (toggle_aux_table()) {
-      art %>%
-        filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
-        filter(auxiliary_support_condition == substr(input$AX_eval_click$series, 1, 1) &
-                 collection == input$AX_eval_click$name) %>%
-        dplyr::select(accession_number, artist, title, decade)
+      if(substr(input$AX_eval_click$series, 1, 1)=="5"){
+        art %>%
+          filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
+          filter(is.na(auxiliary_support_condition))%>%
+          filter(collection == input$AX_eval_click$name)%>%
+          dplyr::select(accession_number, artist, title, decade)
+      }else{
+        art %>%
+          filter(between(decade, input$AX_decade[1], input$AX_decade[2])) %>%
+          filter(auxiliary_support_condition ==substr(input$AX_eval_click$series, 1, 1))%>%
+          filter(collection == input$AX_eval_click$name)%>%
+          dplyr::select(accession_number, artist, title, decade)
+      }
     } else {}
   })
   
@@ -379,7 +387,7 @@ shinyServer(function(input, output) {
       mutate(painting_support_condition = 
                recode(painting_support_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good", "3" = "3 Excellent")) %>%
       filter(collection %in% input$PS_check) %>% 
-      filter(!is.na(painting_support_condition)) %>%
+      #filter(!is.na(painting_support_condition)) %>%
       filter(between(decade, input$PS_decade[1], input$PS_decade[2])) %>%
       count(painting_support_condition, collection) %>%
       hchart("bar", stacking = "normal",
@@ -499,7 +507,7 @@ shinyServer(function(input, output) {
     art %>%
       filter(between(decade, input$GR_decade[1], input$GR_decade[2])) %>%
       filter(collection %in% input$GR_check) %>%
-      filter(!is.na(ground_condition)) %>%
+      #filter(!is.na(ground_condition)) %>%
       mutate(ground_condition = 
                recode(ground_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good", "3" = "3 Excellent")) %>%
       count(ground_condition, collection) %>%
@@ -646,7 +654,7 @@ shinyServer(function(input, output) {
                recode(media_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good", "3" = "3 Excellent")) %>%
       filter(collection %in% input$Paint_Layer_filter_check) %>% 
       filter(between(decade, input$paint_decade[1], input$paint_decade[2])) %>%
-      filter(!is.na(media_condition)) %>%
+      #filter(!is.na(media_condition)) %>%
       count(media_condition, collection) %>%
       hchart("bar", stacking = "normal",
              hcaes(x = collection, y = n, group = media_condition)) %>%
@@ -752,7 +760,7 @@ shinyServer(function(input, output) {
     art %>% 
       mutate(frame_condition = 
                recode(frame_condition, "0" = "0 Poor", "1" = "1 Fair", "2" = "2 Good", "3" = "3 Excellent")) %>%
-      filter(!is.na(frame_condition)) %>%
+      #filter(!is.na(frame_condition)) %>%
       filter(between(decade, input$frame_decade[1], input$frame_decade[2])) %>%
       filter(collection %in% input$Frame_musium_filter_check) %>%
       count(frame_condition, collection) %>%
