@@ -105,6 +105,9 @@ body <- dashboardBody(
               hr(),
               fluidRow(
                 column(12, highchartOutput("Decade_Sum"))
+              ),
+              hr(),
+              p(paste("ARC Linkage Grant LP0211015","The Behaviour of Western Materials in Tropical Environments","(the National Heritage Board Singapore, National Gallery of Malaysia, the National Gallery of Thailand, the JB Vargas Museum University of the Philippines) (with Chief investigators Professor R Sloggett and Professor A Roberts, and PhD student Nicole Tse (2003-2008).")
               )
             )
     ),
