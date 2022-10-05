@@ -142,7 +142,7 @@ body <- dashboardBody(
             hr(),
             sidebarLayout(
               sidebarPanel(
-                checkboxGroupInput("AX_check", "Museum filter:", Museum_choiceVec, selected = Museum_choiceVec),
+                checkboxGroupInput("AX_check", "Select collections for visualisation:", Museum_choiceVec, selected = Museum_choiceVec),
                 sliderInput("AX_decade", "Select a time period for visualisation", 
                             min = 1850, max = 1970, step = 10, value = c(1850, 1970),sep = ""),
                 selectInput("AX", "Choose a support condition to view a brief summary:",
@@ -187,7 +187,7 @@ body <- dashboardBody(
             hr(),
             sidebarLayout(
               sidebarPanel(
-                checkboxGroupInput("PS_check", "Museum filter:", Museum_choiceVec, selected = Museum_choiceVec),
+                checkboxGroupInput("PS_check", "Select collections for visualisation:", Museum_choiceVec, selected = Museum_choiceVec),
                 sliderInput("PS_decade", "Select a time period for visualisation",
                             min = 1850, max = 1970, step = 10, value = c(1850, 1970),sep = ""),
                 selectInput("PS", "Choose a support condition to view a brief summary:",
@@ -235,7 +235,7 @@ body <- dashboardBody(
             hr(),
             sidebarLayout(
               sidebarPanel(
-                checkboxGroupInput("GR_check", "Museum filter:", Museum_choiceVec, selected = Museum_choiceVec),
+                checkboxGroupInput("GR_check", "Select collections for visualisation:", Museum_choiceVec, selected = Museum_choiceVec),
                 selectInput("GR", "Choose a ground layer condition to view a brief summary:",
                             GR_choiceVec),
                 sliderInput("GR_decade", "Select a time period for visualisation",
@@ -273,7 +273,7 @@ body <- dashboardBody(
             hr(),
             sidebarLayout(
               sidebarPanel(
-                checkboxGroupInput("Paint_Layer_filter_check", "Museum filter:", Museum_choiceVec, selected = Museum_choiceVec),
+                checkboxGroupInput("Paint_Layer_filter_check", "Select collections for visualisation:", Museum_choiceVec, selected = Museum_choiceVec),
                 selectInput("paint_layer_type", "Choose a paint layer condition to view a brief summary:",
                             Painting_choiceVec),
                 sliderInput("paint_decade", "Select a time period for visualisation",
@@ -309,7 +309,7 @@ body <- dashboardBody(
             hr(),
             sidebarLayout(
               sidebarPanel(
-                checkboxGroupInput("Frame_musium_filter_check", "Museum filter:", Museum_choiceVec, selected = Museum_choiceVec),
+                checkboxGroupInput("Frame_musium_filter_check", "Select collections for visualisation:", Museum_choiceVec, selected = Museum_choiceVec),
                 sliderInput("frame_decade", "Select a time period for visualisation",
                             min = 1850, max = 1970, step = 10, value = c(1850, 1970),sep = ""),
                 selectInput("frame_attribute", "Choose a frame attribute to view a brief summary:",

@@ -274,10 +274,10 @@ Painting_choiceVec <- c(
 )
 
 Museum_choiceVec <- c(
-  "Vargas Museum (Philippines)",
+  "JB Vargas Museum (Philippines)",
   "National Gallery (Thailand)",
-  "National Art Gallery (Malaysia)",
-  "Heritage Conservation Board (Singapore)"
+  "Balai Seni Negara (Malaysia)",
+  "National Heritage Conservation Board (Singapore)"
 )
 
 Artist_choiceVec <- sort(unique(art$artist))

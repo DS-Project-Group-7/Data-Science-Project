@@ -38,7 +38,7 @@ shinyServer(function(input, output) {
   
   output$phil_count <- renderValueBox({
     valueBox(
-      value = "59", subtitle = "Vargas Museum",
+      value = "59", subtitle = "JB Vargas Museum",
       icon = icon("university"), color = "blue", 
       href = 'https://vargasmuseum.wordpress.com'
     )
