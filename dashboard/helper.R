@@ -284,7 +284,7 @@ Artist_choiceVec <- sort(unique(art$artist))
 
 mala_labels <- sprintf(
   "<strong>%s</strong><br/>Number of Paintings: 53",
-  "National Art Gallery (Malaysia)"
+  "Balai Seni Negara (Malaysia)"
 ) %>% lapply(htmltools::HTML)
 
 thai_labels <- sprintf(

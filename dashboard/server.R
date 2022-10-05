@@ -22,7 +22,7 @@ shinyServer(function(input, output) {
   
   output$sing_count <- renderValueBox({
     valueBox(
-      value = "63", subtitle = "National Heritage Board",
+      value = "63", subtitle = "Heritage Conservation Board",
       icon = icon("university"), color = "red", 
       href = 'https://www.nhb.gov.sg'
     )
@@ -30,7 +30,7 @@ shinyServer(function(input, output) {
   
   output$mala_count <- renderValueBox({
     valueBox(
-      value = "53", subtitle = "National Art Gallery (Malaysia)",
+      value = "53", subtitle = "Balai Seni Negara (Malaysia)",
       icon = icon("university"), color = "orange", 
       href = 'https://www.artgallery.gov.my/en/homepage/'
     )
