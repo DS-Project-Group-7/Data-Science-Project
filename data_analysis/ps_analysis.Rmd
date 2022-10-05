@@ -652,18 +652,34 @@ art <- art %>%
 ```
 
 ```{r}
-temp <- as.data.frame(ftable(art$media_condition, art$cleavage_media))
+temp <- as.data.frame(ftable(art$media_condition, art$appears_plastic))
 temp$Var1 <- factor(temp$Var1, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
 temp <- temp %>%
   mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
 colnames(temp) <- c('media_cond', 'elastic', 'n')
 
 (p1 <- ggplot(temp) +
-  geom_mosaic(aes(weight = n, x = product(media_cond), fill = elastic)) +
-  ggtitle("Relationship between paint support condition and good tension") +
-  xlab('Paint Support Condition') +
-  ylab('Good Tension') +
-  scale_fill_discrete(name = "Good Tension"))
-ggsave(p1, filename = '/Users/greysonchung/Downloads/ps_tension_mosaic.png', height = 3, width = 7)
+  geom_mosaic(aes(weight = n, x = product(elastic), fill = media_cond)) +
+  ggtitle("Relationship between paint layer condition and paint plasticness") +
+  xlab('Paint Layer Condition') +
+  ylab('Appears Plastic') +
+  scale_fill_discrete(name = "Appears Plastic"))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/pl_plastic.png', height = 3, width = 7)
+```
+
+```{r}
+temp <- as.data.frame(ftable(art$dry_cured, art$discolouration_media))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('dry_cured', 'discolor', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(dry_cured), fill = discolor)) +
+  ggtitle("Relationship between Dry Cured and Paint Discolouration") +
+  xlab('Dry Cured') +
+  ylab('Paint Discolouration') +
+  scale_fill_discrete(name = "Paint Discolouration"))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/dry_discolor.png', height = 3, width = 7)
 ```
 
