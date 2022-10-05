@@ -668,7 +668,7 @@ ggsave(p1, filename = '/Users/greysonchung/Downloads/pl_plastic.png', height = 3
 ```
 
 ```{r}
-temp <- as.data.frame(ftable(art$dry_cured, art$discolouration_media))
+temp <- as.data.frame(ftable(art$dry_cured, art$cracking_media))
 temp <- temp %>%
   mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes')) %>%
   mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
@@ -676,10 +676,57 @@ colnames(temp) <- c('dry_cured', 'discolor', 'n')
 
 (p1 <- ggplot(temp) +
   geom_mosaic(aes(weight = n, x = product(dry_cured), fill = discolor)) +
-  ggtitle("Relationship between Dry Cured and Paint Discolouration") +
+  ggtitle("Relationship between Cracking and Dry Cured Paint") +
   xlab('Dry Cured') +
-  ylab('Paint Discolouration') +
-  scale_fill_discrete(name = "Paint Discolouration"))
-ggsave(p1, filename = '/Users/greysonchung/Downloads/dry_discolor.png', height = 3, width = 7)
+  ylab('Cracking') +
+  scale_fill_discrete(name = "Cracking"))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/dry_crack.png', height = 3, width = 7)
+```
+
+```{r}
+temp <- as.data.frame(ftable(art$cracking_media, art$appears_plastic))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('crack', 'plastic', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(plastic), fill = crack)) +
+  ggtitle("Relationship between Cracking and Paint Plasticness") +
+  xlab('Plastic') +
+  ylab('Cracking') +
+  scale_fill_discrete(name = "Cracking"))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/plastic_crack.png', height = 3, width = 5)
+```
+
+```{r}
+temp <- as.data.frame(ftable(art$cracking_media, art$accretions_media))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('crack', 'accretion', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(accretion), fill = crack)) +
+  ggtitle("Relationship between Cracking and Paint Accretion") +
+  xlab('Accretion') +
+  ylab('Cracking') +
+  scale_fill_discrete(name = "Cracking"))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/accretion_crack.png', height = 3, width = 7)
+```
+
+```{r}
+temp <- as.data.frame(ftable(art$cracking_media, art$flaking_media))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('crack', 'accretion', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(crack), fill = accretion)) +
+  ggtitle("Relationship between Cracking and Paint Flaking") +
+  xlab('Cracking') +
+  ylab('Flaking') +
+  scale_fill_discrete(name = "Flaking"))
 ```
 
