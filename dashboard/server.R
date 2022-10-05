@@ -22,7 +22,7 @@ shinyServer(function(input, output) {
   
   output$sing_count <- renderValueBox({
     valueBox(
-      value = "63", subtitle = "Heritage Conservation Board",
+      value = "63", subtitle = "National Heritage Conservation Board",
       icon = icon("university"), color = "red", 
       href = 'https://www.nhb.gov.sg'
     )

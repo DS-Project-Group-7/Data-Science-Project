@@ -78,15 +78,14 @@ body <- dashboardBody(
             fluidPage(
               titlePanel(strong("Southeast Asia Painting Conservation Data Visualisation Dashboard")),
               br(),
-              p(em("The study behind this interactive dashboard was undertaken as a 
-                three-year joint project between the National Art Gallery of Malaysia, 
-                the J.B. Vargas Museum in Philippines, the Heritage Conservation Centre 
-                in Singapore, the National Gallery in Bangkok and the Centre for Cultural Materials 
-                Conservation at the University of Melbourne. It focused on a survey 
-                examination of 208 canvas paintings with some specific materials analysis when 
-                possible. Results were also reviewed in the context of the supply of 
-                artists’ materials and art training opportunities, proposing that they 
-                provided the conditions for the transfer of ‘Western’ oil painting practice.")
+              p(em("This interactive dashboard visualises research data from a joint project on The Behaviour of Western Artist's Materials in Tropical Environments
+                   between Balai Seni Negara (National Art Gallery) Malaysia, the JB Vargas Museum in Philippines, the National Heritage Board in Singapore, 
+                   the National Gallery in Bangkok and the Centre for Cultural Materials Conservation at the University of Melbourne.1 
+                   It focused on a survey of 208 canvas paintings examined from 2003-2005 and is supported by materials and laser speckle analysis. 
+                   Results were also reviewed in the context of the supply of artists’ materials and art training opportunities, 
+                   proposing that they provided the conditions for the transfer of ‘Western’ oil painting practice. 
+                   For further information on the project, 
+                   see: https://arts.unimelb.edu.au/grimwade-centre-for-cultural-materials-conservation/engagement/partners-and-networks/international/tropical-environments")
               ),
               hr(),
               p(strong("Number of Paintings:")),
