@@ -311,7 +311,7 @@ def main(dataFile):
                 )
                 cleanDataDf[feature] = cleanDataDf[feature].replace(
                     to_replace=".*([mM]alaysia).*",
-                    value="National Art Gallery (Malaysia)",
+                    value="Balai Seni Negara (Malaysia)",
                     regex=True,
                 )
                 cleanDataDf[feature] = cleanDataDf[feature].replace(
@@ -516,49 +516,6 @@ def cleanCanvasMaterial(oldDataframe, index):
     print(len(materialDic["canvas"]))
     finalDf = pd.DataFrame.from_dict(materialDic)
     return finalDf
-
-
-"""def createCornerRelationCracksColumn(oldDataframe, index):
-    '''
-    Read the information in the `Relationship of cracks to aux. support` column and create the column of `corner cracks`.
-    The values of this new column can either be none, circle or bissector, depending on the information in the original table.
-    '''
-    oldDataSeries = oldDataframe.iloc[:, index].squeeze()
-    cornerInfoDf = oldDataSeries.str.extract(r"corner\s*(\S+)", expand=False)
-    nonEmptCornerInfoDf = cornerInfoDf.fillna("Unspecified").astype(
-        str
-    )  # transforms nans into "Unspecified" (nans are rows where no match was found)
-    nonEmptCornerInfoDf = nonEmptCornerInfoDf.replace(
-        to_replace="", value="Unspecified"
-    )
-    return nonEmptCornerInfoDf
-"""
-"""
-def createParallelRelationCracksColumn(oldDataframe, index):
-    '''
-    Read the information in the `Relationship of cracks to aux. support` column and create the column of `parallel cracks`.
-    The values of this new column can either be none, top member, to all edges, vertical members, bottom member, crossbar or horizontal, depending on the information in the original table.
-    '''
-    oldDataSeries = oldDataframe.iloc[:, index].squeeze()
-    paraInfoDf = oldDataSeries.str.extract(
-        r"(?:parallel|paarellel).+(top|bottom|right|left|hoizontal|vertical|all|cross)",
-        expand=False,
-    )
-    nonEmptParaInfoDf = paraInfoDf.fillna("Unspecified").astype(
-        str
-    )  # transforms nans into "none" (nans are rows where no match was found)
-    nonEmptParaInfoDf = nonEmptParaInfoDf.str.replace("cross", "cross bar")
-    nonEmptParaInfoDf = nonEmptParaInfoDf.str.replace("all", "all edges")
-    nonEmptParaInfoDf = nonEmptParaInfoDf.str.replace("hoizontal", "horizontal members")
-    nonEmptParaInfoDf = nonEmptParaInfoDf.str.replace("vertical", "vertical members")
-    nonEmptParaInfoDf = nonEmptParaInfoDf.str.replace("top", "top member")
-    nonEmptParaInfoDf = nonEmptParaInfoDf.str.replace("bottom", "bottom member")
-    nonEmptParaInfoDf = nonEmptParaInfoDf.str.replace("left", "left member")
-    nonEmptParaInfoDf = nonEmptParaInfoDf.str.replace("right", "right member")
-
-    nonEmptParaInfoDf = nonEmptParaInfoDf.replace(to_replace="", value="Unspecified")
-    return nonEmptParaInfoDf
-"""
 
 
 def processWoodType(df, indexList):
