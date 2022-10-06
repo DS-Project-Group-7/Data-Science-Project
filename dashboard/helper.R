@@ -1,9 +1,17 @@
 library(dplyr)
+library(polished)
 simpleCap <- function(x) {
   s <- strsplit(x, " ")[[1]]
   paste(toupper(substring(s, 1,1)), substring(s, 2),
         sep="", collapse=" ")
 }
+
+# configure polished auth when the app initially starts up.
+# polished_config(
+#   app_name = "dashboard",
+#   api_key = "Zk9wbnWtRv4NJM2nRzRXaIyrwB9TSV4XvQ"
+# )
+
 
 display_art <- read.csv("data/cleanData.csv")[,-1]
 display_art <- display_art %>%
@@ -277,7 +285,7 @@ Museum_choiceVec <- c(
   "JB Vargas Museum (Philippines)",
   "National Gallery (Thailand)",
   "Balai Seni Negara (Malaysia)",
-  "National Heritage Conservation Board (Singapore)"
+  "National Heritage Board (Singapore)"
 )
 
 Artist_choiceVec <- sort(unique(art$artist))
@@ -294,12 +302,12 @@ thai_labels <- sprintf(
 
 phil_labels <- sprintf(
   "<strong>%s</strong><br/>Number of Paintings: 59",
-  "Vargas Museum (Philippines)"
+  "JB Vargas Museum (Philippines)"
 ) %>% lapply(htmltools::HTML)
 
 sing_labels <- sprintf(
   "<strong>%s</strong><br/>Number of Paintings: 63",
-  "Heritage Conservation Board (Singapore)"
+  "National Heritage Board (Singapore)"
 ) %>% lapply(htmltools::HTML)
 
 special_vec <- c("ground_layer_limit", 'ground_layer_application', "ground_layer_thickness")
