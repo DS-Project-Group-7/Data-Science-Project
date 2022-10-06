@@ -306,7 +306,7 @@ def main(dataFile):
             if feature == "collection":
                 cleanDataDf[feature] = cleanDataDf[feature].replace(
                     to_replace=".*([sS]ingapore).*",
-                    value="National Heritage Conservation Board (Singapore)",
+                    value="National Heritage Board (Singapore)",
                     regex=True,
                 )
                 cleanDataDf[feature] = cleanDataDf[feature].replace(
