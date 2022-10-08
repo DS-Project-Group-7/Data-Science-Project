@@ -366,6 +366,14 @@ body <- dashboardBody(
   )
 )
 
+# customize your sign in page UI with logos, text, and colors.
+my_custom_sign_in_page <- sign_in_ui_default(
+  color = "#ffffff",
+  company_name = "SEA Conservation Dashboard",
+  logo_top = tags$img(src='https://bit.ly/3cSvLu7',
+                      height='40', width='160',style = "width: 160px; margin-top: 30px; margin-bottom: 30px;"),
+  button_color = "#2445d6"
+)
 
 ui <- dashboardPage(
   title = "SEA Conservation Dashboard",
@@ -373,7 +381,7 @@ ui <- dashboardPage(
   sidebar,
   body
 )
-
-polished::secure_ui(ui)
+# secure your UI behind your custom sign in page
+polished::secure_ui(ui,sign_in_page_ui = my_custom_sign_in_page)
 
 
