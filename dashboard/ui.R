@@ -130,6 +130,16 @@ body <- dashboardBody(
               column(12, highchartOutput("DM_area"))
             )
     ),
+    tabItem("gallery",
+            titlePanel(strong("Gallery")),
+            br(),
+            fluidRow(
+              column(6, imageOutput("ChenWen_1"),
+                     p(em("Chen Wen Hsi, Ikan Untuk Hidangan (1958), 
+                            Balai Seni Negara (Malaysia)")))
+            ),
+            hr()
+    ),
     tabItem("aux",
             titlePanel(strong("Auxiliary Support Overview")),
             fluidRow(
@@ -369,10 +379,11 @@ body <- dashboardBody(
 # customize your sign in page UI with logos, text, and colors.
 my_custom_sign_in_page <- sign_in_ui_default(
   color = "#ffffff",
-  company_name = "SEA Conservation Dashboard",
+  company_name = "University of Melbourne",
   logo_top = tags$img(src='https://bit.ly/3cSvLu7',
                       height='40', width='160',style = "width: 160px; margin-top: 30px; margin-bottom: 30px;"),
-  button_color = "#2445d6"
+  button_color = "#2445d6",
+  footer_color = "#0a0a0a"
 )
 
 ui <- dashboardPage(

@@ -194,6 +194,15 @@ server <- function(input, output,session) {
       )
   })
   
+  ################################ Gallery ################################
+  
+  output$ChenWen_1 <- renderImage({
+    list(src = "gallery/Balai_Seni_Negara_Museum/ChenWen HsiCR134_Front_Ikan untuk hidangan.JPG",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+  
   ################################ Auxiliary Support ################################
   
   output$AX_eval <- renderHighchart({
