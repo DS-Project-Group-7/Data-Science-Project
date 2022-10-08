@@ -5,9 +5,9 @@ account: supanutha
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6960615
-bundleId: 6367312
+bundleId: 6381618
 url: https://supanutha.shinyapps.io/dashboard/
-when: 1664882324.14163
-lastSyncTime: 1664882324.14164
+when: 1665197486.12438
+lastSyncTime: 1665197486.12439
 asMultiple: FALSE
 asStatic: FALSE

@@ -6,11 +6,7 @@ simpleCap <- function(x) {
         sep="", collapse=" ")
 }
 
-# configure polished auth when the app initially starts up.
-# polished_config(
-#   app_name = "dashboard",
-#   api_key = "Zk9wbnWtRv4NJM2nRzRXaIyrwB9TSV4XvQ"
-# )
+
 
 
 display_art <- read.csv("data/cleanData.csv")[,-1]

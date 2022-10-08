@@ -12,6 +12,7 @@ library(highcharter)
 library(dashboardthemes)
 source('helper.R')
 
+
 tags$style("@import url(https://use.fontawesome.com/releases/v5.15.4/css/all.css);")
 
 header <- dashboardHeader(
@@ -27,9 +28,14 @@ header <- dashboardHeader(
                        icon = icon("paper-plane"),
                        href = "mailto:haonanz1@student.unimelb.edu.au"
                      ),
+                     actionButton(
+                       inputId = "sign_out",
+                       label = "Sign out",
+                       icon = icon("sign-out-alt")
+                     ),
                      icon = icon("gear", class = "mystyle"),
                      tags$style(".mystyle {color:black;}")
-                     
+
   )
 )
 
@@ -367,3 +373,4 @@ ui <- dashboardPage(
   sidebar,
   body
 )
+# polished::secure_ui(ui)
