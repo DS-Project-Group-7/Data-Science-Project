@@ -373,4 +373,7 @@ ui <- dashboardPage(
   sidebar,
   body
 )
-# polished::secure_ui(ui)
+
+polished::secure_ui(ui)
+
+

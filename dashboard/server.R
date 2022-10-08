@@ -16,8 +16,12 @@ sing <- getData('GADM', country='SGP', level=0)
 phil <- getData('GADM', country='PHL', level=0)
 thai <- getData('GADM', country='THA', level=0)
 
-shinyServer(function(input, output,session) {
+server <- function(input, output,session) {
   ################################ Polished authentication event ################################
+  output$user_out <- renderPrint({
+    session$userData$user()
+  })
+  
   observeEvent(input$sign_out, {
     sign_out_from_shiny()
     session$reload()
@@ -944,6 +948,6 @@ shinyServer(function(input, output,session) {
       columnDefs = list(list(width = '500px', className = 'dt-center', targets = "_all"))
   )
   )
-})
+}
 
-# polished::secure_server(shinyServer)
+polished::secure_server(server)

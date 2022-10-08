@@ -1,3 +1,4 @@
+library(shiny)
 library(polished)
 
 #configure polished auth when the app initially starts up.
