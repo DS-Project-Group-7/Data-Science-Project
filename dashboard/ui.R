@@ -11,6 +11,7 @@ library(shinydashboard)
 library(highcharter)
 library(dashboardthemes)
 source('helper.R')
+library(shinyBS)
 
 
 tags$style("@import url(https://use.fontawesome.com/releases/v5.15.4/css/all.css);")
@@ -133,10 +134,11 @@ body <- dashboardBody(
     tabItem("gallery",
             titlePanel(strong("Gallery")),
             br(),
+            titlePanel(strong("Balai Seni Negara (Malaysia)")),
             fluidRow(
-              column(6, imageOutput("ChenWen_1"),
-                     p(em("Chen Wen Hsi, Ikan Untuk Hidangan (1958), 
-                            Balai Seni Negara (Malaysia)")))
+              column(6, imageOutput("ChenWen_1")),
+                     bsTooltip(id = "ChenWen_1", 
+                               title = "Chen Wen Hsi, Ikan Untuk Hidangan (1958), Balai Seni Negara (Malaysia)")
             ),
             hr()
     ),
