@@ -198,6 +198,47 @@ server <- function(input, output,session) {
   
   output$ChenWen_1 <- renderImage({
     list(src = "www/ChenWen HsiCR134_Front_Ikan untuk hidangan.JPG",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+  
+  output$ChenWen_2 <- renderImage({
+    list(src = "www/ChenWenHsi_CR134_Detail_Ikan.JPG",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+  
+  output$ChenWen_3 <- renderImage({
+    list(src = "www/ChenWenHsi_CR148_impastoBUDAK DENGAN BURUNG .JPG",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+  
+  output$CheongSoo_1 <- renderImage({
+    list(src = "www/CheongSooPieng_Detail_CR154_Pt Cross Section_x100.jpg",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+  
+  output$CheongSoo_2 <- renderImage({
+    list(src = "www/CheongSooPieng_Front_CR154.JPG",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+  
+  output$Mohd_1 <- renderImage({
+    list(src = "www/Mohd. Hoessein Enas.CR161_CanvasStamp.JPG",
+         width = "100%",
          height = "100%",
          alt = "This is alternate text"
     )

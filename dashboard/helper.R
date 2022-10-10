@@ -287,23 +287,24 @@ Museum_choiceVec <- c(
 Artist_choiceVec <- sort(unique(art$artist))
 
 mala_labels <- sprintf(
-  "<strong>%s</strong><br/>Number of Paintings: 53",
-  "Balai Seni Negara (Malaysia)"
+  "Collection: <strong>%s</strong><br/>Number of Paintings: 53<br/><img src=%s alt=\"malay_museum\" width=\"300\" height=\"200\">",
+  "Balai Seni Negara (Malaysia)","malay_museum.png"
 ) %>% lapply(htmltools::HTML)
 
 thai_labels <- sprintf(
-  "<strong>%s</strong><br/>Number of Paintings: 33",
-  "National Gallery (Thailand)"
+  "Collection: <strong>%s</strong><br/>Number of Paintings: 33<br/><img src=%s alt=\"th_museum\" width=\"300\" height=\"200\">",
+  "National Gallery (Thailand)","th_museum.png"
 ) %>% lapply(htmltools::HTML)
 
 phil_labels <- sprintf(
-  "<strong>%s</strong><br/>Number of Paintings: 59",
-  "JB Vargas Museum (Philippines)"
+  "Collection: <strong>%s</strong><br/>Number of Paintings: 59<br/><img src=%s alt=\"ph_museum\" width=\"300\" height=\"200\">",
+  "JB Vargas Museum (Philippines)","ph_museum.jpeg"
 ) %>% lapply(htmltools::HTML)
 
+  
 sing_labels <- sprintf(
-  "<strong>%s</strong><br/>Number of Paintings: 63",
-  "National Heritage Board (Singapore)"
+  "Collection: <strong>%s</strong><br/>Number of Paintings: 63<br/><img src=%s alt=\"sg_museum\" width=\"300\" height=\"200\">",
+  "National Heritage Board (Singapore)","sg_museum.jpeg"
 ) %>% lapply(htmltools::HTML)
 
 special_vec <- c("ground_layer_limit", 'ground_layer_application', "ground_layer_thickness")

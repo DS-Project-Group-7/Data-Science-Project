@@ -103,10 +103,11 @@ body <- dashboardBody(
                 column(3, valueBoxOutput("phil_count", width = 14))
               ),
               fluidRow(
-                column(6, leafletOutput("mymap", height = 410)),
-                column(6, imageOutput("cooking_rice"),
-                       p(em("Cooking Rice, Fernando Amorsolo (1959), 
-                            J.B. Vargas Museum, University of the Philippines")))
+                column(12, leafletOutput("mymap", height = 500))
+                # column(6, imageOutput("cooking_rice")),
+                #        bsTooltip(id = "cooking_rice", 
+                #                  title = "Cooking Rice, Fernando Amorsolo (1959), J.B. Vargas Museum, University of the Philippines"
+                #        )
               ),
               hr(),
               fluidRow(
@@ -138,9 +139,44 @@ body <- dashboardBody(
             fluidRow(
               column(6, imageOutput("ChenWen_1")),
                      bsTooltip(id = "ChenWen_1", 
-                               title = "Chen Wen Hsi, Ikan Untuk Hidangan (1958), Balai Seni Negara (Malaysia)")
+                               title = "Detail from Chen Wen His, Ikan Untuk Hidangan, 1958, oil on canvasboard, framed, Balai Seni Negara (Malaysia), image Nicole Tse"
+                              )
             ),
-            hr()
+            hr(),
+            fluidRow(
+              column(6, imageOutput("ChenWen_2")),
+              bsTooltip(id = "ChenWen_2", 
+                        title = "Chen Wen Hsi, Ikan Untuk Hidangan, 1958, oil on canvasboard, framed, Balai Seni Negara (Malaysia), image Nicole Tse"
+              )
+            ),
+            hr(),
+            fluidRow(
+              column(6, imageOutput("ChenWen_3")),
+              bsTooltip(id = "ChenWen_3", 
+                        title = "Paint brushwork detail from Chen Wen Hsi, Budak Dengan Burung, 1963, oil on Masonite, framed, Balai Seni Negara (Malaysia), image Nicole Tse"
+              )
+            ),
+            hr(),
+            fluidRow(
+              column(6, imageOutput("CheongSoo_1")),
+              bsTooltip(id = "CheongSoo_1", 
+                        title = "Paint cross section (x100) from Cheong Soo Pieng Dua Wanita Ditepi Pantal, 1945, oil on canvas, framed, Balai Seni Negara (Malaysia), image Nicole Tse"
+              )
+            ),
+            hr(),
+            fluidRow(
+              column(6, imageOutput("CheongSoo_2")),
+              bsTooltip(id = "CheongSoo_2", 
+                        title = "Cheong Soo Pieng, Dua Wanita Ditepi Pantal, 1945, oil on canvas, framed, Balai Seni Negara (Malaysia), image Nicole Tse"
+              )
+            ),
+            hr(),
+            fluidRow(
+              column(6, imageOutput("Mohd_1")),
+              bsTooltip(id = "Mohd_1", 
+                        title = "‘Joyo’ canvas stamp ‘Made in Japan’ from Datuk Mohd. Hossein Enas, Dua Beradik (two sisters) 1962, oil on canvas, framed, Balai Seni Negara (Malaysia), image Nicole Tse"
+              )
+            )
     ),
     tabItem("aux",
             titlePanel(strong("Auxiliary Support Overview")),
