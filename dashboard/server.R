@@ -99,13 +99,6 @@ server <- function(input, output,session) {
                     direction = "auto"))
   })
   
-  output$cooking_rice <- renderImage({
-    list(src = "cooking_rice.png",
-         width = "100%",
-         height = "100%",
-         alt = "This is alternate text"
-    )
-  }, deleteFile = FALSE)
   
   output$Decade_Sum <- renderHighchart({
     art %>%

@@ -134,19 +134,16 @@ body <- dashboardBody(
     ),
     tabItem("gallery",
             titlePanel(strong("Gallery")),
-            br(),
-            titlePanel(strong("Balai Seni Negara (Malaysia)")),
+            hr(),
+            h3("Balai Seni Negara (Malaysia)"),
             fluidRow(
               column(6, imageOutput("ChenWen_1")),
                      bsTooltip(id = "ChenWen_1", 
-                               title = "Detail from Chen Wen His, Ikan Untuk Hidangan, 1958, oil on canvasboard, framed, Balai Seni Negara (Malaysia), image Nicole Tse"
-                              )
-            ),
-            hr(),
-            fluidRow(
-              column(6, imageOutput("ChenWen_2")),
+                               title = "Chen Wen Hsi, Ikan Untuk Hidangan, 1958, oil on canvasboard, framed, Balai Seni Negara (Malaysia), image Nicole Tse"
+                              ),
+              column(6,imageOutput("ChenWen_2")),
               bsTooltip(id = "ChenWen_2", 
-                        title = "Chen Wen Hsi, Ikan Untuk Hidangan, 1958, oil on canvasboard, framed, Balai Seni Negara (Malaysia), image Nicole Tse"
+                        title = "Detail from Chen Wen His, Ikan Untuk Hidangan, 1958, oil on canvasboard, framed, Balai Seni Negara (Malaysia), image Nicole Tse"
               )
             ),
             hr(),
@@ -154,10 +151,7 @@ body <- dashboardBody(
               column(6, imageOutput("ChenWen_3")),
               bsTooltip(id = "ChenWen_3", 
                         title = "Paint brushwork detail from Chen Wen Hsi, Budak Dengan Burung, 1963, oil on Masonite, framed, Balai Seni Negara (Malaysia), image Nicole Tse"
-              )
-            ),
-            hr(),
-            fluidRow(
+              ),
               column(6, imageOutput("CheongSoo_1")),
               bsTooltip(id = "CheongSoo_1", 
                         title = "Paint cross section (x100) from Cheong Soo Pieng Dua Wanita Ditepi Pantal, 1945, oil on canvas, framed, Balai Seni Negara (Malaysia), image Nicole Tse"
@@ -168,15 +162,13 @@ body <- dashboardBody(
               column(6, imageOutput("CheongSoo_2")),
               bsTooltip(id = "CheongSoo_2", 
                         title = "Cheong Soo Pieng, Dua Wanita Ditepi Pantal, 1945, oil on canvas, framed, Balai Seni Negara (Malaysia), image Nicole Tse"
-              )
-            ),
-            hr(),
-            fluidRow(
+              ),
               column(6, imageOutput("Mohd_1")),
               bsTooltip(id = "Mohd_1", 
                         title = "‘Joyo’ canvas stamp ‘Made in Japan’ from Datuk Mohd. Hossein Enas, Dua Beradik (two sisters) 1962, oil on canvas, framed, Balai Seni Negara (Malaysia), image Nicole Tse"
               )
-            )
+            ),
+            hr(),
     ),
     tabItem("aux",
             titlePanel(strong("Auxiliary Support Overview")),
