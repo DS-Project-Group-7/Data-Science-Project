@@ -1,0 +1,62 @@
+---
+title: "Untitled"
+author: "Haonan Zhong"
+date: '2022-10-10'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(highcharter)
+library(dplyr)
+library(tidyr)
+options(highcharter.theme = hc_theme_hcrt())
+art <- read.csv('../data/cleanData.csv')
+```
+
+```{r}
+art %>%
+  count(collection) %>%
+  arrange(n) %>%
+  hchart("column", hcaes(x = collection, y = n)) %>%
+  hc_title(text = "Painting Distribution Across Museums") %>%
+  hc_plotOptions(series = list(borderRadius = 5, color = "#B30000"), column = list(dataLabels = list(enabled = TRUE))) %>%
+  hc_xAxis(title = list(text = "Museum")) %>%
+  hc_yAxis(title = list(text = "Number of Paintings"))
+```
+
+```{r}
+art %>%
+  group_by(collection) %>%
+  count(canvas) %>%
+  hchart("column", hcaes(x = collection, y = n, group = canvas)) %>%
+  hc_title(text = "Commonly Used Canvas Materials") %>%
+  hc_xAxis(title = list(text = "Museum")) %>%
+  hc_yAxis(title = list(text = "Number of Paintings")) %>%
+  hc_plotOptions(series = list(borderRadius = 5), column = list(dataLabels = list(enabled = TRUE)))
+```
+
+```{r}
+art %>%
+  group_by(collection) %>%
+  count(media_type_1) %>%
+  hchart("column", hcaes(x = collection, y = n, group = media_type_1)) %>%
+  hc_title(text = "Commonly Used Media/Paint Material") %>%
+  hc_xAxis(title = list(text = "Museum")) %>%
+  hc_yAxis(title = list(text = "Number of Paintings")) %>%
+  hc_plotOptions(series = list(borderRadius = 5), column = list(dataLabels = list(enabled = TRUE)))
+```
+
+```{r}
+art %>%
+  group_by(collection) %>%
+  count(ground_layer_application) %>%
+  hchart("column", hcaes(x = collection, y = n, group = ground_layer_application)) %>%
+  hc_title(text = "Commonly Used Ground Type") %>%
+  hc_xAxis(title = list(text = "Museum")) %>%
+  hc_yAxis(title = list(text = "Number of Paintings")) %>%
+  hc_plotOptions(series = list(borderRadius = 5), column = list(dataLabels = list(enabled = TRUE)))
+```
