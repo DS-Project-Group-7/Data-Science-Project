@@ -1,0 +1,732 @@
+---
+title: "Painting Support Analysis"
+date: '2022-09-18'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(dplyr)
+art <- read.csv("../data/cleanData.csv")
+art <- art %>%
+  filter(!is.na(auxiliary_support_condition)) %>%
+  filter(!is.na(media_condition)) %>%
+  filter(!is.na(ground_condition)) %>%
+  filter(!is.na(painting_support_condition)) %>%
+  filter(!is.na(frame_condition)) %>%
+  mutate(auxiliary_support_condition = recode(auxiliary_support_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(media_condition = recode(media_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(ground_condition = recode(ground_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(painting_support_condition = recode(painting_support_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(frame_condition = recode(frame_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent"))
+```
+
+```{r}
+target_col <- c("collection", "auxiliary_support_condition", "media_condition", 
+                "ground_condition", "painting_support_condition", "frame_condition")
+conditions <- art[, target_col]
+```
+
+# Test independence between museum collection and auxiliary support condition
+```{r}
+aux_contingency <- table(conditions$collection, 
+                         factor(conditions$auxiliary_support_condition, 
+                                levels = c("Poor", "Fair", "Good")))
+(test1 <- chisq.test(aux_contingency))
+test1$expected
+```
+Here, we would like to test if there's an association between the museum collection and the condition of the auxiliary support. As we can see from the Pearson's chi-squared test from above, the $\chi^2$ statistics is 8.344, which is greater than the critical value $\chi^2_{0.95}(6)$ as the p-value 0.214 indicates, hence there is no association between the museum collection and the auxiliary support condition. However, one of the major problem here is that, given the sample size are small, the test statistics might not be approximated well by the $\chi^2$ distribution, as we can see there are one cell with expected counts less than 5. Therefore, a Fisher's exact test might be more appropriate.
+
+```{r}
+(test2 <- fisher.test(aux_contingency))
+```
+As we can see, the p-value returned by the Fisher's exact test is 0.2434, which is greater than the significance level of 0.05. Thus, there are no association between the two.
+
+# Test independence between museum collection and painting support condition
+```{r}
+(ps_contingency <- table(conditions$collection, factor(conditions$painting_support_condition, 
+                                                       levels = c("Poor", "Fair", "Good", "Excellent"))))
+ 
+(test1 <- chisq.test(ps_contingency))
+test1$expected
+```
+In the second test, we would like to test if there's an association between the museum collection and the painting support condition. As we can see from the deviance table above, the $\chi^2$ statistics is 4.870, which is less than the critical value $\chi^2_{0.95}(8)$ as the p-value is greater than the significant level of 0.05. Therefore, we do not reject the null hypothesis, and there's no association between museum collection and the painting support condition. However, we do notice there are several cells with expected count lower than 5. Thus, we will perform Fisher's exact test again.
+
+```{r}
+(test2 <- fisher.test(ps_contingency, workspace = 2e8))
+```
+As we can see that the returned p-value 0.5031 is greater than the significance level of 0.05, thus, the two variables are independent.
+
+# Test independence between museum collection and paint layer condition
+```{r}
+(pl_condition <- table(conditions$collection, factor(conditions$media_condition, 
+                       levels = c("Poor", "Fair", "Good", "Excellent"))))
+(test1 <- chisq.test(pl_condition))
+test1$expected
+```
+In the third test, we tested if there's an association between the museum collection and the paint layer condition. As we can see from the deviance table above, the $\chi^2$ statistics is 15.309, which is smaller than the critical value $\chi^2_{0.95}(7)$ as the p-value is greater than the significance level of 0.05. In this case, we would reject the null hypothesis, thus, there's an association between the two factors. Although, we did rejected the null hypothesis, we still could not trust the result, given that there are quite a few cells in the contingency tables with expected count less than 5, therefore the $\chi^2$ approximation may not be good enough and the Chi-square test is not appropriate, and in this case the Fisher's exact test is preferred.
+
+```{r}
+(test2 <- fisher.test(pl_condition, workspace = 2e8))
+```
+As we can see, the returned p-value is 0.005789, thus, we reject the null hypothesis, and there's an association between the museum collection and the paint layer condition.
+
+```{r}
+library(ggplot2)
+library(ggstatsplot)
+library(ggmosaic)
+```
+
+```{r echo = FALSE,fig.width = 4, fig.height = 1.5}
+pl_mosaic <- conditions %>%
+  count(collection, media_condition)
+pl_mosaic$media_condition <- factor(pl_mosaic$media_condition, levels = c("Poor", "Fair", "Good", "Excellent"))
+
+ggplot(pl_mosaic) +
+  geom_mosaic(aes(weight = n, x = product(media_condition), fill = collection)) +
+  ggtitle("Paint Layer Condition Mosaic Plot") +
+  theme(axis.text.y = element_blank(), legend.key.size = unit(0.4, 'cm'),
+        legend.text = element_text(size=7)) +
+  xlab("Paint Layer Condition") + 
+  ylab("Museum Collection") +
+  guides(fill=guide_legend(title="Museum Collection", reverse = TRUE))
+```
+Here, we used an effective visualisation technique for contingency table, mosaic plot. The idea of the mosaic plot is to represent each cell of the contingency table by a box, where the area of each box equals to the count of the cell. As the plot depicted, paintings with an excellent paint layer condition has an greater probability being from the heritage conservation board of Singapore, while paintings with good condition has less probability being from the National Gallery of Thailand.
+
+# Testing independence between paint support condition and ground layer condition
+Now we are interested to test out the association between paint support condition, ground layer condition and paint layer condition, given the three are closely stacked with each other in a painting.
+```{r}
+art <- read.csv("../data/cleanData.csv")
+art <- art %>%
+  filter(!is.na(ground_condition)) %>%
+  filter(!is.na(painting_support_condition)) %>%
+  mutate(ground_condition = recode(ground_condition, 
+                                   "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(painting_support_condition = recode(painting_support_condition, 
+                                    "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent"))
+
+(ps_ground <- table(factor(art$painting_support_condition, 
+                           levels = c("Poor", "Fair", "Good", "Excellent")),
+                    factor(art$ground_condition, 
+                           levels = c("Poor", "Fair", "Good", "Excellent"))))
+(test <- fisher.test(ps_ground, workspace = 2e8))
+```
+As we can see the p-value is less than the significance level of 0.05, thus, the two are associated. Next we will examine the relationship between the two using the mosaic plot.
+
+```{r}
+temp <- as.data.frame(ps_ground)
+temp$Var1 <- factor(temp$Var1, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+colnames(temp) <- c('pscondition', 'gr_condition', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(pscondition), fill = gr_condition)) +
+  ggtitle("Relationship between paint support condition and ground layer condition") +
+  xlab('Paint Support Condition') +
+  ylab('Ground Layer Condition') +
+  scale_fill_discrete(name = "Ground Condition"))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/ps_ground_mosaic.png', height = 3, width = 7)
+```
+As the figure depicted, we can see a clear trend between the two condition, the proportion of paintings having good and excellent ground layer condition increases as the paint support condition increases from poor to excellent. While the proportion of paintings with poor and fair ground layer condition decreases as paint support condition increases.
+
+# Testing independence between paint support condition and paint layer condition
+```{r}
+art <- read.csv("../data/cleanData.csv")
+art <- art %>%
+  filter(!is.na(media_condition)) %>%
+  filter(!is.na(painting_support_condition)) %>%
+  mutate(media_condition = recode(media_condition, 
+                                   "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(painting_support_condition = recode(painting_support_condition, 
+                                    "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent"))
+
+(ps_media <- table(factor(art$painting_support_condition, 
+                           levels = c("Poor", "Fair", "Good", "Excellent")),
+                    factor(art$media_condition, 
+                           levels = c("Poor", "Fair", "Good", "Excellent"))))
+(test <- fisher.test(ps_media, workspace = 2e8))
+```
+
+```{r}
+temp <- as.data.frame(ps_media)
+temp$Var1 <- factor(temp$Var1, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+colnames(temp) <- c('pscondition', 'media_condition', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(pscondition), fill = media_condition)) +
+  ggtitle("Relationship between paint support condition and paint layer condition") +
+  xlab('Paint Support Condition') +
+  ylab('Paint Layer Condition') +
+  scale_fill_discrete(name = "Paint Layer Condition"))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/ps_pl_mosaic.png', height = 3, width = 7)
+```
+Again, we can see that the two conditions are highly associated, as paint support condition increases, paintings with good and excellent paint layer condition also increases.
+
+# Testing independence between ground layer condition and paint layer condition
+```{r}
+art <- read.csv("../data/cleanData.csv")
+art <- art %>%
+  filter(!is.na(media_condition)) %>%
+  filter(!is.na(ground_condition)) %>%
+  mutate(media_condition = recode(media_condition, 
+                                   "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(ground_condition = recode(ground_condition, 
+                                    "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent"))
+
+(media_ground <- table(factor(art$ground_condition, 
+                           levels = c("Poor", "Fair", "Good", "Excellent")),
+                    factor(art$media_condition, 
+                           levels = c("Poor", "Fair", "Good", "Excellent"))))
+(test <- fisher.test(media_ground, workspace = 2e8))
+```
+
+```{r}
+temp <- as.data.frame(media_ground)
+temp$Var1 <- factor(temp$Var1, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+colnames(temp) <- c('ground', 'media_condition', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(ground), fill = media_condition)) +
+  ggtitle("Relationship between ground layer condition and paint layer condition") +
+  xlab('Ground Condition') +
+  ylab('Paint Layer Condition') +
+  scale_fill_discrete(name = "Paint Layer Condition"))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/gr_pl_mosaic.png', height = 3, width = 7)
+```
+Base on the previous two tests and mosaic plots, it no surprise that we observe the similar trend between ground layer condition and paint layer condition, as we can see, as ground layer condition increases, the proportion of paintings with poor and fair paint layer condition drastically declines.
+
+# Testing independence between paint support condition
+```{r}
+paint_support_condition <- c(
+  'collection',
+  'canvas',
+  'painting_support_condition',
+  'planar_painting_support',
+  'warped_painting_support',
+  'indentations_painting_support',
+  'good_tension_painting_support',
+  'holes_painting_support',
+  'loose_painting_support',
+  'tears_painting_support',
+  'taut_painting_support',
+  'surface_dirt_painting_support',
+  'mould_painting_support',
+  'staining_painting_support',
+  'corner_distortions_painting_support',
+  'top_distortions_painting_support',
+  'bottom_distortions_painting_support',
+  'overall_distortions_painting_support',
+  'insect_damage_painting_support',
+  'rust_stains_on_support_painting_support',
+  'deformation_around_tacks_staples_painting_support',
+  'tears_around_tacks_staples_painting_support',
+  'loss_of_tacks_insecure_support_painting_support'
+)
+
+art <- read.csv("../data/cleanData.csv")
+paint_support_df <- art[paint_support_condition]
+
+colnames(paint_support_df) <- c('collection', 'canvas', 'condition ratings', 'planar', 'warped', 'indentations', 'good tension', 
+                                'holes', 'loose', 'tears', 'taut', 'surface dirt', 
+                                'mould', 'staining', 'corner distortions',
+                                'top distortions', 'bottom distortions', 'overall distortions',
+                                'insect damage', 'rust stains', 'deformation around tack staples',
+                                'tears around tack staples', 'loss of tack insecure support')
+paint_support_df <- paint_support_df %>% mutate_if(is.integer, as.factor)
+```
+
+```{r warning=T}
+attr1 <- c()
+attr2 <- c()
+pval <- c()
+count <- 1
+for (i in 2:23) {
+  for (j in 2:23) {
+    if (i == j) {
+    } else {
+      attr1[count] <- colnames(paint_support_df)[i]
+      attr2[count] <- colnames(paint_support_df)[j]
+      #test_df <- as.data.frame(ftable(paint_support_df$collection, paint_support_df[,j],
+      #                               paint_support_df[,i]))
+      #test_df$wt <- ifelse(test_df$Freq == 0, 0, 1)
+      #three_way <- glm(Freq ~ factor(Var3)*factor(Var1) + factor(Var2)*factor(Var1), 
+      #                 family = poisson, data = test_df, weights = wt)
+      #pval[count] <- tail(anova(three_way, test = "Chi")$`Pr(>Chi)`, 1)
+      pval[count] <- fisher.test(table(paint_support_df[,i], paint_support_df[,j]), 
+                                 workspace = 2e8)$p.value
+      count <- count + 1
+    }
+  }
+}
+
+temp <- as.data.frame(cbind(attr1, attr2, pval))
+temp$pval <- as.double(temp$pval)
+temp$independent <- ifelse(temp$pval > 0.05, "Independent", "Not Independent")
+temp$independent <- as.factor(temp$independent)
+temp <- temp[, c("attr1", "attr2", "independent")]
+```
+
+```{r}
+(p1 <- ggplot(temp, aes(x = attr1, y = attr2, fill = independent)) +
+  ggtitle("Independence Between Paint Support Condition") +
+  geom_tile(color = "white") + xlab("Attributes") + ylab("Attributes") + 
+  theme(axis.text.x = element_text(angle = 40, hjust = 1, vjust = 1)) +
+  scale_fill_manual(values = c("#B6B0FF", "green")))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/ps_tile.png', height = 5, width = 9)
+```
+Given paintings were sourced from four different museums, thus we would like to test the condition independence of each condition attributes given the four levels of museum. To do this, we've fitted the log-linear model for each pairwise variables, and perform $\chi^2$ test to determine whether the are likely to be related or not given different museum. The fitted model is given below, where $\mathtt{M}$, $\mathtt{C1}$, and $\mathtt{C2}$ is the museum, first condition attribute, second condition attribute, respectively.
+$$log(\lambda_{ijk}) = \mu + \mathtt{M_i} + \mathtt{C1_j} + \mathtt{C2_k} + (\mathtt{M}\cdot\mathtt{C1})_{ij} + (\mathtt{M}\cdot\mathtt{C2})_{ik}$$
+However, the first problem we immediately encounter is the zero cells from the constructed contingency tables. Zero cell in contingency table can be distinguished as two types, sampling zeros and structural zeros, where the former is due to sampling variability, while the latter are cells known to have zero values. Thus, in our case the zeros can be treated as structural zeros, given the cell values are simply missing because it has no paintings in that category. Therefore, we will test quasi-independence, where zero cells will be excluded from analysis when testing independence. The second problem we encountered is some contingency tables were over crowded with zero cells. where there's simply not enough data to provide a reliable model fit, the fitted model was saturated as the residual deviance and degrees of freedom was reduced to zeros, and the model overfits the data, thus the test is not reliable.
+
+Therefore, instead of testing the independence of two condition attributes given different museums, we simply tested the independence between two condition attributes using fisher's exact test. As the figure above depicted, the tile plot shows the result of independence testing, where the blue tiles indicates the the two condition attributes were independent from each other, while the green tiles indicates they were related.
+
+# Test independence of auxiliary support condition
+```{r}
+aux_support_condition <- c(
+  'auxiliary_support_condition',
+  'accretions_auxiliary_support',
+  'indentations_auxiliary_support',
+  'insect_damage_auxiliary_support',
+  'joins_unstable_auxiliary_support',
+  'joins_split_auxiliary_support',
+  'joins_not_flat_auxiliary_support',
+  'planar_auxiliary_support',
+  'prev_treatment_auxiliary_support',
+  'surface_dirt_auxiliary_support',
+  'staining_auxiliary_support',
+  'warped_auxiliary_support'
+)
+
+aux_support_df <- art[aux_support_condition]
+
+colnames(aux_support_df) <- c('condition ratings', 'accretions', 'indentations',
+                              'insect damage', 'joins unstable', 'joins split',
+                              'joins not flat', 'planar', 'previous treatment',
+                              'surface dirt', 'staining', 'warped')
+```
+
+```{r warning=T}
+attr1 <- c()
+attr2 <- c()
+pval <- c()
+count <- 1
+for (i in 1:12) {
+  for (j in 1:12) {
+    if (i == j) {
+    } else {
+      attr1[count] <- colnames(aux_support_df)[i]
+      attr2[count] <- colnames(aux_support_df)[j]
+      pval[count] <- fisher.test(table(aux_support_df[,i], aux_support_df[,j]))$p.value
+      count <- count + 1
+    }
+  }
+}
+
+temp <- as.data.frame(cbind(attr1, attr2, pval))
+temp$pval <- as.double(temp$pval)
+temp$independent <- ifelse(temp$pval > 0.05, "Independent", "Not Independent")
+temp$independent <- as.factor(temp$independent)
+temp <- temp[, c("attr1", "attr2", "independent")]
+```
+
+```{r}
+ggplot(temp, aes(x = attr1, y = attr2, fill = independent)) +
+  ggtitle("Independence Between Auxiliary Support Condition") +
+  geom_tile(color = "white") + xlab("Attributes") + ylab("Attributes") + 
+  theme(axis.text.x = element_text(angle = 30, hjust = 1, vjust = 1)) +
+  scale_fill_manual(values = c("#B6B0FF", "green"))
+```
+
+# Test independence of ground condition
+```{r}
+ground_layer_condition <- c(
+  'ground_condition',
+  'ground_layer_application',
+  'size_layer_visible',
+  'ground_layer_thickness',
+  'coloured_ground',
+  'id_sulphate',
+  'id_carbonate',
+  'uniform_application',
+  'ground_proprietary_paint',
+  'ground_layer_limit'
+)
+
+ground_df <- art[ground_layer_condition]
+colnames(ground_df) <- c('condition ratings', 'ground type', 'size visibility', 'thickness', 'coloured ground',
+                         'contains sulphate', 'contains carbonate', 'uniform application',
+                         'proprietary paint', 'application edge')
+```
+
+```{r warning=T}
+attr1 <- c()
+attr2 <- c()
+pval <- c()
+count <- 1
+for (i in 1:10) {
+  for (j in 1:10) {
+    if (i == j) {
+    } else {
+      attr1[count] <- colnames(ground_df)[i]
+      attr2[count] <- colnames(ground_df)[j]
+      pval[count] <- fisher.test(table(ground_df[,i], ground_df[,j]), workspace = 2e8)$p.value
+      count <- count + 1
+    }
+  }
+}
+
+temp <- as.data.frame(cbind(attr1, attr2, pval))
+temp$pval <- as.double(temp$pval)
+temp$independent <- ifelse(temp$pval > 0.05, "Independent", "Not Independent")
+temp$independent <- as.factor(temp$independent)
+temp <- temp[, c("attr1", "attr2", "independent")]
+```
+
+```{r}
+(p1 <- ggplot(temp, aes(x = attr1, y = attr2, fill = independent)) +
+  ggtitle("Independence Between Ground Layer Condition") +
+  geom_tile(color = "white") + xlab("Attributes") + ylab("Attributes") + 
+  theme(axis.text.x = element_text(angle = 30, hjust = 1, vjust = 1)) +
+  scale_fill_manual(values = c("#B6B0FF", "green")))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/gr_tile.png', height = 4, width = 9)
+```
+
+# Test independence of media condition
+```{r}
+media_layer_condition <- c(
+  'media_condition',
+  'abrasions_media',
+  'accretions_media',
+  'adhered_well_to_support',
+  'cleavage_media',
+  'cracking_media',
+  'discolouration_media',
+  'flaking_media',
+  'losses_media',
+  'overpainting_media',
+  'surface_dirt_media',
+  'appears_plastic',
+  'appears_elastic',
+  'dry_cured',
+  'infilling'
+)
+
+media_layer_df <- art[media_layer_condition]
+colnames(media_layer_df) <- c('condition rating', 'abrasions', 'accretions', 'support adherence',
+                              'cleavage', 'cracking', 'discolouration', 'flaking', 'losses', 
+                              'overpainting', 'surface dirt', 'appears plastic', 
+                              'appears elastic', 'dry cured', 'infilling')
+```
+
+```{r warning=T}
+attr1 <- c()
+attr2 <- c()
+pval <- c()
+count <- 1
+for (i in 1:15) {
+  for (j in 1:15) {
+    if (i == j) {
+    } else {
+      attr1[count] <- colnames(media_layer_df)[i]
+      attr2[count] <- colnames(media_layer_df)[j]
+      pval[count] <- fisher.test(table(media_layer_df[,i], 
+                                       media_layer_df[,j]), workspace = 2e8)$p.value
+      count <- count + 1
+    }
+  }
+}
+
+temp <- as.data.frame(cbind(attr1, attr2, pval))
+temp$pval <- as.double(temp$pval)
+temp$independent <- ifelse(temp$pval > 0.05, "Independent", "Not Independent")
+temp$independent <- as.factor(temp$independent)
+temp <- temp[, c("attr1", "attr2", "independent")]
+```
+
+```{r}
+(p1 <- ggplot(temp, aes(x = attr1, y = attr2, fill = independent)) +
+  ggtitle("Independence Between Paint Layer Condition") +
+  geom_tile(color = "white") + xlab("Attributes") + ylab("Attributes") + 
+  theme(axis.text.x = element_text(angle = 30, hjust = 1, vjust = 1)) +
+  scale_fill_manual(values = c("#B6B0FF", "green")))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/pl_tile.png', height = 4, width = 9)
+```
+
+# Testing the independence between ground and media layer condition
+```{r}
+attr1 <- c()
+attr2 <- c()
+pval <- c()
+count <- 1
+for (i in 1:15) {
+  for (j in 1:9) {
+      attr1[count] <- colnames(media_layer_df)[i]
+      attr2[count] <- colnames(ground_df)[j]
+      pval[count] <- fisher.test(table(media_layer_df[,i], 
+                                       ground_df[,j]), workspace = 2e8)$p.value
+      count <- count + 1
+  }
+}
+
+temp <- as.data.frame(cbind(attr1, attr2, pval))
+temp$pval <- as.double(temp$pval)
+temp$independent <- ifelse(temp$pval > 0.05, "Independent", "Not Independent")
+temp$independent <- as.factor(temp$independent)
+temp <- temp[, c("attr1", "attr2", "independent")]
+```
+
+```{r}
+ggplot(temp, aes(x = attr1, y = attr2, fill = independent)) +
+  ggtitle("Independence Between Media Condition and Ground Condition") +
+  geom_tile(color = "white") + xlab("Media Condition") + ylab("Ground Layer Condition") + 
+  theme(axis.text.x = element_text(angle = 30, hjust = 1, vjust = 1)) +
+  scale_fill_manual(values = c("#B6B0FF", "green"))
+```
+
+# Code for visualising relationship between two catgeorical variables
+```{r}
+art <- art %>%
+  #filter(!is.na(auxiliary_support_condition)) %>%
+  #filter(!is.na(media_condition)) %>%
+  #filter(!is.na(ground_condition)) %>%
+  filter(!is.na(painting_support_condition)) %>%
+  mutate(auxiliary_support_condition = recode(auxiliary_support_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(media_condition = recode(media_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(ground_condition = recode(ground_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(painting_support_condition = recode(painting_support_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(frame_condition = recode(frame_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent"))
+
+temp <- as.data.frame(ftable(art$painting_support_condition, art$holes_painting_support))
+temp$Var1 <- factor(temp$Var1, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('pscondition', 'Holes', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(pscondition), fill = Holes)) +
+  ggtitle("Relationship between paint support condition and holes") +
+  xlab('Paint Support Condition') )
+ggsave(p1, filename = '/Users/greysonchung/Downloads/ps_hole_mosaic.png', height = 3, width = 7)
+```
+Here we use mosaic plot to visualize the relationship between two categorical variables, mosaic plot is effective way to visualize contingency table. The height of each box is the proportion of individuals in the column which fall into that cell, while the width of each box is same for all boxes in the same column and is equal to the total count in that column.
+
+Here we can see that, there's a clear distinction between different support condition, the proportion of paintings with no holes increases as the paint support condition increases from poor to excellent. And it is worth noting that most of the paintings were classified with fair and good condition, while poor and excellent only account for a small proportion. Similar trend could also be seen with tears, loose, overall distortion, indentation, and warped.
+
+In addition, we also tested relationship between the used canvas material and resulted condition of paint support layer. However, there's no statistical evidence that the two are associated. However, it is worth pointing out that paintings that uses both linen and cotton tend to result in good and excellent condition.
+```{r}
+art2 <- art[!(art$canvas == 'unspecified'),]
+temp <- as.data.frame(ftable(art2$canvas, art2$painting_support_condition))
+temp$Var2 <- factor(temp$Var2, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+colnames(temp) <- c('canvas_material', 'pscondition', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(pscondition), fill = canvas_material)) +
+  ggtitle("Relationship between paint support condition and canvas material") +
+  xlab('Paint Support Condition') +
+  ylab('Canvas Material') +
+  scale_fill_discrete(name = "Canvas Material"))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/ps_canvas_mosaic.png', height = 3, width = 7)
+```
+
+```{r}
+temp <- as.data.frame(ftable(art$painting_support_condition, art$good_tension_painting_support))
+temp$Var1 <- factor(temp$Var1, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('pscondition', 'Good_tension', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(pscondition), fill = Good_tension)) +
+  ggtitle("Relationship between paint support condition and good tension") +
+  xlab('Paint Support Condition') +
+  ylab('Good Tension') +
+  scale_fill_discrete(name = "Good Tension"))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/ps_tension_mosaic.png', height = 3, width = 7)
+```
+As for the relationship between paint support condition and good tension, we can see a clear difference with the previous chart, it is no surprise that, as painting support condition increases from poor to excellent, the proportion of paintings with good tension also increases. Although the fisher's exact test did not show that paint support condition were dependent with taut, similar trend could also be seen with the two.
+
+```{r}
+art <- read.csv("../data/cleanData.csv")
+temp <- as.data.frame(ftable(art$insect_damage_painting_support, art$surface_dirt_painting_support))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('insect_damage', 'surface_dirt', 'n')
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(insect_damage), fill = surface_dirt)) +
+  #ggtitle("Relationship between insect damage and surface dirt") +
+  xlab('Insect Damage') +
+  ylab('Surface Dirt') +
+  scale_fill_discrete(name = "Surface Dirt"))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/insect_dirt_mosaic.png', height = 3, width = 4)
+```
+Here we further investigate the relationship between insect damage and surface dirt in paint support layer, we can notice that when painting has no insect damage, there's an even chance for the painting 
+to have surface dirt present. On the other hand, when there is insect damage present in a painting, it is highly likely that surface dirt would also appear. However, we do need to mention that paintings with insect damage only accounts for a small proportion of the sample population. To make the final conclusion, we may need more samples to reduce the non-response bias.
+
+```{r}
+temp <- as.data.frame(ftable(art$indentations_painting_support, art$holes_painting_support))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('indentation', 'holes', 'n')
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(indentation), fill = holes)) +
+  #ggtitle("Relationship between indentation and holes") +
+  xlab('Indentation') +
+  ylab('Holes') +
+  scale_fill_discrete(name = "Holes"))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/indent_holes_mosaic.png', height = 3, width = 4)
+```
+Furthermore, as we can see from the figure above, a painting with indentation will also have a higher chance to have holes than those paintings without indentation. In fact, after estimating odds, under the study condition, paintings with indentation having holes are almost 3.78 times higher than for paintings with no indentation.
+
+```{r}
+art <- read.csv("../data/cleanData.csv")
+art <- art %>%
+  filter(!is.na(ground_condition)) %>%
+  mutate(auxiliary_support_condition = recode(auxiliary_support_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(media_condition = recode(media_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(ground_condition = recode(ground_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(painting_support_condition = recode(painting_support_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(frame_condition = recode(frame_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent"))
+
+art <- art[!(art$ground_layer_application == 'Unspecified' | art$ground_layer_application == 'Unsure'),]
+temp <- as.data.frame(ftable(art$ground_condition, art$ground_layer_application))
+temp$Var1 <- factor(temp$Var1, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+colnames(temp) <- c('ground_condition', 'ground_application', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(ground_application), fill = ground_condition)) +
+  ggtitle("Relationship between ground type and ground ratings") +
+  xlab('Ground Type') +
+  ylab('Ground Condition') +
+  scale_fill_discrete(name = "Ground Condition"))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/gr_type.png', height = 3, width = 7)
+```
+
+```{r}
+art <- read.csv("../data/cleanData.csv")
+art <- art[!(art$ground_layer_application == 'Unspecified' | art$ground_layer_application == 'Unsure'),]
+art <- art[!(art$ground_layer_thickness == 'Unspecified'), ]
+
+temp <- as.data.frame(ftable(art$ground_layer_application, art$ground_layer_thickness))
+colnames(temp) <- c('type', 'thickness', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(type), fill = thickness)) +
+  ggtitle("Relationship between Ground Type and Ground Thickness") +
+  xlab('Ground Type') +
+  ylab('Ground Thickness') +
+  scale_fill_discrete(name = "Ground Thickness"))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/type_thickness.png', height = 3, width = 7)
+```
+
+```{r}
+art <- read.csv("../data/cleanData.csv")
+art <- art[!(art$ground_layer_application == 'Unspecified' | art$ground_layer_application == 'Unsure'),]
+
+temp <- as.data.frame(ftable(art$ground_layer_application, art$uniform_application))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('type', 'prop', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(type), fill = prop)) +
+  ggtitle("Relationship between Ground Type and Uniform Application") +
+  xlab('Ground Type') +
+  ylab('Uniform Application') +
+  scale_fill_discrete(name = "Uniform Application"))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/type_uniform.png', height = 3, width = 7)
+```
+
+```{r}
+art <- read.csv("../data/cleanData.csv")
+art <- art %>%
+  filter(!is.na(media_condition)) %>%
+  mutate(auxiliary_support_condition = recode(auxiliary_support_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(media_condition = recode(media_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(ground_condition = recode(ground_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(painting_support_condition = recode(painting_support_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(frame_condition = recode(frame_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent"))
+```
+
+```{r}
+temp <- as.data.frame(ftable(art$media_condition, art$appears_plastic))
+temp$Var1 <- factor(temp$Var1, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('media_cond', 'elastic', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(elastic), fill = media_cond)) +
+  ggtitle("Relationship between paint layer condition and paint plasticness") +
+  xlab('Paint Layer Condition') +
+  ylab('Appears Plastic') +
+  scale_fill_discrete(name = "Appears Plastic"))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/pl_plastic.png', height = 3, width = 7)
+```
+
+```{r}
+temp <- as.data.frame(ftable(art$dry_cured, art$cracking_media))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('dry_cured', 'discolor', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(dry_cured), fill = discolor)) +
+  ggtitle("Relationship between Cracking and Dry Cured Paint") +
+  xlab('Dry Cured') +
+  ylab('Cracking') +
+  scale_fill_discrete(name = "Cracking"))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/dry_crack.png', height = 3, width = 7)
+```
+
+```{r}
+temp <- as.data.frame(ftable(art$cracking_media, art$appears_plastic))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('crack', 'plastic', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(plastic), fill = crack)) +
+  ggtitle("Relationship between Cracking and Paint Plasticness") +
+  xlab('Plastic') +
+  ylab('Cracking') +
+  scale_fill_discrete(name = "Cracking"))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/plastic_crack.png', height = 3, width = 5)
+```
+
+```{r}
+temp <- as.data.frame(ftable(art$cracking_media, art$accretions_media))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('crack', 'accretion', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(accretion), fill = crack)) +
+  ggtitle("Relationship between Cracking and Paint Accretion") +
+  xlab('Accretion') +
+  ylab('Cracking') +
+  scale_fill_discrete(name = "Cracking"))
+ggsave(p1, filename = '/Users/greysonchung/Downloads/accretion_crack.png', height = 3, width = 7)
+```
+
+```{r}
+temp <- as.data.frame(ftable(art$cracking_media, art$flaking_media))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('crack', 'accretion', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(crack), fill = accretion)) +
+  ggtitle("Relationship between Cracking and Paint Flaking") +
+  xlab('Cracking') +
+  ylab('Flaking') +
+  scale_fill_discrete(name = "Flaking"))
+```
+

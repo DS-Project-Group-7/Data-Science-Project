@@ -9,7 +9,7 @@ simpleCap <- function(x) {
 
 
 
-display_art <- read.csv("data/cleanData.csv")[,-1]
+display_art <- read.csv("../data/cleanData.csv")[,-1]
 display_art <- display_art %>%
   mutate(auxiliary_support_condition = recode(auxiliary_support_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
   mutate(media_condition = recode(media_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
@@ -32,7 +32,7 @@ display_art <- display_art %>%
                 ~factor(ifelse(.x == "1","Yes","No"))))
   
 
-art <- read.csv("data/cleanData.csv")[,-1]
+art <- read.csv("../data/cleanData.csv")[,-1]
 
 customSentence <- function(numItems, type) {
   paste("Contact us")
