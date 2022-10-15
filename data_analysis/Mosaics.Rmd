@@ -1,0 +1,1254 @@
+---
+title: "Painting Support Analysis"
+date: '2022-09-18'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(ggstatsplot)
+library(ggmosaic)
+library(dplyr)
+art <- read.csv("../data/cleanData.csv")
+art <- art %>%
+  filter(!is.na(auxiliary_support_condition)) %>%
+  filter(!is.na(media_condition)) %>%
+  filter(!is.na(ground_condition)) %>%
+  filter(!is.na(painting_support_condition)) %>%
+  filter(!is.na(frame_condition)) %>%
+  mutate(auxiliary_support_condition = recode(auxiliary_support_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(media_condition = recode(media_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(ground_condition = recode(ground_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(painting_support_condition = recode(painting_support_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(frame_condition = recode(frame_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent"))
+```
+
+```{r}
+target_col <- c("collection", "auxiliary_support_condition", "media_condition", 
+                "ground_condition", "painting_support_condition", "frame_condition")
+conditions <- art[, target_col]
+```
+
+# Code for visualising relationship between two catgeorical variables
+```{r}
+art <- art %>%
+  filter(!is.na(painting_support_condition)) %>%
+  mutate(auxiliary_support_condition = recode(auxiliary_support_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(media_condition = recode(media_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(ground_condition = recode(ground_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(painting_support_condition = recode(painting_support_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent")) %>%
+  mutate(frame_condition = recode(frame_condition, "0" = "Poor", "1" = "Fair", "2" = "Good", "3" = "Excellent"))
+```
+
+```{r}
+temp <- as.data.frame(ftable(art$painting_support_condition, art$holes_painting_support))
+temp$Var1 <- factor(temp$Var1, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('pscondition', 'Holes', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(pscondition), fill = Holes)) +
+  ggtitle("Relationship between paint support condition and holes") +
+  xlab('Paint Support Condition') )
+ggsave(p1, filename = 'files/ps_hole_mosaic.png', height = 3, width = 7)
+```
+
+
+```{r}
+art2 <- art[!(art$canvas == 'unspecified'),]
+temp <- as.data.frame(ftable(art2$canvas, art2$painting_support_condition))
+temp$Var2 <- factor(temp$Var2, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+colnames(temp) <- c('canvas_material', 'pscondition', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(pscondition), fill = canvas_material)) +
+  ggtitle("Relationship between paint support condition and canvas material") +
+  xlab('Paint Support Condition') +
+  ylab('Canvas Material') +
+  scale_fill_discrete(name = "Canvas Material"))
+ggsave(p1, filename = 'files/ps_canvas_mosaic.png', height = 3, width = 7)
+```
+
+```{r}
+temp <- as.data.frame(ftable(art$painting_support_condition, art$good_tension_painting_support))
+temp$Var1 <- factor(temp$Var1, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('pscondition', 'Good_tension', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(pscondition), fill = Good_tension)) +
+  ggtitle("Relationship between paint support condition and good tension") +
+  xlab('Paint Support Condition') +
+  ylab('Good Tension') +
+  scale_fill_discrete(name = "Good Tension"))
+ggsave(p1, filename = 'files/ps_tension_mosaic.png', height = 3, width = 7)
+```
+
+
+```{r}
+art <- read.csv("../data/cleanData.csv")
+temp <- as.data.frame(ftable(art$insect_damage_painting_support, art$surface_dirt_painting_support))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('insect_damage', 'surface_dirt', 'n')
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(insect_damage), fill = surface_dirt)) +
+  #ggtitle("Relationship between insect damage and surface dirt") +
+  xlab('Insect Damage') +
+  ylab('Surface Dirt') +
+  scale_fill_discrete(name = "Surface Dirt"))
+ggsave(p1, filename = 'files/insect_dirt_mosaic.png', height = 3, width = 4)
+```
+
+```{r}
+temp <- as.data.frame(ftable(art$indentations_painting_support, art$holes_painting_support))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('indentation', 'holes', 'n')
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(indentation), fill = holes)) +
+  #ggtitle("Relationship between indentation and holes") +
+  xlab('Indentation') +
+  ylab('Holes') +
+  scale_fill_discrete(name = "Holes"))
+ggsave(p1, filename = 'files/indent_holes_mosaic.png', height = 3, width = 4)
+```
+```{r warped- ps condition}
+temp <- as.data.frame(ftable(art$painting_support_condition, art$warped_painting_support))
+temp$Var1 <- factor(temp$Var1, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('pscondition', 'warped_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(pscondition), fill = warped_painting_support)) +
+  ggtitle("Relationship between paint support condition and warped") +
+  xlab('Paint Support Condition') +
+  ylab('Warped') +
+  scale_fill_discrete(name = "Warped"))
+ggsave(p1, filename = 'files/ps_warped_mosaic.png', height = 3, width = 7)
+```
+```{r warped- good tension}
+temp <- as.data.frame(ftable(art$good_tension_painting_support, art$warped_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('good_tension_painting_support', 'warped_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(good_tension_painting_support), fill = warped_painting_support)) +
+  ggtitle("Relationship between good tension and warped") +
+  xlab('Good tension') +
+  ylab('Warped') +
+  scale_fill_discrete(name = "Warped"))
+ggsave(p1, filename = 'files/tension_warped_mosaic.png', height = 3, width = 7)
+```
+```{r warped- indentations}
+temp <- as.data.frame(ftable(art$indentations_painting_support, art$warped_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('indentations_painting_support', 'warped_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(indentations_painting_support), fill = warped_painting_support)) +
+  ggtitle("Relationship between indentation and warped") +
+  xlab('Indentation') +
+  ylab('Warped') +
+  scale_fill_discrete(name = "Warped"))
+ggsave(p1, filename = 'files/indentation_warped_mosaic.png', height = 3, width = 7)
+```
+
+```{r warped- loose}
+temp <- as.data.frame(ftable(art$loose_painting_support, art$warped_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('loose_painting_support', 'warped_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(loose_painting_support), fill = warped_painting_support)) +
+  ggtitle("Relationship between loose and warped") +
+  xlab('loose') +
+  ylab('Warped') +
+  scale_fill_discrete(name = "Warped"))
+ggsave(p1, filename = 'files/loose_warped_mosaic.png', height = 3, width = 7)
+```
+
+```{r warped- overall distortion}
+temp <- as.data.frame(ftable(art$overall_distortions_painting_support, art$warped_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('overall_distortions_painting_support', 'warped_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(overall_distortions_painting_support), fill = warped_painting_support)) +
+  ggtitle("Relationship between overall distortion and warped") +
+  xlab('Overall distortion') +
+  ylab('Warped') +
+  scale_fill_discrete(name = "Warped"))
+ggsave(p1, filename = 'files/overall_distortion_warped_mosaic.png', height = 3, width = 7)
+```
+```{r warped- planar}
+temp <- as.data.frame(ftable(art$planar_painting_support, art$warped_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('planar_painting_support', 'warped_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(planar_painting_support), fill = warped_painting_support)) +
+  ggtitle("Relationship between planar and warped") +
+  xlab('Planar') +
+  ylab('Warped') +
+  scale_fill_discrete(name = "Warped"))
+ggsave(p1, filename = 'files/planar_warped_mosaic.png', height = 3, width = 7)
+```
+```{r warped- planar}
+temp <- as.data.frame(ftable(art$taut_painting_support, art$warped_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('taut_painting_support', 'warped_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(taut_painting_support), fill = warped_painting_support)) +
+  ggtitle("Relationship between taut and warped") +
+  xlab('Taut') +
+  ylab('Warped') +
+  scale_fill_discrete(name = "Warped"))
+ggsave(p1, filename = 'files/taut_warped_mosaic.png', height = 3, width = 7)
+```
+
+```{r warped- tears}
+temp <- as.data.frame(ftable(art$tears_painting_support, art$warped_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('tears_painting_support', 'warped_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(tears_painting_support), fill = warped_painting_support)) +
+  ggtitle("Relationship between tears and warped") +
+  xlab('Tears') +
+  ylab('Warped') +
+  scale_fill_discrete(name = "Warped"))
+ggsave(p1, filename = 'files/tears_warped_mosaic.png', height = 3, width = 7)
+```
+
+```{r top-bottom distortions}
+temp <- as.data.frame(ftable(art$top_distortions_painting_support, art$bottom_distortions_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('top_distortions_painting_support', 'bottom_distortions_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(top_distortions_painting_support), fill = bottom_distortions_painting_support)) +
+  ggtitle("Relationship between top and bottom distortions") +
+  xlab('Top distortions') +
+  ylab('Bottom distortions') +
+  scale_fill_discrete(name = "Bottom distortions"))
+ggsave(p1, filename = 'files/top_bottom_distortions_mosaic.png', height = 3, width = 7)
+```
+
+```{r top distortions- holes}
+temp <- as.data.frame(ftable(art$top_distortions_painting_support, art$holes_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('top_distortions_painting_support', 'holes_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(top_distortions_painting_support), fill = holes_painting_support)) +
+  ggtitle("Relationship between top distortions and holes") +
+  xlab('Top distortions') +
+  ylab('Holes') +
+  scale_fill_discrete(name = "Holes"))
+ggsave(p1, filename = 'files/top_distortions_holes_mosaic.png', height = 3, width = 7)
+```
+
+```{r tears and deformation around tacks staples}
+temp <- as.data.frame(ftable(art$tears_around_tacks_staples_painting_support, art$deformation_around_tacks_staples_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('tears_around_tacks_staples_painting_support', 'deformation_around_tacks_staples_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(tears_around_tacks_staples_painting_support), fill = deformation_around_tacks_staples_painting_support)) +
+  ggtitle("Relationship between tears and deformation around tacks staples") +
+  xlab('Tears') +
+  ylab('Deformation') +
+  scale_fill_discrete(name = "Deformation"))
+ggsave(p1, filename = 'files/tears_deformation_around_tack_staples_mosaic.png', height = 3, width = 7)
+```
+
+```{r tears around tacks staples - indentations}
+temp <- as.data.frame(ftable(art$tears_around_tacks_staples_painting_support, art$indentations_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('tears_around_tacks_staples_painting_support', 'indentations_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(tears_around_tacks_staples_painting_support), fill = indentations_painting_support)) +
+  ggtitle("Relationship between tears around tacks staples and indentations") +
+  xlab('Tears around tacks staples') +
+  ylab('Indentations') +
+  scale_fill_discrete(name = "Indentations"))
+ggsave(p1, filename = 'files/tears_around_tack_staples_indentations_mosaic.png', height = 3, width = 7)
+```
+
+```{r tears around tacks staples - loss of tacks insecure support}
+temp <- as.data.frame(ftable(art$tears_around_tacks_staples_painting_support, art$loss_of_tacks_insecure_support_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('tears_around_tacks_staples_painting_support', 'loss_of_tacks_insecure_support_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(tears_around_tacks_staples_painting_support), fill = loss_of_tacks_insecure_support_painting_support)) +
+  ggtitle("Relationship between tears around tacks staples and loss of tacks insecure support") +
+  xlab('Tears around tacks staples') +
+  ylab('Loss of tacks insecure support') +
+  scale_fill_discrete(name = "Loss of tacks insecure support"))
+ggsave(p1, filename = 'files/tears_around_tack_staples_loss_of_tacks_insecure_support_mosaic.png', height = 3, width = 7)
+```
+
+```{r tears around tacks staples - Rust stains}
+temp <- as.data.frame(ftable(art$tears_around_tacks_staples_painting_support, art$rust_stains_on_support_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('tears_around_tacks_staples_painting_support', 'rust_stains_on_support_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(tears_around_tacks_staples_painting_support), fill = rust_stains_on_support_painting_support)) +
+  ggtitle("Relationship between tears around tacks staples and rust stains") +
+  xlab('Tears around tacks staples') +
+  ylab('Rust stains') +
+  scale_fill_discrete(name = "Rust stains"))
+ggsave(p1, filename = 'files/tears_around_tack_staples_rust_stains_mosaic.png', height = 3, width = 7)
+```
+
+```{r tears around tacks staples - tears}
+temp <- as.data.frame(ftable(art$tears_around_tacks_staples_painting_support, art$tears_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('tears_around_tacks_staples_painting_support', 'tears_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(tears_around_tacks_staples_painting_support), fill = tears_painting_support)) +
+  ggtitle("Relationship between tears around tacks staples and tears") +
+  xlab('Tears around tacks staples') +
+  ylab('Tears') +
+  scale_fill_discrete(name = "Tears"))
+ggsave(p1, filename = 'files/tears_around_tack_staples_tears_mosaic.png', height = 3, width = 7)
+```
+
+```{r tears - condition ratings}
+temp <- as.data.frame(ftable(art$painting_support_condition, art$tears_painting_support))
+temp$Var1 <- factor(temp$Var1, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+temp <- temp %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+colnames(temp) <- c('pscondition', 'Tears', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(pscondition), fill = Tears)) +
+  ggtitle("Relationship between paint support condition and tears") +
+  xlab('Paint Support Condition') )
+ggsave(p1, filename = 'files/ps_tears_mosaic.png', height = 3, width = 7)
+```
+
+```{r tears - holes}
+temp <- as.data.frame(ftable(art$tears_painting_support, art$holes_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('tears_painting_support', 'holes_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(tears_painting_support), fill = holes_painting_support)) +
+  ggtitle("Relationship between tears and holes") +
+  xlab('Tears') +
+  ylab('Holes') +
+  scale_fill_discrete(name = "Holes"))
+ggsave(p1, filename = 'files/tears_holes_mosaic.png', height = 3, width = 7)
+```
+
+```{r taut - holes}
+art2 <- art[!(art$canvas == 'unspecified'),]
+temp <- as.data.frame(ftable(art2$taut_painting_support, art2$canvas))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('taut_painting_support', 'canvas', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(taut_painting_support), fill = canvas)) +
+  ggtitle("Relationship between taut and canvas") +
+  xlab('Taut') +
+  ylab('Canvas') +
+  scale_fill_discrete(name = "Canvas"))
+ggsave(p1, filename = 'files/taut_canvas_mosaic.png', height = 3, width = 7)
+```
+```{r taut - deformation around tack staples}
+temp <- as.data.frame(ftable(art$taut_painting_support, art$deformation_around_tacks_staples_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('taut_painting_support', 'deformation_around_tacks_staples_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(taut_painting_support), fill = deformation_around_tacks_staples_painting_support)) +
+  ggtitle("Relationship between taut and deformation around tack staples") +
+  xlab('Taut') +
+  ylab('Deformation around tack staples') +
+  scale_fill_discrete(name = "Deformation around tack staples"))
+ggsave(p1, filename = 'files/taut_deformation_around_tacks_staples_mosaic.png', height = 3, width = 7)
+```
+
+```{r taut - good tension}
+temp <- as.data.frame(ftable(art$taut_painting_support, art$good_tension_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('taut_painting_support', 'good_tension_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(taut_painting_support), fill = good_tension_painting_support)) +
+  ggtitle("Relationship between taut and good tensions") +
+  xlab('Taut') +
+  ylab('Good tensions') +
+  scale_fill_discrete(name = "Good tensions"))
+ggsave(p1, filename = 'files/taut_good_tensions_mosaic.png', height = 3, width = 7)
+```
+
+```{r taut - loose}
+temp <- as.data.frame(ftable(art$taut_painting_support, art$loose_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('taut_painting_support', 'loose_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(taut_painting_support), fill = loose_painting_support)) +
+  ggtitle("Relationship between taut and loose") +
+  xlab('Taut') +
+  ylab('Loose') +
+  scale_fill_discrete(name = "Loose"))
+ggsave(p1, filename = 'files/taut_loose_mosaic.png', height = 3, width = 7)
+```
+```{r taut - overall distortions}
+temp <- as.data.frame(ftable(art$taut_painting_support, art$overall_distortions_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('taut_painting_support', 'overall_distortions_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(taut_painting_support), fill = overall_distortions_painting_support)) +
+  ggtitle("Relationship between taut and overall distortions") +
+  xlab('Taut') +
+  ylab('Overall distortions') +
+  scale_fill_discrete(name = "Overall distortions"))
+ggsave(p1, filename = 'files/taut_overall_distortions_mosaic.png', height = 3, width = 7)
+```
+
+```{r taut - planar}
+temp <- as.data.frame(ftable(art$taut_painting_support, art$planar_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('taut_painting_support', 'planar_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(taut_painting_support), fill = planar_painting_support)) +
+  ggtitle("Relationship between taut and planar") +
+  xlab('Taut') +
+  ylab('Planar') +
+  scale_fill_discrete(name = "Planar"))
+ggsave(p1, filename = 'files/taut_planar_mosaic.png', height = 3, width = 7)
+```
+
+```{r surface dirt - bottom distortions}
+temp <- as.data.frame(ftable(art$surface_dirt_painting_support, art$bottom_distortions_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('surface_dirt_painting_support', 'bottom_distortions_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(surface_dirt_painting_support), fill = bottom_distortions_painting_support)) +
+  ggtitle("Relationship between surface dirt and bottom distortions") +
+  xlab('Surface dirt') +
+  ylab('Bottom distortions') +
+  scale_fill_discrete(name = "Bottom distortions"))
+ggsave(p1, filename = 'files/surface_dirt_bottom_distortions_mosaic.png', height = 3, width = 7)
+```
+
+```{r surface dirt - deformation around tack staples}
+temp <- as.data.frame(ftable(art$surface_dirt_painting_support, art$deformation_around_tacks_staples_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('surface_dirt_painting_support', 'deformation_around_tacks_staples_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(surface_dirt_painting_support), fill = deformation_around_tacks_staples_painting_support)) +
+  ggtitle("Relationship between surface dirt and deformation around tack staples") +
+  xlab('Surface dirt') +
+  ylab('Deformation around tack staples') +
+  scale_fill_discrete(name = "Deformation around tack staples"))
+ggsave(p1, filename = 'files/surface_dirt_deformation_around_tacks_staples_mosaic.png', height = 3, width = 7)
+```
+
+```{r surface dirt - holes}
+temp <- as.data.frame(ftable(art$surface_dirt_painting_support, art$holes_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('surface_dirt_painting_support', 'holes_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(surface_dirt_painting_support), fill = holes_painting_support)) +
+  ggtitle("Relationship between surface dirt and holes") +
+  xlab('Surface dirt') +
+  ylab('Holes') +
+  scale_fill_discrete(name = "Holes"))
+ggsave(p1, filename = 'files/surface_dirt_holes_mosaic.png', height = 3, width = 7)
+```
+
+```{r surface dirt - indentations}
+temp <- as.data.frame(ftable(art$surface_dirt_painting_support, art$indentations_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('surface_dirt_painting_support', 'indentations_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(surface_dirt_painting_support), fill = indentations_painting_support)) +
+  ggtitle("Relationship between surface dirt and indentations") +
+  xlab('Surface dirt') +
+  ylab('Indentations') +
+  scale_fill_discrete(name = "Indentations"))
+ggsave(p1, filename = 'files/surface_dirt_indentations_mosaic.png', height = 3, width = 7)
+```
+
+```{r surface dirt - insect damage}
+temp <- as.data.frame(ftable(art$surface_dirt_painting_support, art$insect_damage_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('surface_dirt_painting_support', 'insect_damage_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(surface_dirt_painting_support), fill = insect_damage_painting_support)) +
+  ggtitle("Relationship between surface dirt and insect damage") +
+  xlab('Surface dirt') +
+  ylab('Insect damage') +
+  scale_fill_discrete(name = "Insect damage"))
+ggsave(p1, filename = 'files/surface_dirt_insect_damage_mosaic.png', height = 3, width = 7)
+```
+```{r surface dirt - staining}
+temp <- as.data.frame(ftable(art$surface_dirt_painting_support, art$staining_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('surface_dirt_painting_support', 'staining_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(surface_dirt_painting_support), fill = staining_painting_support)) +
+  ggtitle("Relationship between surface dirt and staining") +
+  xlab('Surface dirt') +
+  ylab('Staining') +
+  scale_fill_discrete(name = "Staining"))
+ggsave(p1, filename = 'files/surface_dirt_staining_mosaic.png', height = 3, width = 7)
+```
+```{r staining - canvas}
+temp <- as.data.frame(ftable(art$staining_painting_support, art$canvas))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('staining_painting_support', 'canvas', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(staining_painting_support), fill = canvas)) +
+  ggtitle("Relationship between staining and canvas") +
+  xlab('Staining') +
+  ylab('Canvas') +
+  scale_fill_discrete(name = "Canvas"))
+ggsave(p1, filename = 'files/staining_canvas_mosaic.png', height = 3, width = 7)
+```
+
+```{r staining - deformation_around_tacks_staples_painting_support}
+temp <- as.data.frame(ftable(art$staining_painting_support, art$deformation_around_tacks_staples_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('staining_painting_support', 'deformation_around_tacks_staples_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(staining_painting_support), fill = deformation_around_tacks_staples_painting_support)) +
+  ggtitle("Relationship between staining and deformation around tacks staples") +
+  xlab('Staining') +
+  ylab('Deformation around tacks staples') +
+  scale_fill_discrete(name = "Deformation around tacks staples"))
+ggsave(p1, filename = 'files/staining_deformation_mosaic.png', height = 3, width = 7)
+```
+```{r staining - mould}
+temp <- as.data.frame(ftable(art$staining_painting_support, art$mould_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('staining_painting_support', 'mould_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(staining_painting_support), fill = mould_painting_support)) +
+  ggtitle("Relationship between staining and mould") +
+  xlab('Staining') +
+  ylab('Mould') +
+  scale_fill_discrete(name = "Mould"))
+ggsave(p1, filename = 'files/staining_mould_mosaic.png', height = 3, width = 7)
+```
+
+```{r staining - overall distortions}
+temp <- as.data.frame(ftable(art$staining_painting_support, art$overall_distortions_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('staining_painting_support', 'overall_distortions_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(staining_painting_support), fill = overall_distortions_painting_support)) +
+  ggtitle("Relationship between staining and mould") +
+  xlab('Staining') +
+  ylab('Overall distortions') +
+  scale_fill_discrete(name = "Overall distortions"))
+ggsave(p1, filename = 'files/staining_overall_distortions_mosaic.png', height = 3, width = 7)
+```
+
+```{r staining - rust stains}
+temp <- as.data.frame(ftable(art$staining_painting_support, art$rust_stains_on_support_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('staining_painting_support', 'rust_stains_on_support_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(staining_painting_support), fill = rust_stains_on_support_painting_support)) +
+  ggtitle("Relationship between staining and rust stains") +
+  xlab('Staining') +
+  ylab('Rust stains') +
+  scale_fill_discrete(name = "Rust stains"))
+ggsave(p1, filename = 'files/staining_rust_stains_mosaic.png', height = 3, width = 7)
+```
+
+```{r rust stains - canvas}
+temp <- as.data.frame(ftable(art$rust_stains_on_support_painting_support, art$canvas))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('rust_stains_on_support_painting_support', 'canvas', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(rust_stains_on_support_painting_support), fill = canvas)) +
+  ggtitle("Relationship between rust stains and canvas") +
+  xlab('Rust stains') +
+  ylab('Canvas') +
+  scale_fill_discrete(name = "Canvas"))
+ggsave(p1, filename = 'files/rust_stains_canvas_mosaic.png', height = 3, width = 7)
+```
+
+```{r rust stains - deformation}
+temp <- as.data.frame(ftable(art$rust_stains_on_support_painting_support, art$deformation_around_tacks_staples_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('rust_stains_on_support_painting_support', 'deformation_around_tacks_staples_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(rust_stains_on_support_painting_support), fill = deformation_around_tacks_staples_painting_support)) +
+  ggtitle("Relationship between rust stains and deformation around tacks staples") +
+  xlab('Rust stains') +
+  ylab('Deformation around tacks staples') +
+  scale_fill_discrete(name = "Deformation around tacks staples"))
+ggsave(p1, filename = 'files/rust_stains_deformation_mosaic.png', height = 3, width = 7)
+```
+
+```{r rust stains - good tension}
+temp <- as.data.frame(ftable(art$rust_stains_on_support_painting_support, art$good_tension_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('rust_stains_on_support_painting_support', 'good_tension_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(rust_stains_on_support_painting_support), fill = good_tension_painting_support)) +
+  ggtitle("Relationship between rust stains and good tension") +
+  xlab('Rust stains') +
+  ylab('Good tension') +
+  scale_fill_discrete(name = "Good tension"))
+ggsave(p1, filename = 'files/rust_stains_tension_mosaic.png', height = 3, width = 7)
+```
+
+```{r rust stains - loss of tacks insecure support}
+temp <- as.data.frame(ftable(art$rust_stains_on_support_painting_support, art$loss_of_tacks_insecure_support_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('rust_stains_on_support_painting_support', 'loss_of_tacks_insecure_support_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(rust_stains_on_support_painting_support), fill = loss_of_tacks_insecure_support_painting_support)) +
+  ggtitle("Relationship between rust stains and loss of tacks insecure support") +
+  xlab('Rust stains') +
+  ylab('Loss of tacks insecure support') +
+  scale_fill_discrete(name = "Loss of tacks insecure support"))
+ggsave(p1, filename = 'files/rust_stains_loss_of_tacks_mosaic.png', height = 3, width = 7)
+```
+```{r rust stains - mould}
+temp <- as.data.frame(ftable(art$rust_stains_on_support_painting_support, art$mould_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('rust_stains_on_support_painting_support', 'mould_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(rust_stains_on_support_painting_support), fill = mould_painting_support)) +
+  ggtitle("Relationship between rust stains and mould") +
+  xlab('Rust stains') +
+  ylab('Mould') +
+  scale_fill_discrete(name = "Mould"))
+ggsave(p1, filename = 'files/rust_stains_mould_mosaic.png', height = 3, width = 7)
+```
+```{r plannar - condition ratings}
+temp <- as.data.frame(ftable(art$planar_painting_support, art$painting_support_condition))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+
+temp$Var2 <- factor(temp$Var2, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+  
+colnames(temp) <- c('planar_painting_support', 'pscondition', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(planar_painting_support), fill = pscondition)) +
+  ggtitle("Relationship between planar and condition ratings") +
+  xlab('Planar') +
+  ylab('Condition ratings') +
+  scale_fill_discrete(name = "Condition ratings"))
+ggsave(p1, filename = 'files/planar_pscondition_mosaic.png', height = 3, width = 7)
+```
+```{r plannar - good tension}
+temp <- as.data.frame(ftable(art$planar_painting_support, art$good_tension_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('planar_painting_support', 'good_tension_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(planar_painting_support), fill = good_tension_painting_support)) +
+  ggtitle("Relationship between planar and good tension") +
+  xlab('Planar') +
+  ylab('Good tension') +
+  scale_fill_discrete(name = "Good tension"))
+ggsave(p1, filename = 'files/planar_good_tension_mosaic.png', height = 3, width = 7)
+```
+```{r plannar - Holes}
+temp <- as.data.frame(ftable(art$planar_painting_support, art$holes_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('planar_painting_support', 'holes_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(planar_painting_support), fill = holes_painting_support)) +
+  ggtitle("Relationship between planar and holes") +
+  xlab('Planar') +
+  ylab('Holes') +
+  scale_fill_discrete(name = "Holes"))
+ggsave(p1, filename = 'files/planar_holes_mosaic.png', height = 3, width = 7)
+```
+```{r plannar - indentations}
+temp <- as.data.frame(ftable(art$planar_painting_support, art$indentations_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('planar_painting_support', 'indentations_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(planar_painting_support), fill = indentations_painting_support)) +
+  ggtitle("Relationship between planar and indentations") +
+  xlab('Planar') +
+  ylab('Indentations') +
+  scale_fill_discrete(name = "Indentations"))
+ggsave(p1, filename = 'files/planar_indentations_mosaic.png', height = 3, width = 7)
+```
+```{r plannar - loose}
+temp <- as.data.frame(ftable(art$planar_painting_support, art$loose_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('planar_painting_support', 'loose_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(planar_painting_support), fill = loose_painting_support)) +
+  ggtitle("Relationship between planar and loose") +
+  xlab('Planar') +
+  ylab('Loose') +
+  scale_fill_discrete(name = "Loose"))
+ggsave(p1, filename = 'files/planar_loose_mosaic.png', height = 3, width = 7)
+```
+
+```{r plannar - overall distortions}
+temp <- as.data.frame(ftable(art$planar_painting_support, art$overall_distortions_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('planar_painting_support', 'overall_distortions_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(planar_painting_support), fill = overall_distortions_painting_support)) +
+  ggtitle("Relationship between planar and overall distortions") +
+  xlab('Planar') +
+  ylab('Overall distortions') +
+  scale_fill_discrete(name = "Overall distortions"))
+ggsave(p1, filename = 'files/planar_overall_distortions_mosaic.png', height = 3, width = 7)
+```
+```{r overall distortions - condition ratings}
+temp <- as.data.frame(ftable(art$overall_distortions_painting_support, art$painting_support_condition))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+
+temp$Var2 <- factor(temp$Var2, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+  
+colnames(temp) <- c('overall_distortions_painting_support', 'pscondition', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(overall_distortions_painting_support), fill = pscondition)) +
+  ggtitle("Relationship between overall distortions and condition ratings") +
+  xlab('Overall distortions') +
+  ylab('Condition ratings') +
+  scale_fill_discrete(name = "Condition ratings"))
+ggsave(p1, filename = 'files/overall_distortions_pscondition_mosaic.png', height = 3, width = 7)
+```
+
+
+```{r overall distortions- good tension}
+temp <- as.data.frame(ftable(art$overall_distortions_painting_support, art$good_tension_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('overall_distortions_painting_support', 'good_tension_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(overall_distortions_painting_support), fill = good_tension_painting_support)) +
+  ggtitle("Relationship between overall distortions and good tension") +
+  xlab('Overall distortions') +
+  ylab('Good tension') +
+  scale_fill_discrete(name = "Good tension"))
+ggsave(p1, filename = 'files/overall_distortions_good_tension_mosaic.png', height = 3, width = 7)
+```
+
+```{r overall distortions- loose}
+temp <- as.data.frame(ftable(art$overall_distortions_painting_support, art$loose_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('overall_distortions_painting_support', 'loose_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(overall_distortions_painting_support), fill = loose_painting_support)) +
+  ggtitle("Relationship between overall distortions and loose") +
+  xlab('Overall distortions') +
+  ylab('Loose') +
+  scale_fill_discrete(name = "Loose"))
+ggsave(p1, filename = 'files/overall_distortions_loose_mosaic.png', height = 3, width = 7)
+```
+```{r mould - canvas}
+temp <- as.data.frame(ftable(art$mould_painting_support, art$canvas))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('mould_painting_support', 'canvas', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(mould_painting_support), fill = canvas)) +
+  ggtitle("Relationship between mould and canvas") +
+  xlab('Mould') +
+  ylab('Canvas') +
+  scale_fill_discrete(name = "Canvas"))
+ggsave(p1, filename = 'files/mould_canvas_mosaic.png', height = 3, width = 7)
+```
+
+```{r mould - deformation around tacks staples}
+temp <- as.data.frame(ftable(art$mould_painting_support, art$deformation_around_tacks_staples_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('mould_painting_support', 'deformation_around_tacks_staples_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(mould_painting_support), fill = deformation_around_tacks_staples_painting_support)) +
+  ggtitle("Relationship between mould and deformation around tacks staples") +
+  xlab('Mould') +
+  ylab('Deformation around tacks staples') +
+  scale_fill_discrete(name = "Deformation around tacks staples"))
+ggsave(p1, filename = 'files/mould_deformation_around_tacks_staples_mosaic.png', height = 3, width = 7)
+```
+```{r loss of tacks insecure support - canvas}
+temp <- as.data.frame(ftable(art$loss_of_tacks_insecure_support_painting_support, art$canvas))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('loss_of_tacks_insecure_support_painting_support', 'canvas', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(loss_of_tacks_insecure_support_painting_support), fill = canvas)) +
+  ggtitle("Relationship between loss of tacks insecure support and canvas") +
+  xlab('Loss of tacks insecure support') +
+  ylab('Canvas') +
+  scale_fill_discrete(name = "Canvas"))
+ggsave(p1, filename = 'files/loss_of_tacks_insecure_support_canvas_mosaic.png', height = 3, width = 7)
+```
+```{r loss of tacks insecure support - condition ratings}
+temp <- as.data.frame(ftable(art$loss_of_tacks_insecure_support_painting_support, art$painting_support_condition))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+
+temp$Var2 <- factor(temp$Var2, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+  
+colnames(temp) <- c('loss_of_tacks_insecure_support_painting_support', 'pscondition', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(loss_of_tacks_insecure_support_painting_support), fill = pscondition)) +
+  ggtitle("Relationship between loss of tacks insecure support and condition ratings") +
+  xlab('Loss of tacks insecure support') +
+  ylab('Condition ratings') +
+  scale_fill_discrete(name = "Condition ratings"))
+ggsave(p1, filename = 'files/loss_of_tacks_insecure_support_pscondition_mosaic.png', height = 3, width = 7)
+```
+
+```{r loss of tacks insecure support - deformation around tacks staples}
+temp <- as.data.frame(ftable(art$loss_of_tacks_insecure_support_painting_support, art$deformation_around_tacks_staples_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('loss_of_tacks_insecure_support_painting_support', 'deformation_around_tacks_staples_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(loss_of_tacks_insecure_support_painting_support), fill = deformation_around_tacks_staples_painting_support)) +
+  ggtitle("Relationship between loss of tacks insecure support and deformation around tacks staples") +
+  xlab('Loss of tacks insecure support') +
+  ylab('Deformation around tacks staples') +
+  scale_fill_discrete(name = "Deformation around tacks staples"))
+ggsave(p1, filename = 'files/loss_of_tacks_insecure_support_deformation_around_tacks_staples_mosaic.png', height = 3, width = 7)
+```
+```{r loss of tacks insecure support - insect damage}
+temp <- as.data.frame(ftable(art$loss_of_tacks_insecure_support_painting_support, art$insect_damage_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('loss_of_tacks_insecure_support_painting_support', 'insect_damage', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(loss_of_tacks_insecure_support_painting_support), fill = insect_damage)) +
+  ggtitle("Relationship between loss of tacks insecure support and insect damage") +
+  xlab('Loss of tacks insecure support') +
+  ylab('Insect damage') +
+  scale_fill_discrete(name = "Insect damage"))
+ggsave(p1, filename = 'files/loss_of_tacks_insecure_support_insect_damage_mosaic.png', height = 3, width = 7)
+```
+```{r loose - canvas}
+temp <- as.data.frame(ftable(art$loose, art$canvas))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('loose', 'canvas', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(loose), fill = canvas)) +
+  ggtitle("Relationship between loose and canvas") +
+  xlab('Loose') +
+  ylab('Canvas') +
+  scale_fill_discrete(name = "Canvas"))
+ggsave(p1, filename = 'files/loose_canvas_mosaic.png', height = 3, width = 7)
+```
+
+```{r loose - condition ratings}
+temp <- as.data.frame(ftable(art$loose_painting_support, art$painting_support_condition))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+
+temp$Var2 <- factor(temp$Var2, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+  
+colnames(temp) <- c('loose_painting_support', 'pscondition', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(loose_painting_support), fill = pscondition)) +
+  ggtitle("Relationship between loose and condition ratings") +
+  xlab('Loose') +
+  ylab('Condition ratings') +
+  scale_fill_discrete(name = "Condition ratings"))
+ggsave(p1, filename = 'files/loose_pscondition_mosaic.png', height = 3, width = 7)
+```
+```{r loose - good tension}
+temp <- as.data.frame(ftable(art$loose, art$good_tension_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('loose', 'good_tension_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(loose), fill = good_tension_painting_support)) +
+  ggtitle("Relationship between loose and good tension") +
+  xlab('Loose') +
+  ylab('Good tension') +
+  scale_fill_discrete(name = "Good tension"))
+ggsave(p1, filename = 'files/loose_good_tension_mosaic.png', height = 3, width = 7)
+```
+```{r loose - indentations}
+temp <- as.data.frame(ftable(art$loose, art$indentations_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('loose', 'indentations_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(loose), fill = indentations_painting_support)) +
+  ggtitle("Relationship between loose and indentations") +
+  xlab('Loose') +
+  ylab('Indentations') +
+  scale_fill_discrete(name = "Indentations"))
+ggsave(p1, filename = 'files/loose_indentations_mosaic.png', height = 3, width = 7)
+```
+
+```{r indentations - condition ratings}
+temp <- as.data.frame(ftable(art$indentations_painting_support, art$painting_support_condition))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+
+temp$Var2 <- factor(temp$Var2, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+  
+colnames(temp) <- c('indentations_painting_support', 'pscondition', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(indentations_painting_support), fill = pscondition)) +
+  ggtitle("Relationship between indentations and condition ratings") +
+  xlab('Indentations') +
+  ylab('Condition ratings') +
+  scale_fill_discrete(name = "Condition ratings"))
+ggsave(p1, filename = 'files/indentations_pscondition_mosaic.png', height = 3, width = 7)
+```
+
+```{r indentations - holes}
+temp <- as.data.frame(ftable(art$indentations_painting_support, art$holes_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('indentations_painting_support', 'holes_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(indentations_painting_support), fill = holes_painting_support)) +
+  ggtitle("Relationship between indentations and holes") +
+  xlab('Loose') +
+  ylab('Holes') +
+  scale_fill_discrete(name = "Holes"))
+ggsave(p1, filename = 'files/indentations_holes_mosaic.png', height = 3, width = 7)
+```
+
+```{r holes - bottom distortions}
+temp <- as.data.frame(ftable(art$holes_painting_support, art$bottom_distortions_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('holes_painting_support', 'bottom_distortions_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(holes_painting_support), fill = bottom_distortions_painting_support)) +
+  ggtitle("Relationship between holes and bottom distortions") +
+  xlab('Holes') +
+  ylab('Bottom distortions') +
+  scale_fill_discrete(name = "Bottom distortions"))
+ggsave(p1, filename = 'files/holes_bottom_distortions_mosaic.png', height = 3, width = 7)
+```
+
+```{r holes - condition ratings}
+temp <- as.data.frame(ftable(art$holes, art$painting_support_condition))
+temp$Var2 <- factor(temp$Var2, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+temp <- temp %>% mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) 
+colnames(temp) <- c('holes', 'pscondition', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(pscondition), fill = holes)) +
+  ggtitle("Relationship between paint support condition and holes") +
+  xlab('Paint Support Condition') +
+  ylab('Holes') +
+  scale_fill_discrete(name = "Holes"))
+ggsave(p1, filename = 'files/ps_holes_mosaic.png', height = 3, width = 7)
+```
+
+```{r good tensions - condition ratings}
+temp <- as.data.frame(ftable(art$good_tension_painting_support, art$painting_support_condition))
+temp$Var2 <- factor(temp$Var2, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+temp <- temp %>% mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) 
+colnames(temp) <- c('good_tension_painting_support', 'pscondition', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(pscondition), fill = good_tension_painting_support)) +
+  ggtitle("Relationship between paint support condition and good tensions") +
+  xlab('Paint Support Condition') +
+  ylab('Good tensions') +
+  scale_fill_discrete(name = "Good tensions"))
+ggsave(p1, filename = 'files/ps_good_tensions_mosaic.png', height = 3, width = 7)
+```
+
+```{r good tensions - canvas}
+art2 <- art[!(art$canvas == 'unspecified'),]
+temp <- as.data.frame(ftable(art2$good_tension_painting_support, art2$canvas))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('good_tension_painting_support', 'canvas', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(good_tension_painting_support), fill = canvas)) +
+  ggtitle("Relationship between good tensions and bottom distortions") +
+  xlab('Good tensions') +
+  ylab('Canvas') +
+  scale_fill_discrete(name = "Canvas"))
+ggsave(p1, filename = 'files/good_tensions_canvas_mosaic.png', height = 3, width = 7)
+```
+
+```{r good tensions - deformation around tacks staples}
+temp <- as.data.frame(ftable(art$good_tension_painting_support, art$deformation_around_tacks_staples_painting_support))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('good_tension_painting_support', 'deformation_around_tacks_staples_painting_support', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(good_tension_painting_support), fill = deformation_around_tacks_staples_painting_support)) +
+  ggtitle("Relationship between good tensions and deformation around tacks staples") +
+  xlab('Good tensions') +
+  ylab('Deformation around tacks staples') +
+  scale_fill_discrete(name = "Deformation around tacks staples"))
+ggsave(p1, filename = 'files/good_tensions_deformation_around_tacks_staples_mosaic.png', height = 3, width = 7)
+```
+
+```{r deformation around tacks staples - canvas}
+art2 <- art[!(art$canvas == 'unspecified'),]
+temp <- as.data.frame(ftable(art2$deformation_around_tacks_staples_painting_support, art2$canvas))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('deformation_around_tacks_staples_painting_support', 'canvas', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(deformation_around_tacks_staples_painting_support), fill = canvas)) +
+  ggtitle("Relationship between deformation around tacks staples and canvas") +
+  xlab('Deformation around tacks staples') +
+  ylab('Canvas') +
+  scale_fill_discrete(name = "Canvas"))
+ggsave(p1, filename = 'files/deformation_around_tacks_staples_canvas_mosaic.png', height = 3, width = 7)
+```
+
+```{r corner distortions - canvas}
+art2 <- art[!(art$canvas == 'unspecified'),]
+temp <- as.data.frame(ftable(art2$corner_distortions_painting_support, art2$canvas))
+temp <- temp %>%
+  mutate(Var1 = recode(Var1, '0' = 'No', '1' = 'Yes')) %>%
+  mutate(Var2 = recode(Var2, '0' = 'No', '1' = 'Yes'))
+  
+colnames(temp) <- c('corner_distortions_painting_support', 'canvas', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(corner_distortions_painting_support), fill = canvas)) +
+  ggtitle("Relationship between corner distortions and canvas") +
+  xlab('Corner distortions') +
+  ylab('Canvas') +
+  scale_fill_discrete(name = "Canvas"))
+ggsave(p1, filename = 'files/corner_distortions_canvas_mosaic.png', height = 3, width = 7)
+```
+
+```{r corner distortions - condition ratings}
+art2 <- art[!(art$canvas == 'unspecified'),]
+temp <- as.data.frame(ftable(art2$corner_distortions_painting_support, art2$painting_support_condition))
+temp$Var2 <- factor(temp$Var2, levels = c('Poor', 'Fair', 'Good', 'Excellent'))
+colnames(temp) <- c('corner_distortions_painting_support', 'pscondition', 'n')
+
+(p1 <- ggplot(temp) +
+  geom_mosaic(aes(weight = n, x = product(pscondition), fill = corner_distortions_painting_support)) +
+  ggtitle("Relationship between paint support condition and corner distortions") +
+  xlab('Paint Support Condition') +
+  ylab('Corner distortions') +
+  scale_fill_discrete(name = "Corner distortions"))
+ggsave(p1, filename = 'files/ps_corner_distortions_mosaic.png', height = 3, width = 7)
+```
+
+
