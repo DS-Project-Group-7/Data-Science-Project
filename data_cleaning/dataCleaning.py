@@ -105,16 +105,12 @@ CategoricalColumnsDict = {
     "commentary_auxiliary_support": [64],
     "wood_type_hardness": [76],
     "wood_type_country_locality": [77, 78, 79],
-    # "wood_type": [77],
-    # "wood_type_country": [78],
-    # "wood_type_locality": [79],
     "media_type_1": [112],
     "media_type_2": [113],
     "media_type_3": [114],
     "ground_layer_application": [120, 121],
     "ground_layer_limit": [129, 130],
     "ground_layer_thickness": [123, 124],
-    # "relationship_cracks_aux_support": [157],
     "frame_material": [163, 164],
     "slip_presence_frame": [170, 171],
     "glazed_frame": [172, 173],
@@ -256,11 +252,6 @@ MultipleValuesCatColDict = {
     ),
 }
 
-MultipleValuesLists = {
-    "cracks_mechanically_induced": [],
-    "location_of_cracks": [],
-    "environmental_history": ["no air conditioning, climate monitored & unstable"],
-}
 
 OrdinalColumnsDict = {
     "auxiliary_support_condition": [65, 66, 67, 68],
@@ -275,19 +266,10 @@ def main(dataFile):
     cleanDataDf = pd.DataFrame()
     originalDataDf = pd.read_excel(dataFile)
 
+    # First we process the categorical data
+    # with special considerations for : canvas, wood type, collection, sight and date
     for feature in CategoricalColumnsDict:
-        if feature == "relationship_cracks_aux_support":
-            cleanDataDf[
-                "corner_relationship_cracks_and_aux_support"
-            ] = createCornerRelationCracksColumn(
-                originalDataDf, CategoricalColumnsDict[feature]
-            )
-            cleanDataDf[
-                "parallel_relationship_cracks_and_aux_support"
-            ] = createParallelRelationCracksColumn(
-                originalDataDf, CategoricalColumnsDict[feature]
-            )
-        elif feature == "canvas":
+        if feature == "canvas":
             cleanDataDf[feature] = cleanCanvasMaterial(
                 originalDataDf, CategoricalColumnsDict[feature]
             )
@@ -333,6 +315,7 @@ def main(dataFile):
             elif feature == "date":
                 cleanDataDf["decade"] = transformDatesToDecades(cleanDataDf, feature)
 
+    # Then we tackle the categorical data with everything in one cell.
     for feature in MultipleValuesCatColDict:
         (index, maxOther, values) = MultipleValuesCatColDict[feature]
         oldDataSeries = originalDataDf.iloc[:, index].squeeze()
@@ -340,20 +323,16 @@ def main(dataFile):
             cleanDataDf[feature + " : " + value] = oldDataSeries.str.contains(
                 value, regex=False
             ).astype(int)
-        # dfListOthers = findOtherValues(oldDataSeries, maxOther, values)
-        # for i in range(maxOther):
-        #    cleanDataDf[f"{feature}_other_{i+1}"] = dfListOthers[i]
 
+    # The third step is handling ordinal data
     for feature in OrdinalColumnsDict:
         cleanDataDf[feature] = fuseOrdinalColumns(
             originalDataDf, OrdinalColumnsDict[feature], feature
         )
-
+    # The final step is dealing with boolean data
     for feature in BooleanColumnsDict:
         cleanDataDf[feature] = makeBoolCol(originalDataDf, BooleanColumnsDict[feature])
 
-    # The media ground layer quality has multiple values.
-    # Ground layer to side or face edge also has a record with multiple values
     cleanDataDf.to_csv("../data/cleanData.csv")
     print("done")
 
@@ -365,7 +344,10 @@ def makeBoolCol(originalDf, index):
     index : index of the column
     colName: name of the fused column
     """
-    # Triggers the warning: "PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead.  To get a de-fragmented frame, use `newframe = frame.copy()`"
+    # Triggers the warning: "PerformanceWarning: DataFrame is highly fragmented.
+    # This is usually the result of calling `frame.insert` many times, which has poor performance.
+    # Consider joining all columns at once using pd.concat(axis=1) instead.
+    # To get a de-fragmented frame, use `newframe = frame.copy()`"
     return (~originalDf.iloc[:, index].isnull()).astype(int)
 
 
@@ -400,13 +382,6 @@ def fuseCategColumns(originalDf, indexList, colName):
         existingCatDf[(nonEmptAddCat) & ~(nonEmptExistingCat)] = additionalCatdF[
             ~(nonEmptExistingCat)
         ]
-
-        # newColumn[colName][
-        #    newColumn[colName][originalDf.iloc[:, index] != ""] != ""
-        # ] = "both"
-        # newColumn[colName][newColumn[colName] == ""] += originalDf.iloc[:, index][
-        #    newColumn[colName] == ""
-        # ]
     existingCatDf = existingCatDf.replace(to_replace="", value="Unspecified")
     return existingCatDf.str.title()
 
@@ -584,10 +559,6 @@ def findOtherValues(oldDataSeries, n, values):
     return dfList
 
 
-# def createBinColumnValue(dataSeries, value):
-# return (dataSeries.str.contains(value))
-
-
 def transformDatesToDecades(df, feature):
     """
     Extract all the dates from the date column and display the decade they are in.
@@ -617,7 +588,7 @@ def parseArguments():
         "--data",
         help="Csv data file path",
         type=str,
-        default="../Cleaning_data/ManuallyCleanedData.xlsx",
+        default="ManuallyCleanedData.xlsx",
     )
 
     # Parse arguments
