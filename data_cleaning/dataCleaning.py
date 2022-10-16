@@ -121,10 +121,9 @@ CategoricalColumnsDict = {
 }
 
 MultipleValuesCatColDict = {
-    # format is "name_of_the_column":(index, max number of values that are not in the list, list of possible values)
+    # format is "name_of_the_column":(index, max number of values that are the original cell, list of possible values)
     "relationship_cracks_aux_support": (
         157,
-        2,
         [
             "corner bisector crack (keying out)",
             "corner circle (quadrant) cracks (stress at corners)",
@@ -140,7 +139,6 @@ MultipleValuesCatColDict = {
     ),
     "cracks_mechanically_induced": (
         158,
-        2,
         [
             "local",
             "overall",
@@ -181,7 +179,6 @@ MultipleValuesCatColDict = {
     ),
     "drying_cracks_the_paint_itself": (
         159,
-        2,
         [
             "overall",
             "local",
@@ -203,7 +200,6 @@ MultipleValuesCatColDict = {
     ),
     "description_of_paint_loss": (
         160,
-        2,
         [
             "at the ground layer no dark shadows",
             "at the support layer",
@@ -219,7 +215,6 @@ MultipleValuesCatColDict = {
     ),
     "location_of_cracks": (
         161,
-        2,
         [
             "at the ground layer, no dark shadows visble",
             "at the support layer, dark shadows visible",
@@ -235,7 +230,6 @@ MultipleValuesCatColDict = {
     ),
     "environmental_history": (
         162,
-        2,
         [
             "24 hours air conditioning, values unknown",
             "24 hours air conditioning at 22 degrees+2 degrees, 60% RH+5% RH",
@@ -317,7 +311,7 @@ def main(dataFile):
 
     # Then we tackle the categorical data with everything in one cell.
     for feature in MultipleValuesCatColDict:
-        (index, maxOther, values) = MultipleValuesCatColDict[feature]
+        (index, values) = MultipleValuesCatColDict[feature]
         oldDataSeries = originalDataDf.iloc[:, index].squeeze()
         for value in values:
             cleanDataDf[feature + " : " + value] = oldDataSeries.str.contains(
@@ -488,7 +482,6 @@ def cleanCanvasMaterial(oldDataframe, index):
         else:
             materialDic["canvas"].append("unspecified")
 
-    print(len(materialDic["canvas"]))
     finalDf = pd.DataFrame.from_dict(materialDic)
     return finalDf
 
