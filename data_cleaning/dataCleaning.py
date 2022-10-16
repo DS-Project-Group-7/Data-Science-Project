@@ -1,13 +1,8 @@
-from ast import Break
-from calendar import c
-from multiprocessing.sharedctypes import Value
 import numpy as np
 import pandas as pd
 import argparse
 import math
 
-from pyparsing import col
-import regex
 
 # Definition of Dictionaries that link a wanted new feature to the index of the the ones they are computed from
 # Eg. New feature "Support Type" from CategoricalColumnsDict will refer to columns 9 and 13 of the originial excel data file.
@@ -403,14 +398,19 @@ def fuseOrdinalColumns(originalDf, orderedIndexList, colName):
         researchInOrigin = (originalDf.iloc[:, index] != 0) & (
             originalDf.iloc[:, index] != "n/a"
         )
-        newColumn.loc[researchInOrigin & (newColumn[colName] != 0), colName] = np.floor(
-            (
-                newColumn.loc[researchInOrigin & (newColumn[colName] != 0), colName]
-                + level
-            )
-            / 2
+        (
+            newColumn.loc[researchInOrigin & (newColumn[colName] != 0), colName],
+            newColumn.loc[researchInOrigin & (newColumn[colName] == 0), colName],
+        ) = (
+            np.ceil(
+                (
+                    newColumn.loc[researchInOrigin & (newColumn[colName] != 0), colName]
+                    + level
+                )
+                / 2
+            ),
+            level,
         )
-        newColumn.loc[researchInOrigin, colName] = level
         newColumn.loc[originalDf.iloc[:, index] == "n/a", colName] = np.nan
 
     newColumn[colName] = newColumn[colName].replace(0, np.nan)
