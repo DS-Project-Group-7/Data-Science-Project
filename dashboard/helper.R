@@ -304,7 +304,7 @@ phil_labels <- sprintf(
   
 sing_labels <- sprintf(
   "Collection: <strong>%s</strong><br/>Number of Paintings: 63<br/><img src=%s alt=\"sg_museum\" width=\"300\" height=\"200\">",
-  "National Heritage Board (Singapore)","sg_museum.jpeg"
+  "National Heritage Board (Singapore)","sg_museum.jpg"
 ) %>% lapply(htmltools::HTML)
 
 special_vec <- c("ground_layer_limit", 'ground_layer_application', "ground_layer_thickness")

@@ -104,10 +104,6 @@ body <- dashboardBody(
               ),
               fluidRow(
                 column(12, leafletOutput("mymap", height = 500))
-                # column(6, imageOutput("cooking_rice")),
-                #        bsTooltip(id = "cooking_rice", 
-                #                  title = "Cooking Rice, Fernando Amorsolo (1959), J.B. Vargas Museum, University of the Philippines"
-                #        )
               ),
               hr(),
               fluidRow(
@@ -146,7 +142,7 @@ body <- dashboardBody(
                         title = "Detail from Chen Wen His, Ikan Untuk Hidangan, 1958, oil on canvasboard, framed, Balai Seni Negara (Malaysia), image Nicole Tse"
               )
             ),
-            hr(),
+            br(),
             fluidRow(
               column(6, imageOutput("ChenWen_3")),
               bsTooltip(id = "ChenWen_3", 
@@ -157,7 +153,7 @@ body <- dashboardBody(
                         title = "Paint cross section (x100) from Cheong Soo Pieng Dua Wanita Ditepi Pantal, 1945, oil on canvas, framed, Balai Seni Negara (Malaysia), image Nicole Tse"
               )
             ),
-            hr(),
+            br(),
             fluidRow(
               column(6, imageOutput("CheongSoo_2")),
               bsTooltip(id = "CheongSoo_2", 
@@ -169,6 +165,73 @@ body <- dashboardBody(
               )
             ),
             hr(),
+            h3("National Gallery (Thailand)"),
+            fluidRow(
+              column(6, imageOutput("Tawan_1")),
+              bsTooltip(id = "Tawan_1", 
+                        title = "Tawan Dutchanee, Boat, 1963, oil on canvas, framed, National Gallery, Thailand, image Nicole Tse"
+              ),
+              column(6,imageOutput("PraSoralak_1")),
+              bsTooltip(id = "PraSoralak_1", 
+                        title = "Pra Soralaklikhit, Reproduction Sleeping Venus (Titian and Giorgione), 1935, oil on canvas, framed, National Gallery, Thailand, image Nicole Tse"
+              )
+            ),
+            br(),
+            fluidRow(
+              column(6, imageOutput("FuaHaribitak_1")),
+              bsTooltip(id = "FuaHaribitak_1",
+                        title = "Fua Haribhitak, Portrait of Mrs Somthawin Haribhitak, c. 1950s, oil on canvas, framed, National Gallery, Thailand, image Nicole Tse"
+              ),
+              column(6,imageOutput("Frame_Pilai_1")),
+              bsTooltip(id = "Frame_Pilai_1",
+                        title = "Framers label from HSH Pilai Disakul, Unknown (still life with flowers), c. 1960s, oil on canvas, framed, National Gallery, Thailand, image Nicole Tse"
+              )
+            ),
+            br(),
+            fluidRow(
+              column(6, imageOutput("Palawong_1")),
+              bsTooltip(id = "Palawong_1",
+                        title = "Banchob Palawong, Painter, c. 1950s, oil on canvas, framed, National Gallery, Thailand, image Nicole Tse"
+              ),
+              column(6,imageOutput("Palawong_2")),
+              bsTooltip(id = "Palawong_2",
+                        title = "Paint detail from Banchob Palawong, Painter, c. 1950s, oil on canvas, framed, National Gallery, Thailand, image Nicole Tse"
+              )
+            ),
+            hr(),
+            h3("National Heritage Board, Singapore"),
+            fluidRow(
+              column(6, imageOutput("ChenWongSwee_1")),
+              bsTooltip(id = "ChenWongSwee_1",
+                        title = "Chen Chong Swee, Bailenese Woman, 1952, oil on canvasboard, framed, National Heritage Board, image Nicole Tse"
+              ),
+              column(6,imageOutput("Amorsolo_1")),
+              bsTooltip(id = "Amorsolo_1",
+                        title = "Infra-red image (1000nm-transmitted) of Fernando Cueto Amorsolo, Fish Pond in Malabon, 1942, oil on canvas, framed, National Heritage Board, Singapore, image Nicole Tse"
+              )
+            ),
+            br(),
+            fluidRow(
+              column(6, imageOutput("GeorgetteChen_1")),
+              bsTooltip(id = "GeorgetteChen_1",
+                        title = "Georgette Chen, Watermelons, 1940-1945, oil on canvas, framed, National Heritage Board, Singapore, image Nicole Tse"
+              ),
+              column(6,imageOutput("GeorgetteChen_2")),
+              bsTooltip(id = "GeorgetteChen_2",
+                        title = "Stretcher Bar ‘12F’ stamp from Georgette Chen, Watermelons, 1940-1945, oil on canvas, framed, National Heritage Board, Singapore, image Nicole Tse"
+              )
+            ),
+            br(),
+            fluidRow(
+              column(6, imageOutput("KuoJuPing_1")),
+              bsTooltip(id = "KuoJuPing_1",
+                        title = "Kuo Ju Ping, Boats at Rest, 1948, oil on canvasboard, framed, National Heritage Board, Singapore, image Nicole Tse"
+              ),
+              column(6,imageOutput("KuoJuPing_2")),
+              bsTooltip(id = "KuoJuPing_2",
+                        title = "Paint detail from Kuo Ju Ping, Boats at Rest, 1948, oil on canvasboard, framed, National Heritage Board, Singapore, image Nicole Tse"
+              )
+            )
     ),
     tabItem("aux",
             titlePanel(strong("Auxiliary Support Overview")),

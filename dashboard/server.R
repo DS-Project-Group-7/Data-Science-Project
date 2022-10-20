@@ -188,7 +188,7 @@ server <- function(input, output,session) {
   })
   
   ################################ Gallery ################################
-  
+  #Balai Seni Negara (Malaysia)
   output$ChenWen_1 <- renderImage({
     list(src = "www/ChenWen HsiCR134_Front_Ikan untuk hidangan.JPG",
          width = "100%",
@@ -231,6 +231,104 @@ server <- function(input, output,session) {
   
   output$Mohd_1 <- renderImage({
     list(src = "www/Mohd. Hoessein Enas.CR161_CanvasStamp.JPG",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+  
+  #National Gallery (Thailand)
+  output$Tawan_1 <- renderImage({
+    list(src = "www/Tawan.NGThailand_front.jpg",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+  
+  output$PraSoralak_1 <- renderImage({
+    list(src = "www/PraSoralaklikhit.ReproductionVenus_front.jpg",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+  
+  output$FuaHaribitak_1 <- renderImage({
+    list(src = "www/FuaHaribhitak.front.JPG",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+  
+  output$Frame_Pilai_1 <- renderImage({
+    list(src = "www/Framers label from Her Highness Pilai Disakul.JPG",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+  
+  output$Palawong_1 <- renderImage({
+    list(src = "www/Palawong.front.JPG",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+  
+  output$Palawong_2 <- renderImage({
+    list(src = "www/DetailPalawong_cracks2.JPG",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+  
+  #National Heritage Board, Singapore
+  output$ChenWongSwee_1 <- renderImage({
+    list(src = "www/ChenWongSwee_NHB_front.JPG",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+  
+  output$Amorsolo_1 <- renderImage({
+    list(src = "www/Amorsolo_F_NHB_Singapore_208_2002-00217_2005_12_01_Infra-red(1000nm-transmitted)_stiched.jpg",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+  
+  output$GeorgetteChen_1 <- renderImage({
+    list(src = "www/GeorgetteChen_front.JPG",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+  
+  output$GeorgetteChen_2 <- renderImage({
+    list(src = "www/GeorgetteChen_supplystamp.JPG",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+  
+  output$KuoJuPing_1 <- renderImage({
+    list(src = "www/KuoJuPing_front_frame.JPG",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+  
+  output$KuoJuPing_2 <- renderImage({
+    list(src = "www/KuoJuPing_agecracks.JPG",
          width = "100%",
          height = "100%",
          alt = "This is alternate text"
