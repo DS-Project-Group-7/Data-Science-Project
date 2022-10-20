@@ -363,21 +363,21 @@ server <- function(input, output,session) {
   }, deleteFile = FALSE)
   
   #JB Vargas Museum (Philippines)
-  # output$Amorsolo_1 <- renderImage({
-  #   list(src = "www/Amorsolo_1.jpg",
-  #        width = "100%",
-  #        height = "100%",
-  #        alt = "This is alternate text"
-  #   )
-  # }, deleteFile = FALSE)
+  output$Amorsolo_Cooking_1 <- renderImage({
+    list(src = "www/Amorsolo_1.jpg",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
 
-  # output$Amorsolo_2 <- renderImage({
-  #   list(src = "www/Amorsolo_Woman_2.JPG",
-  #        width = "100%",
-  #        height = "100%",
-  #        alt = "This is alternate text"
-  #   )
-  # }, deleteFile = FALSE)
+  output$Amorsolo_2 <- renderImage({
+    list(src = "www/Amorsolo_2.jpg",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
 
   output$Amorsolo_3 <- renderImage({
     list(src = "www/Amorsolo_3.JPG",

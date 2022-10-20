@@ -240,16 +240,16 @@ body <- dashboardBody(
             ),
             hr(),
             h3("JB Vargas Museum (Philippines)"),
-            # fluidRow(
-            #   column(6, imageOutput("Amorsolo_1")),
-            #   bsTooltip(id = "Amorsolo_1",
-            #             title = "Fernando Cueto Amorsolo, Woman Cooking in a Kitchen, 1943, oil on canvas, framed, JB Vargas Museum, University of the Philippines, image Nicole Tse"
-            #   ),
-            #   column(6,imageOutput("Amorsolo_2")),
-            #   bsTooltip(id = "Amorsolo_2",
-            #             title = "Framers label from Fernando Cueto Amorsolo, Woman Cooking in a Kitchen, 1943, oil on canvas, framed, JB Vargas Museum, University of the Philippines, image Nicole Tse"
-            #   )
-            # ),
+            fluidRow(
+              column(6, imageOutput("Amorsolo_Cooking_1")),
+              bsTooltip(id = "Amorsolo_Cooking_1",
+                        title = "Fernando Cueto Amorsolo, Woman Cooking in a Kitchen, 1943, oil on canvas, framed, JB Vargas Museum, University of the Philippines, image Nicole Tse"
+              ),
+              column(6,imageOutput("Amorsolo_2")),
+              bsTooltip(id = "Amorsolo_2",
+                        title = "Framers label from Fernando Cueto Amorsolo, Woman Cooking in a Kitchen, 1943, oil on canvas, framed, JB Vargas Museum, University of the Philippines, image Nicole Tse"
+              )
+            ),
             br(),
             fluidRow(
               column(6, imageOutput("Amorsolo_3")),
