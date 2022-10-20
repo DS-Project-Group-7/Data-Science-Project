@@ -112,6 +112,33 @@ server <- function(input, output,session) {
       hc_legend(title = list(text = "Museum"))
   })
   
+  output$Decade_media <- renderHighchart({
+    art %>%
+      count(artist, decade,media_type_1)%>%
+      hchart("column", 
+             hcaes(x = decade, y = n, group = media_type_1)) %>%
+      hc_xAxis(title = list(text = "Decade")) %>%
+      hc_yAxis(title = list(text = "Number of Paintings"), reversedStacks = F) %>%
+      hc_legend(title = list(text = "Media type"), reversed = F) %>%
+      hc_title(text = "Media type Frequency Distribution Throughout the Century")%>%
+      hc_tooltip(pointFormat = tooltip_table(c("Media type:", "Number of paintings:"), 
+                                             c("{point.media_type_1}", "{point.y}")), useHTML = TRUE)
+  })
+  
+  output$Decade_support <- renderHighchart({
+    art %>%
+      count(artist, decade,support_type)%>%
+      hchart("column",
+             hcaes(x = decade, y = n, group = support_type)) %>%
+      hc_xAxis(title = list(text = "Decade")) %>%
+      hc_yAxis(title = list(text = "Number of Paintings"), reversedStacks = F) %>%
+      hc_legend(title = list(text = "support_type"), reversed = F) %>%
+      hc_title(text = "Support type Frequency Distribution Throughout the Century")%>%
+      hc_tooltip(pointFormat = tooltip_table(c("support_type :", "Number of paintings:"),
+                                             c("{point.support_type}", "{point.y}")), useHTML = TRUE)
+  })
+  
+  
   ################################ Dimension ################################
   
   #Dimensions for Scatter plot 
@@ -334,6 +361,56 @@ server <- function(input, output,session) {
          alt = "This is alternate text"
     )
   }, deleteFile = FALSE)
+  
+  #JB Vargas Museum (Philippines)
+  # output$Amorsolo_1 <- renderImage({
+  #   list(src = "www/Amorsolo_1.jpg",
+  #        width = "100%",
+  #        height = "100%",
+  #        alt = "This is alternate text"
+  #   )
+  # }, deleteFile = FALSE)
+
+  # output$Amorsolo_2 <- renderImage({
+  #   list(src = "www/Amorsolo_Woman_2.JPG",
+  #        width = "100%",
+  #        height = "100%",
+  #        alt = "This is alternate text"
+  #   )
+  # }, deleteFile = FALSE)
+
+  output$Amorsolo_3 <- renderImage({
+    list(src = "www/Amorsolo_3.JPG",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+
+  output$Amorsolo_4 <- renderImage({
+    list(src = "www/Amorsolo_4.jpg",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+
+  output$Amorsolo_5 <- renderImage({
+    list(src = "www/Amorsolo_5.JPG",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+
+  output$Pagdaong_1 <- renderImage({
+    list(src = "www/Pagdaong_6.JPG",
+         width = "100%",
+         height = "100%",
+         alt = "This is alternate text"
+    )
+  }, deleteFile = FALSE)
+  
   
   ################################ Auxiliary Support ################################
   
@@ -1039,44 +1116,6 @@ server <- function(input, output,session) {
     autoWidth = T, pageLength = 5,
     columnDefs = list(list(width = '500px', className = 'dt-center', targets = "_all"))
   ))
-  
-  ################################ Explore Artist ################################
-  
-  output$Artist_active <- renderHighchart({
-    art %>%
-      filter(artist %in% input$Artist) %>%
-      count(artist, decade) %>%
-      hchart("column", hcaes(x = decade, y = n))
-  })
-  
-  output$Artist_media <- renderHighchart({
-    art %>%
-      filter(between(decade, input$Artist_decade[1], input$Artist_decade[2])) %>%
-      count(artist, decade,media_type_1)%>%
-      hchart("column", 
-             hcaes(x = decade, y = n, group = media_type_1)) %>%
-      hc_xAxis(title = list(text = "Decade")) %>%
-      hc_yAxis(title = list(text = "Number of Paintings"), reversedStacks = F) %>%
-      hc_legend(title = list(text = "Media type"), reversed = F) %>%
-      hc_title(text = "Media type by Artist")%>%
-      hc_tooltip(pointFormat = tooltip_table(c("Media type:", "Number of paintings:"), 
-                                             c("{point.media_type_1}", "{point.y}")), useHTML = TRUE)
-  })
-  
-  
-  output$Artist_support <- renderHighchart({
-    art %>%
-      filter(between(decade, input$Artist_decade[1], input$Artist_decade[2])) %>%
-      count(artist, decade,support_type)%>%
-      hchart("column", 
-             hcaes(x = decade, y = n, group = support_type)) %>%
-      hc_xAxis(title = list(text = "Decade")) %>%
-      hc_yAxis(title = list(text = "Number of Paintings"), reversedStacks = F) %>%
-      hc_legend(title = list(text = "support_type"), reversed = F) %>%
-      hc_title(text = "Support type by Artist")%>%
-      hc_tooltip(pointFormat = tooltip_table(c("support_type :", "Number of paintings:"), 
-                                             c("{point.support_type}", "{point.y}")), useHTML = TRUE)
-  })
   
   ################################ Explore Database ################################
   

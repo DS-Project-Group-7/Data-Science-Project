@@ -68,9 +68,6 @@ sidebar <- dashboardSidebar(
     menuItem("Frame",
              tabName = "fr",
              icon = icon("crop-alt")),
-    menuItem("Explore Artist",
-             tabName = "artist",
-             icon = icon("users")),
     menuItem("Explore Database",
              tabName = "dataPresentation",
              icon = icon("th"))
@@ -91,9 +88,9 @@ body <- dashboardBody(
                    It focused on a survey of 208 canvas paintings examined from 2003-2005 and is supported by materials and laser speckle analysis. 
                    Results were also reviewed in the context of the supply of artists’ materials and art training opportunities, 
                    proposing that they provided the conditions for the transfer of ‘Western’ oil painting practice. 
-                   For further information on the project, 
-                   see: https://arts.unimelb.edu.au/grimwade-centre-for-cultural-materials-conservation/engagement/partners-and-networks/international/tropical-environments")
+                   ")
               ),
+              tags$a(href="https://arts.unimelb.edu.au/grimwade-centre-for-cultural-materials-conservation/engagement/partners-and-networks/international/tropical-environments", "For further information on the project, click"),
               hr(),
               p(strong("Number of Paintings:")),
               fluidRow(
@@ -109,9 +106,18 @@ body <- dashboardBody(
               fluidRow(
                 column(12, highchartOutput("Decade_Sum"))
               ),
+              fluidRow(
+                column(12, highchartOutput("Decade_media"))
+              ),
+              fluidRow(
+                column(12, highchartOutput("Decade_support"))
+              ),
               hr(),
-              p(paste("ARC Linkage Grant LP0211015","The Behaviour of Western Materials in Tropical Environments","(the National Heritage Board Singapore, National Gallery of Malaysia, the National Gallery of Thailand, the JB Vargas Museum University of the Philippines) (with Chief investigators Professor R Sloggett and Professor A Roberts, and PhD student Nicole Tse (2003-2008).")
-              )
+              p(em("ARC Linkage Grant LP0211015 The Behaviour of Western Materials in Tropical Environments the National Heritage Board Singapore, National Gallery of Malaysia, the National Gallery of Thailand, the JB Vargas Museum University of the Philippines) (with Chief investigators Professor R Sloggett and Professor A Roberts, and PhD student Nicole Tse (2003-2008)."
+              )),
+              p(em("This Dashboard is developed by Master of Data Science University of Melbourne named
+                   Haonan Zhong, Samy Allouache, Supanuth A, Xuan Hung Ho, and Haocong Chen")
+              ),
             )
     ),
     tabItem("dim",
@@ -230,6 +236,40 @@ body <- dashboardBody(
               column(6,imageOutput("KuoJuPing_2")),
               bsTooltip(id = "KuoJuPing_2",
                         title = "Paint detail from Kuo Ju Ping, Boats at Rest, 1948, oil on canvasboard, framed, National Heritage Board, Singapore, image Nicole Tse"
+              )
+            ),
+            hr(),
+            h3("JB Vargas Museum (Philippines)"),
+            # fluidRow(
+            #   column(6, imageOutput("Amorsolo_1")),
+            #   bsTooltip(id = "Amorsolo_1",
+            #             title = "Fernando Cueto Amorsolo, Woman Cooking in a Kitchen, 1943, oil on canvas, framed, JB Vargas Museum, University of the Philippines, image Nicole Tse"
+            #   ),
+            #   column(6,imageOutput("Amorsolo_2")),
+            #   bsTooltip(id = "Amorsolo_2",
+            #             title = "Framers label from Fernando Cueto Amorsolo, Woman Cooking in a Kitchen, 1943, oil on canvas, framed, JB Vargas Museum, University of the Philippines, image Nicole Tse"
+            #   )
+            # ),
+            br(),
+            fluidRow(
+              column(6, imageOutput("Amorsolo_3")),
+              bsTooltip(id = "Amorsolo_3",
+                        title = "Fernando Cueto Amorsolo, Rice planting, 1943, oil on canvas, framed, JB Vargas Museum, University of the Philippines, image Nicole Tse"
+              ),
+              column(6,imageOutput("Amorsolo_4")),
+              bsTooltip(id = "Amorsolo_4",
+                        title = "Pablo Cueto Amorsolo, Piro (Pedro son of painter), 1930, oil on artist board, framed, JB Vargas Museum, University of the Philippines, image Nicole Tse"
+              )
+            ),
+            br(),
+            fluidRow(
+              column(6, imageOutput("Amorsolo_5")),
+              bsTooltip(id = "Amorsolo_5",
+                        title = "‘Arte’ stamp from Pablo Cueto Amorsolo, Piro (Pedro son of painter), 1930, oil on artist board, framed, JB Vargas Museum, University of the Philippines, image Nicole Tse"
+              ),
+              column(6,imageOutput("Pagdaong_1")),
+              bsTooltip(id = "Pagdaong_1",
+                        title = "Teodoro Jr Buenaventura, Pagdaong, 1943, oil on canvas board, framed, JB Vargas Museum, University of the Philippines, image Nicole Tse"
               )
             )
     ),
@@ -435,28 +475,6 @@ body <- dashboardBody(
                        "width:1000px; overflow-y: scroll;overflow-x: scroll;")
             ),
             hr()
-    ),
-    tabItem("artist",
-              titlePanel(strong("Explore Artists")),
-              br(),
-              sidebarLayout(
-                sidebarPanel(
-                  selectInput("Artist", "Choose an artist to view their active years:", Artist_choiceVec)
-                ),
-                mainPanel(highchartOutput("Artist_active"))
-              ),
-            hr(),
-            sidebarLayout(
-              sidebarPanel(
-                sliderInput("Artist_decade", "Select a time period for visualisation",
-                            min = 1850, max = 1970, step = 10, value = c(1850, 1970),sep = "")
-              ),
-              mainPanel(highchartOutput("Artist_media"))
-            ),
-            hr(),
-            fluidRow(
-              column(12, highchartOutput("Artist_support"))
-            )
     ),
     tabItem("dataPresentation",
             fluidPage(
