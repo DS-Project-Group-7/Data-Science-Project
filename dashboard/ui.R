@@ -117,7 +117,7 @@ body <- dashboardBody(
               )),
               p(em("This Dashboard is developed by Master of Data Science University of Melbourne named
                    Haonan Zhong, Samy Allouache, Supanuth A, Xuan Hung Ho, and Haocong Chen")
-              ),
+              )
             )
     ),
     tabItem("dim",

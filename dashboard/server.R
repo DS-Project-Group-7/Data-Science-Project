@@ -132,9 +132,9 @@ server <- function(input, output,session) {
              hcaes(x = decade, y = n, group = support_type)) %>%
       hc_xAxis(title = list(text = "Decade")) %>%
       hc_yAxis(title = list(text = "Number of Paintings"), reversedStacks = F) %>%
-      hc_legend(title = list(text = "support_type"), reversed = F) %>%
+      hc_legend(title = list(text = "Support type"), reversed = F) %>%
       hc_title(text = "Support type Frequency Distribution Throughout the Century")%>%
-      hc_tooltip(pointFormat = tooltip_table(c("support_type :", "Number of paintings:"),
+      hc_tooltip(pointFormat = tooltip_table(c("Support type :", "Number of paintings:"),
                                              c("{point.support_type}", "{point.y}")), useHTML = TRUE)
   })
   
