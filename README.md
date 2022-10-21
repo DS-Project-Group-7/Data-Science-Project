@@ -1,4 +1,4 @@
-# MAST90106/MAST90107 Data Science Project Pt1 & Pt2
+# MAST90106/MAST90107 Data Science Project
 
 ## Group Detail
 
@@ -9,8 +9,9 @@ Group 7
 - Xuan Hung Ho (Alex) 1276655
 - Haocong Chen (Charles) 987916
 
-- Semester 2 Report Link: [Here](https://www.overleaf.com/4274152164fdmrfbwkqpfr)
-- Semester 2 Presentation Slides Link: [Here](https://docs.google.com/presentation/d/1aHNdxsTz6Tf3WH4piRHaWeN8TB-MDlNf5CcRMnZSFnc/edit?usp=sharing)
+## Project Link
+- Report Link: [Here](https://www.overleaf.com/4274152164fdmrfbwkqpfr)
+- Presentation Slides Link: [Here](https://docs.google.com/presentation/d/1aHNdxsTz6Tf3WH4piRHaWeN8TB-MDlNf5CcRMnZSFnc/edit?usp=sharing)
 
 ## Project Problem Description
 - Clean and transform the raw dataset, which contains the conservation record of 208 early to mid 20th century canvas paintings from Southeast Asia, into an interactive dashboard for visualisation.
