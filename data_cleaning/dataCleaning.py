@@ -87,6 +87,8 @@ BooleanColumnsDict = {
     "surface_dirt_along_top_edge_frame": 204,
 }
 
+# We regroup text fields and categorical data
+# The text columns we wanted to keep will only have a list of 1 index.
 CategoricalColumnsDict = {
     "accession_number": [0],
     "artist": [2],
